@@ -42,24 +42,23 @@
     "year": 1,
     "term": 2,
     "month": 1,
-    "title": "大一 1月：期末查分与挂科危机",
-    "text": "查分系统开放了。你点开页面，发现有一门难度极高的公共基础课停在了 55 分，没达到及格线。",
+    "title": "大一 1月：期末查分与结课测验",
+    "text": "查分系统开放了。你点开页面，认真核查了各门公共基础课与专业课的成绩。",
     "choices": [
-      { "text": "去图书馆借了复习资料，准备假期闭关苦读", "effect": { "academic": 8, "stress": 10, "happiness": -8 }, "tagAdd": "RECOVER_STUDY", "log": "你收起了侥幸心理，准备假期好好复习准备补考。" },
-      { "text": "郁闷地关掉网页，叫了份夜宵放松心情调整心态", "effect": { "happiness": 6, "academic": -6, "wealth": -3 }, "log": "你调整了心态，准备开学后再认真准备。" }
+      { "text": "总结本学期的得失，制定下学期的学习目标", "effect": { "academic": 10, "stress": -2, "happiness": 5 }, "log": "你对本学期的表现做了总结，收官顺畅。" },
+      { "text": "约上宿舍朋友一起去食堂吃顿好的庆祝放假", "effect": { "happiness": 10, "network": 6 }, "log": "大家聚在一起开心地庆祝寒假到来。" }
     ]
   },
   {
-    "id": "m3_freshman_makeup_pass",
+    "id": "m3_freshman_spring_start",
     "year": 1,
     "term": 2,
     "month": 3,
-    "title": "大一 3月：开学初的补考大关",
-    "text": "开学第一周，你需要参加上学期挂科课程的补考。考场里大家神情都很严肃。",
-    "requireTag": "RECOVER_STUDY",
+    "title": "大一 3月：春季开学与新课程选课",
+    "text": "新学期开始了，校园里春意盎然。教务处选课系统开放，大家都在讨论选修课。",
     "choices": [
-      { "text": "将假期复习的知识点认真答完试卷", "effect": { "academic": 12, "stress": -5, "happiness": 8 }, "log": "经过假期闭关复习，补考顺利高分通过！" },
-      { "text": "低空擦边过关，长舒了一口气", "effect": { "academic": 6, "stress": -5 }, "log": "补考及格了，保住了学分。" }
+      { "text": "抢选热门的前沿跨学科通识课程", "effect": { "academic": 10, "skill": 8 }, "log": "你抢到了心仪的前沿通识课程。" },
+      { "text": "选择人文艺术类的轻松课程调节节奏", "effect": { "happiness": 10, "love": 6 }, "log": "选修课氛围轻松，丰富了课余生活。" }
     ]
   },
   {
@@ -91,9 +90,8 @@
     "year": 2,
     "term": 1,
     "month": 11,
-    "title": "大二 11月：学科竞赛初赛提交",
+    "title": "大二 11月：学科竞赛初赛与中试提交",
     "text": "竞赛提交截止日前夜，实验室里灯火通明。你们的小组方案正处于最后冲刺阶段。",
-    "requireTag": "TEAM_PLAYER",
     "choices": [
       { "text": "连夜优化文档与演示 Demo，确保万无一失", "effect": { "skill": 16, "academic": 10, "stress": 8 }, "log": "方案顺利提交，得到了评委老师的好评。" },
       { "text": "分工核对测试用例，按时上传作品", "effect": { "network": 10, "skill": 10 }, "log": "团队分工高效，顺利完成了初赛提交。" }
@@ -142,7 +140,6 @@
     "month": 11,
     "title": "大三 11月：深造复习与核心专业课冲刺",
     "text": "图书馆三楼的备考专座上，到处贴着倒计时提醒。你在台灯下翻开厚厚的技术复习资料。",
-    "requireTag": "PATH_RESEARCH_PREP",
     "choices": [
       { "text": "攻克专业课重难点真题，刷透核心考点", "effect": { "academic": 18, "stress": 10 }, "log": "复习进度大幅领先，知识体系更加完整。" },
       { "text": "和研友互相抽考概念，互相加油打气", "effect": { "academic": 12, "network": 8, "stress": -3 }, "log": "结识了志同道合的研友，焦虑减轻了不少。" }
@@ -155,7 +152,6 @@
     "month": 4,
     "title": "大三 4月：暑期实习大厂校招季",
     "text": "各大企业的暑期实习网申通道全面开启。微信群里每天都在转发岗位投递链接。",
-    "requireTag": "PATH_JOB_PREP",
     "choices": [
       { "text": "海投几十家心仪企业，接连参加多轮面试", "effect": { "skill": 18, "wealth": 15, "network": 10 }, "tagAdd": "INTERN_OFFER", "log": "经过多轮技术与 HR 面试，你斩获了满意的暑期实习 Offer！" },
       { "text": "精投头部企业，集中精力攻克目标岗位", "effect": { "skill": 14, "academic": 8 }, "tagAdd": "INTERN_OFFER", "log": "精准出击，顺利拿到了实习录取通知。" }
@@ -168,7 +164,6 @@
     "month": 6,
     "title": "大三 6月：实习入职与真实业务实战",
     "text": "工位领到了公司配置的电脑，导师带你熟悉了真实的业务代码库与需求文档。",
-    "requireTag": "INTERN_OFFER",
     "choices": [
       { "text": "加班攻克第一个需求代码，按时上线", "effect": { "skill": 20, "wealth": 20, "stress": 8 }, "log": "你的第一个需求成功上线，得到了团队主管的夸奖。" },
       { "text": "向组里资深老员工请教架构设计与规范", "effect": { "network": 15, "skill": 12 }, "log": "虚心请教让你少走了很多弯路。" }
