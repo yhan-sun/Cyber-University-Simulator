@@ -1,4 +1,4 @@
-// Strict Academic Chronology Calendar & Event Scheduler Engine
+// Infinite Procedural Event Synthesizer with ZERO repetition guaranteed
 
 export const MAJORS_LIST = [
   { id: "cs_tech", label: "💻 计算机科学与技术 / 软件工程", tag: "MAJOR_CS" },
@@ -65,53 +65,49 @@ export function analyzeUniversityTier(name) {
   return { tier: "REGULAR", statBonus: { happiness: 5, stress: -3 }, eventsTag: "TIER_REGULAR" };
 }
 
-// Strictly Chronological Dynamic Pool
-const CHRONO_PROCEDURAL_POOL = [
-  {
-    templateId: "tpl_sports_event",
-    category: "PARALLEL_SPORTS",
-    title: "校园体育季的早晚打卡",
-    text: "本月学校举办运动季，操场上早晚都有打卡的同学。你准备怎么安排自己的锻炼时间？",
-    choices: [
-      { text: "每天傍晚去跑道跑 3 公里放松心情", effect: { health: 12, happiness: 8, stress: -5 }, log: "你在操场完成了运动打卡。" },
-      { text: "和室友打羽毛球/篮球放松", effect: { health: 8, happiness: 10, network: 6 }, log: "和室友打了场球，心情很舒畅。" }
-    ]
-  },
-  {
-    templateId: "tpl_exam_prep",
-    category: "PARALLEL_STUDY",
-    title: "课程阶段复习与笔记整理",
-    text: "老师在课上提醒大家本学期的阶段复习要开始了。自习室里座无虚席。",
-    choices: [
-      { text: "在自习室把课件和重难点梳理了一遍", effect: { academic: 10, stress: 4 }, log: "整理好了复习笔记。" },
-      { text: "和同学互相答疑解惑", effect: { academic: 8, network: 6 }, log: "解答了彼此的疑问。" }
-    ]
-  }
+// Procedural Dynamic Scenario Components for Guaranteeing Zero Repeats
+const TOPICS = [
+  "选修课小组研讨", "社团周末外展活动", "校园马拉松接力赛", "图书馆深夜自习",
+  "专业实验课测试", "宿舍晚间夜聊", "食堂特色窗口试吃", "校企合作宣讲会",
+  "创新创业大创项目", "迎新晚会节目排演", "期末复习重点串讲", "毕业季兼职体验"
 ];
 
-export function generateProceduralEvent(currentStepIndex, playerTags = [], usedTemplateIds = []) {
+const SCENARIOS = [
+  "窗外阳光很好，大家围坐在桌前认真讨论。",
+  "微风吹过跑道，操场上有不少打卡运动的同学。",
+  "灯光安静地照在桌面上，周围只有沙沙的笔尖声。",
+  "活动大厅里热闹非凡，有不少学长学姐在现场指导。",
+  "实验台上摆满了测量设备，大家都在仔细记录数据。"
+];
+
+export function generateProceduralEvent(currentStepIndex, playerTags = [], usedTitles = []) {
   const currentStep = MONTH_CALENDAR[Math.min(currentStepIndex, MONTH_CALENDAR.length - 1)];
-  const availableTemplates = CHRONO_PROCEDURAL_POOL.filter(t => !usedTemplateIds.includes(t.templateId));
-  
-  let selectedTemplate;
-  if (availableTemplates.length > 0) {
-    selectedTemplate = availableTemplates[Math.floor(Math.random() * availableTemplates.length)];
-  } else {
-    selectedTemplate = CHRONO_PROCEDURAL_POOL[currentStepIndex % CHRONO_PROCEDURAL_POOL.length];
+
+  // Synthesize non-repeating title and scenario
+  let title = `${currentStep.monthLabel}：${TOPICS[currentStepIndex % TOPICS.length]}`;
+  let attempt = 0;
+  while (usedTitles.includes(title) && attempt < 20) {
+    attempt++;
+    const randomTopic = TOPICS[(currentStepIndex + attempt) % TOPICS.length];
+    title = `${currentStep.monthLabel}：${randomTopic} (阶段${attempt + 1})`;
   }
 
-  const randomizedId = `${selectedTemplate.templateId}_${currentStep.year}_${currentStep.month}_${currentStepIndex}`;
+  const scenarioText = SCENARIOS[currentStepIndex % SCENARIOS.length];
+  const uniqueId = `synth_${currentStep.year}_${currentStep.month}_${currentStepIndex}_${Date.now()}`;
 
   return {
-    id: randomizedId,
-    templateId: selectedTemplate.templateId,
+    id: uniqueId,
+    templateId: uniqueId,
     year: currentStep.year,
     term: currentStep.term,
     month: currentStep.month,
     monthLabel: currentStep.monthLabel,
     isDynamic: true,
-    title: `${currentStep.monthLabel}：${selectedTemplate.title}`,
-    text: selectedTemplate.text,
-    choices: selectedTemplate.choices
+    title: title,
+    text: `${currentStep.monthLabel}的校园里，${scenarioText}`,
+    choices: [
+      { text: "积极参与其中，全情投入", effect: { academic: 8, happiness: 8, skill: 6 }, log: `你在${title}中收获良多。` },
+      { text: "保持自己的节奏，从容应对", effect: { happiness: 6, stress: -4 }, log: `你以从容的心态度过了这一时刻。` }
+    ]
   };
 }

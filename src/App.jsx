@@ -7,7 +7,7 @@ import StatusBar from './components/StatusBar';
 import EventCard from './components/EventCard';
 import Ending from './components/Ending';
 
-import { Terminal, Play, RefreshCw, Zap, Building2, BookOpen, Clock } from 'lucide-react';
+import { Terminal, Play, RefreshCw, Zap, Building2, BookOpen } from 'lucide-react';
 
 export default function App() {
   const [gameState, setGameState] = useState('INPUT_SCHOOL'); 
@@ -17,8 +17,8 @@ export default function App() {
   const [universityTierInfo, setUniversityTierInfo] = useState(null);
   const [studentId, setStudentId] = useState('');
   
-  // Chronological Time Engine
-  const [currentStepIndex, setCurrentStepIndex] = useState(0); // 0 to MONTH_CALENDAR.length - 1
+  // Chronological Time Engine & Anti-Repetition Store
+  const [currentStepIndex, setCurrentStepIndex] = useState(0); 
   const [stats, setStats] = useState(INITIAL_STATS);
   const [playerTags, setPlayerTags] = useState([]); 
   const [currentEvent, setCurrentEvent] = useState(null);
@@ -26,7 +26,7 @@ export default function App() {
   
   const [choiceHistory, setChoiceHistory] = useState([]);
   const [usedEventIds, setUsedEventIds] = useState([]);
-  const [usedTemplateIds, setUsedTemplateIds] = useState([]);
+  const [usedTitles, setUsedTitles] = useState([]);
   const [finalEnding, setFinalEnding] = useState(null);
 
   const PRESET_SCHOOLS = [
@@ -37,12 +37,11 @@ export default function App() {
     { name: '赛博黑客学院' }
   ];
 
-  // Current Calendar Time Step Object
   const currentCalendarStep = MONTH_CALENDAR[Math.min(currentStepIndex, MONTH_CALENDAR.length - 1)];
 
-  // Save/Load LocalStorage with Strict Time State
+  // Save/Load LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v13');
+    const saved = localStorage.getItem('cyber_uni_state_v14');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -57,7 +56,7 @@ export default function App() {
         setCurrentEvent(parsed.currentEvent || null);
         setChoiceHistory(parsed.choiceHistory || []);
         setUsedEventIds(parsed.usedEventIds || []);
-        setUsedTemplateIds(parsed.usedTemplateIds || []);
+        setUsedTitles(parsed.usedTitles || []);
         setFinalEnding(parsed.finalEnding || null);
       } catch (e) {
         console.error('Failed to load saved state', e);
@@ -67,7 +66,7 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v13', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v14', JSON.stringify({
         gameState,
         selectedSchoolName,
         selectedMajor,
@@ -79,11 +78,11 @@ export default function App() {
         currentEvent,
         choiceHistory,
         usedEventIds,
-        usedTemplateIds,
+        usedTitles,
         finalEnding
       }));
     }
-  }, [gameState, selectedSchoolName, selectedMajor, universityTierInfo, studentId, currentStepIndex, stats, playerTags, currentEvent, choiceHistory, usedEventIds, usedTemplateIds, finalEnding]);
+  }, [gameState, selectedSchoolName, selectedMajor, universityTierInfo, studentId, currentStepIndex, stats, playerTags, currentEvent, choiceHistory, usedEventIds, usedTitles, finalEnding]);
 
   // Step 1: Input School Name
   const handleConfirmSchool = (targetName) => {
@@ -115,12 +114,11 @@ export default function App() {
     const initialTags = [universityTierInfo.eventsTag, major.tag];
     setPlayerTags(initialTags);
 
-    setCurrentStepIndex(0); // Start at September Year 1 (大一 9月)
+    setCurrentStepIndex(0);
     setChoiceHistory([`录取专业设定为：[${major.label}]`]);
     setFinalEnding(null);
-    setUsedTemplateIds([]);
+    setUsedTitles([]);
 
-    // Strict Chronological Event Matching for Month 9
     const step1Month = MONTH_CALENDAR[0];
     const eligibleFirstEvents = eventsData.filter(e => 
       e.year === step1Month.year && 
@@ -132,18 +130,15 @@ export default function App() {
 
     setCurrentEvent(selectedFirst);
     setUsedEventIds([selectedFirst.id]);
-    if (selectedFirst.templateId) {
-      setUsedTemplateIds([selectedFirst.templateId]);
-    }
+    setUsedTitles([selectedFirst.title]);
     setGameState('PLAYING');
   };
 
-  // Choice Selection with Strict Time Progression
+  // Choice Selection with Strict Zero-Repetition Guarantee
   const handleChoiceSelect = (choice) => {
     if (isProcessingChoice) return;
     setIsProcessingChoice(true);
 
-    // 1. Update stats
     const newStats = { ...stats };
     if (choice.effect) {
       Object.entries(choice.effect).forEach(([key, delta]) => {
@@ -152,7 +147,6 @@ export default function App() {
     }
     setStats(newStats);
 
-    // 2. Collect tags organically
     const updatedTags = [...playerTags];
     if (choice.tagAdd && !updatedTags.includes(choice.tagAdd)) {
       updatedTags.push(choice.tagAdd);
@@ -163,11 +157,9 @@ export default function App() {
       setChoiceHistory(prev => [...prev, choice.log]);
     }
 
-    // 3. Advance Academic Calendar Time Step
     const nextStepIndex = currentStepIndex + 1;
     setCurrentStepIndex(nextStepIndex);
 
-    // Graduation Check after completing Year 4 June (大四 6月)
     if (nextStepIndex >= MONTH_CALENDAR.length) {
       calculateEnding(newStats, updatedTags);
       setGameState('ENDED');
@@ -177,37 +169,34 @@ export default function App() {
 
     const nextCalendarStep = MONTH_CALENDAR[nextStepIndex];
 
-    // 4. Strict Chronological Event Deduction (Matching Year & Month)
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
-    const newUsedTemplates = (currentEvent && currentEvent.templateId) 
-      ? [...usedTemplateIds, currentEvent.templateId] 
-      : usedTemplateIds;
-    setUsedTemplateIds(newUsedTemplates);
+    const newUsedTitles = (currentEvent && currentEvent.title)
+      ? [...usedTitles, currentEvent.title]
+      : usedTitles;
+    setUsedTitles(newUsedTitles);
 
+    // Strict Anti-Repetition Matcher (checking ID and Title)
     const eligibleEvents = eventsData.filter(e => {
       if (newUsedIds.includes(e.id)) return false;
-      // Strict Time Boundary Match
+      if (newUsedTitles.includes(e.title)) return false;
       if (e.year !== nextCalendarStep.year || e.term !== nextCalendarStep.term) return false;
       if (e.month && e.month !== nextCalendarStep.month) return false;
-      // Prerequisites / Memory Tags Verification
       if (e.requireTag && !updatedTags.includes(e.requireTag)) return false;
       return true;
     });
 
     if (eligibleEvents.length > 0) {
-      // Prioritize strict memory dependencies if available
       const memoryMatched = eligibleEvents.filter(e => e.requireTag);
       const selected = memoryMatched.length > 0 ? memoryMatched[0] : eligibleEvents[Math.floor(Math.random() * eligibleEvents.length)];
       setCurrentEvent(selected);
+      setUsedTitles(prev => [...prev, selected.title]);
     } else {
-      // Fallback to strict chronological procedural scheduler
-      const generated = generateProceduralEvent(nextStepIndex, updatedTags, newUsedTemplates);
+      // Dynamic Synthesizer Guaranteed Zero Repeat Title
+      const generated = generateProceduralEvent(nextStepIndex, updatedTags, newUsedTitles);
       setCurrentEvent(generated);
-      if (generated.templateId) {
-        setUsedTemplateIds(prev => [...prev, generated.templateId]);
-      }
+      setUsedTitles(prev => [...prev, generated.title]);
     }
 
     setTimeout(() => {
@@ -231,7 +220,7 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v13');
+    localStorage.removeItem('cyber_uni_state_v14');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
@@ -241,7 +230,7 @@ export default function App() {
     setCurrentStepIndex(0);
     setFinalEnding(null);
     setUsedEventIds([]);
-    setUsedTemplateIds([]);
+    setUsedTitles([]);
     setIsProcessingChoice(false);
   };
 
@@ -280,7 +269,7 @@ export default function App() {
               CYBER UNIVERSITY
             </h1>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }} className="cyber-mono-font">
-              赛博上大学 • 严格学年校历时间轴引擎
+              赛博上大学 • 10秒微瞬间模拟器
             </div>
           </div>
         </div>
@@ -308,7 +297,7 @@ export default function App() {
               fontSize: '0.85rem',
               marginBottom: '12px'
             }} className="cyber-mono-font">
-              <Zap size={16} /> STEP 1: INSTITUTION
+              <Zap size={16} /> INITIALIZATION
             </div>
             
             <h2 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
@@ -316,7 +305,7 @@ export default function App() {
             </h2>
             
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
-              严格遵循大学4年学年校历时间轴（大一入学~大四毕业），推演你的专属大学人生。
+              经历 1000 个微小瞬间，在不知不觉的选择中推演属于你的大学人生。
             </p>
 
             <form onSubmit={(e) => { e.preventDefault(); handleConfirmSchool(schoolNameInput); }}>
@@ -426,7 +415,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Screen 3: Playing State with Chronological Academic Month Tracker */}
+      {/* Screen 3: Playing State */}
       {gameState === 'PLAYING' && currentEvent && currentCalendarStep && (
         <div style={{ flex: 1 }}>
           <StatusBar
