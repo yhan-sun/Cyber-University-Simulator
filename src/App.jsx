@@ -7,7 +7,7 @@ import StatusBar from './components/StatusBar';
 import EventCard from './components/EventCard';
 import Ending from './components/Ending';
 
-import { Terminal, Play, RefreshCw, Zap, Building2, ShieldCheck } from 'lucide-react';
+import { Terminal, Play, RefreshCw, Zap, Building2 } from 'lucide-react';
 
 export default function App() {
   const [gameState, setGameState] = useState('INPUT_SCHOOL'); 
@@ -29,17 +29,16 @@ export default function App() {
   const [finalEnding, setFinalEnding] = useState(null);
 
   const PRESET_SCHOOLS = [
-    { name: '清华大学', tag: 'C9/顶尖985' },
-    { name: '中山大学', tag: '985重点' },
-    { name: '重庆邮电大学', tag: '211特色' },
-    { name: '中央戏剧学院', tag: '艺术特色' },
-    { name: '西交利物浦大学', tag: '中外海归' },
-    { name: '深圳职业技术大学', tag: '大专实操' }
+    { name: '重庆邮电大学' },
+    { name: '清华大学' },
+    { name: '北京大学' },
+    { name: '中山大学' },
+    { name: '赛博黑客学院' }
   ];
 
   // Save/Load from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v8');
+    const saved = localStorage.getItem('cyber_uni_state_v9');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -64,7 +63,7 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v8', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v9', JSON.stringify({
         gameState,
         selectedSchoolName,
         universityTierInfo,
@@ -82,12 +81,12 @@ export default function App() {
     }
   }, [gameState, selectedSchoolName, universityTierInfo, studentId, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, finalEnding]);
 
-  // Start Game with Multi-Tier Analysis & Differential Treatment Setup
+  // Start Game with Organic Subtle Background Setup
   const handleStartGame = (targetName) => {
     const finalName = targetName.trim() || '赛博大学';
     setSelectedSchoolName(finalName);
     
-    // Analyze University Tier Difference (7 Granular Tiers)
+    // Analyze University Tier Difference subtly in background
     const tierResult = analyzeUniversityTier(finalName);
     setUniversityTierInfo(tierResult);
 
@@ -110,13 +109,10 @@ export default function App() {
     setYear(1);
     setTerm(1);
     setEventIndex(0);
-    setChoiceHistory([
-      `录取大学梯队辨识: [${tierResult.tierLabel}]`,
-      `专属背景待遇: ${tierResult.description}`
-    ]);
+    setChoiceHistory([]);
     setFinalEnding(null);
 
-    // Pick first event
+    // Pick first event naturally
     const firstCandidates = eventsData.filter(e => e.year === 1 && e.term === 1);
     const firstEvent = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, initialTags);
 
@@ -135,7 +131,7 @@ export default function App() {
     }
     setStats(newStats);
 
-    // 2. Collect tags from choice
+    // 2. Collect tags organically
     const updatedTags = [...playerTags];
     if (choice.tagAdd && !updatedTags.includes(choice.tagAdd)) {
       updatedTags.push(choice.tagAdd);
@@ -170,7 +166,7 @@ export default function App() {
       return;
     }
 
-    // 3. Match next event using tags & tier specialty
+    // 3. Match next event using organic player choices & subtle tags
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
@@ -206,7 +202,7 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v8');
+    localStorage.removeItem('cyber_uni_state_v9');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
@@ -251,7 +247,7 @@ export default function App() {
               CYBER UNIVERSITY
             </h1>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }} className="cyber-mono-font">
-              赛博上大学 • 细分高校梯队差异化模拟器
+              赛博上大学 • 10秒微瞬间模拟器
             </div>
           </div>
         </div>
@@ -283,18 +279,18 @@ export default function App() {
             </div>
             
             <h2 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
-              输入你的目标大学名称
+              输入你的大学名称
             </h2>
             
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
-              精细识别 C9 / 985 / 211 / 艺术体育 / 中外海归 / 职业大专 / 普通本科，感受不一样的赛博大学人生！
+              经历 1000 个微小瞬间，在不知不觉的选择中推演属于你的大学人生。
             </p>
 
             <form onSubmit={(e) => { e.preventDefault(); handleStartGame(schoolNameInput); }}>
               <div style={{ position: 'relative', marginBottom: '20px' }}>
                 <input
                   type="text"
-                  placeholder="例如：清华大学 / 中山大学 / 重庆邮电大学 / 西交利物浦..."
+                  placeholder="例如：重庆邮电大学 / 清华大学..."
                   value={schoolNameInput}
                   onChange={(e) => setSchoolNameInput(e.target.value)}
                   className="cyber-input"
@@ -322,7 +318,7 @@ export default function App() {
 
             <div style={{ marginTop: '24px', textAlign: 'left' }}>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '10px' }} className="cyber-mono-font">
-                测试 7 大高校梯队专属待遇：
+                或选择热门院校：
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {PRESET_SCHOOLS.map((item, idx) => (
@@ -344,7 +340,6 @@ export default function App() {
                   >
                     <Building2 size={12} color="var(--primary-cyan)" />
                     <span>{item.name}</span>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--accent-amber)' }}>({item.tag})</span>
                   </button>
                 ))}
               </div>
@@ -353,33 +348,9 @@ export default function App() {
         </div>
       )}
 
-      {/* Screen 2: Playing State with Tier Banner */}
+      {/* Screen 2: Playing State */}
       {gameState === 'PLAYING' && currentEvent && (
         <div style={{ flex: 1 }}>
-          {universityTierInfo && (
-            <div style={{
-              background: 'rgba(5, 12, 28, 0.8)',
-              border: `1px solid ${universityTierInfo.badgeColor}`,
-              borderRadius: '10px',
-              padding: '10px 14px',
-              marginBottom: '14px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              fontSize: '0.85rem'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <ShieldCheck size={16} color={universityTierInfo.badgeColor} />
-                <span style={{ fontWeight: 'bold', color: universityTierInfo.badgeColor }}>
-                  {universityTierInfo.tierLabel}
-                </span>
-              </div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>
-                {universityTierInfo.description}
-              </div>
-            </div>
-          )}
-
           <StatusBar
             schoolName={selectedSchoolName}
             year={year}

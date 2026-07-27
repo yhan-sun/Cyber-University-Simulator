@@ -1,51 +1,26 @@
 [
   {
-    "id": "cqupt_special_001",
-    "year": 1,
-    "term": 1,
-    "title": "重邮特色：加入传奇「重邮约跑团」",
-    "text": "当你踏入重庆邮电大学的校园，文峰塔下、风雨操场旁挂着醒目的横幅：‘重邮约跑团招新！用双脚丈量山城邮电坡！’。社长热情地递来打卡手环。",
-    "choices": [
-      { "text": "击掌加入重邮约跑团，挑战‘重邮魔鬼30天晨跑打卡’！", "effect": { "health": 22, "happiness": 12, "network": 15, "stress": -8 }, "tagAdd": "CQUPT_RUNNER", "log": "你成为了重邮约跑团的核心团员，天天在文峰塔下晨跑打卡，体能与意志大幅飙升！" },
-      { "text": "加入重邮红岩网校 / 软件协会技术组", "effect": { "skill": 20, "academic": 8, "stress": 6 }, "tagAdd": "CQUPT_REDROCK", "log": "你加入重邮红岩网校技术团队，开启了山城硬核 IT 代码生涯。" },
-      { "text": "去宿舍楼下小吃街吃一碗重邮酸辣粉与太极米线", "effect": { "happiness": 12, "health": 4, "wealth": -3 }, "log": "享受山城美味，感受重邮独特的烟火气。" }
-    ]
-  },
-  {
-    "id": "cqupt_special_002",
-    "year": 2,
-    "term": 1,
-    "title": "因果回响：重邮约跑团「文峰塔极限越野夜跑」",
-    "text": "重邮约跑团举办年度大戏——‘文峰塔夜跑极限挑战赛’！数百名重邮学子在夜色中齐聚操场，手持全息荧光棒，准备挑战陡峭的山城邮电坡。",
-    "requireTag": "CQUPT_RUNNER",
-    "choices": [
-      { "text": "带头领跑，一鼓作气率先冲上文峰塔山顶！", "effect": { "health": 25, "happiness": 20, "network": 18, "stress": -10 }, "tagAdd": "CQUPT_RUN_KING", "log": "你在全团的欢呼声中登顶文峰塔，斩获‘重邮约跑王’荣誉勋章！" },
-      { "text": "作为摄影师与后勤，全程记录团友们的笑容与汗水", "effect": { "happiness": 15, "network": 15, "love": 10 }, "log": "你拍下了重邮夜跑最动人的青春掠影，刷爆了重邮朋友圈。" }
-    ]
-  },
-  {
-    "id": "cqupt_special_003",
-    "year": 3,
-    "term": 1,
-    "title": "因果回响：重邮红岩网校核心开发与大厂高薪免试",
-    "text": "因为你在大一加入了重邮红岩网校/软件协会，多年手握大型校内产品架构经验，腾讯与阿里校招组直接开出了免试三面的特殊直通 Offer！",
-    "requireTag": "CQUPT_REDROCK",
-    "choices": [
-      { "text": "接受 Offer，提前锁定大厂核心架构师岗位", "effect": { "wealth": 25, "skill": 20, "network": 15 }, "tagAdd": "CQUPT_TECH_ELITE", "log": "你续写了重邮 IT 大厂黄埔军校的传奇故事！" },
-      { "text": "带领网校学弟学妹孵化独立创业商业项目", "effect": { "network": 20, "wealth": 15, "skill": 15 }, "tagAdd": "STARTUP_FOUNDER", "log": "你在山城开启了极具勇气的创业征程。" }
-    ]
-  },
-  {
     "id": "freshman_001",
     "year": 1,
     "term": 1,
-    "title": "赛博大学报到：第一个夜晚",
+    "title": "大学报到：第一个夜晚",
     "text": "整理完宿舍床铺已是深夜。室友们各自在忙自己的事情：左边的室友在疯狂敲击机械键盘配环境，右边的室友在打游戏大喊大叫，阳台上有人在弹吉他。你决定怎么度过大学第一个夜晚？",
     "choices": [
       { "text": "打开电脑，配置 Linux 与 IDE 尝试写几行代码", "effect": { "skill": 12, "academic": 5, "stress": 4 }, "tagAdd": "GEEK", "log": "你在大学第一夜就开启了极客之旅，配置好了专属开发环境。" },
       { "text": "戴上耳机组队加入室友的开黑队伍", "effect": { "happiness": 15, "network": 10, "academic": -4 }, "tagAdd": "GAMER", "log": "你与室友酣畅淋漓地打了五排，迅速打成了一片。" },
       { "text": "换上跑鞋去操场跑夜跑5公里", "effect": { "health": 15, "happiness": 8, "stress": -5 }, "tagAdd": "RUNNER", "log": "夜风拂面，你感受到了酣畅淋漓的汗水与多巴胺分泌。" },
       { "text": "走到阳台与弹吉他的室友合唱聊音乐与艺术", "effect": { "love": 10, "happiness": 12, "network": 8 }, "tagAdd": "ARTIST", "log": "你与室友在晚风中聊了很久浪漫与艺术。" }
+    ]
+  },
+  {
+    "id": "freshman_sports_cqupt_detail",
+    "year": 1,
+    "term": 1,
+    "title": "主干道旁的夜跑挑战",
+    "text": "操场与林荫道旁挂着夜跑团的打卡彩旗。听说社团今晚要组织沿着坡道进行3公里试跑。",
+    "choices": [
+      { "text": "击掌加入跑步队伍，一起挥洒汗水", "effect": { "health": 20, "happiness": 10, "network": 12, "stress": -6 }, "tagAdd": "RUNNER", "log": "你加入到了夜跑队伍中，沿着陡峭的坡道酣畅淋漓地跑完全程！" },
+      { "text": "在路边看了一会儿，决定先回宿舍休息", "effect": { "happiness": 5, "stress": -2 }, "log": "你感受到了校园里的活力氛围。" }
     ]
   },
   {
