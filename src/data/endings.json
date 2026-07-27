@@ -1,5 +1,13 @@
 [
   {
+    "id": "cqupt_run_king_ending",
+    "title": "「重邮约跑王」",
+    "subtitle": "文峰塔下的山城跑步传奇",
+    "condition": { "health": 80, "network": 65 },
+    "quote": "文峰塔下的每一寸坡道，都留下了我们热血挥洒的青春！",
+    "description": "你在重庆邮电大学就读期间加入并领导了‘重邮约跑团’。数千个在文峰塔与风雨操场晨跑打卡的日子，打造了你钢铁般的意志与深厚的重邮队友羁绊。"
+  },
+  {
     "id": "marathon_legend",
     "title": "「赛博马拉松传奇」",
     "subtitle": "极度自律的硬核跑者",
@@ -8,36 +16,12 @@
     "description": "大学四年你跑过了上千公里，斩获了半马与全马完赛奖牌。健美的体魄与坚韧不拔的意志，成为了你一生最大的财富。"
   },
   {
-    "id": "basketball_ace",
-    "title": "「球场绝杀王」",
-    "subtitle": "校篮球队MVP控卫",
-    "condition": { "health": 75, "network": 65 },
-    "quote": "球过人过，永不言弃！",
-    "description": "你在新生杯与校联赛上多次贡献致命三分压哨绝杀，风靡校园，留下了属于你的热血竞技传说。"
-  },
-  {
     "id": "resilient_fighter",
     "title": "「逆风翻盘者」",
     "subtitle": "从挂科挫折中崛起的硬汉",
     "condition": { "stress": 60, "skill": 60 },
-    "quote": "凡杀不死我的，必使我更强大。",
+    "quote": "凡杀杀死我的，必使我更强大。",
     "description": "你经历了高数挂科、竞赛落选、实习被拒等重重打击，但每一次你都顽强地站了起来，最终凭硬实力逆风翻盘！"
-  },
-  {
-    "id": "ordinary_struggler",
-    "title": "「平凡但坚韧的赛博打工人」",
-    "subtitle": "踏实奋斗的普通青年",
-    "condition": { "wealth": 50, "happiness": 50 },
-    "quote": "即使生活给了一把烂牌，也要打出自己的节奏。",
-    "description": "没有开挂的天赋与顶尖的名校光环，你在大学里尝到了挫败与迷茫，但也收获了成长。如今你带着踏实的态度融入社会。"
-  },
-  {
-    "id": "game_overcome_addict",
-    "title": "「沉迷迷途知返者」",
-    "subtitle": "走出游戏依赖重获新生",
-    "condition": { "happiness": 60, "academic": 40 },
-    "quote": "迷途知返，未为迟也。",
-    "description": "曾经因挂科与挫折沉迷游戏，但在毕业前夕你幡然醒悟，及时调整了心态，勇敢踏出了迈向社会的第一步。"
   },
   {
     "id": "researcher_top",

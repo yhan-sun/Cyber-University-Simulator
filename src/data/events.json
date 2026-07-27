@@ -1,5 +1,30 @@
 [
   {
+    "id": "cqupt_special_001",
+    "year": 1,
+    "term": 1,
+    "title": "重邮特色：加入传奇「重邮约跑团」",
+    "text": "当你踏入重庆邮电大学的校园，文峰塔下、风雨操场旁挂着醒目的横幅：‘重邮约跑团招新！用双脚丈量山城邮电坡！’。社长热情地递来打卡手环。",
+    "requireTag": "TIER_211",
+    "choices": [
+      { "text": "击掌加入重邮约跑团，挑战‘重邮魔鬼30天晨跑打卡’！", "effect": { "health": 22, "happiness": 12, "network": 15, "stress": -8 }, "tagAdd": "CQUPT_RUNNER", "log": "你成为了重邮约跑团的核心团员，天天在文峰塔下晨跑打卡，体能与意志大幅飙升！" },
+      { "text": "加入重邮红岩网校 / 软件协会技术组", "effect": { "skill": 20, "academic": 8, "stress": 6 }, "tagAdd": "GEEK", "log": "你加入重邮红岩网校技术团队，开启了山城硬核 IT 代码生涯。" },
+      { "text": "去宿舍楼下小吃街吃一碗重邮酸辣粉与太极米线", "effect": { "happiness": 12, "health": 4, "wealth": -3 }, "log": "享受山城美味，感受重邮独特的烟火气。" }
+    ]
+  },
+  {
+    "id": "cqupt_special_002",
+    "year": 2,
+    "term": 1,
+    "title": "因果回响：重邮约跑团「文峰塔极限越野夜跑」",
+    "text": "重邮约跑团举办年度大戏——‘文峰塔夜跑极限挑战赛’！数百名重邮学子在夜色中齐聚操场，手持全息荧光棒，准备挑战陡峭的山城邮电坡。",
+    "requireTag": "CQUPT_RUNNER",
+    "choices": [
+      { "text": "带头领跑，一鼓作气率先冲上文峰塔山顶！", "effect": { "health": 25, "happiness": 20, "network": 18, "stress": -10 }, "tagAdd": "CQUPT_RUN_KING", "log": "你在全团的欢呼声中登顶文峰塔，斩获‘重邮约跑王’荣誉勋章！" },
+      { "text": "作为摄影师与后勤，全程记录团友们的笑容与汗水", "effect": { "happiness": 15, "network": 15, "love": 10 }, "log": "你拍下了重邮夜跑最动人的青春掠影，刷爆了重邮朋友圈。" }
+    ]
+  },
+  {
     "id": "freshman_001",
     "year": 1,
     "term": 1,
@@ -10,18 +35,6 @@
       { "text": "戴上耳机组队加入室友的开黑队伍", "effect": { "happiness": 15, "network": 10, "academic": -4 }, "tagAdd": "GAMER", "log": "你与室友酣畅淋漓地打了五排，迅速打成了一片。" },
       { "text": "换上跑鞋去操场跑夜跑5公里", "effect": { "health": 15, "happiness": 8, "stress": -5 }, "tagAdd": "RUNNER", "log": "夜风拂面，你感受到了酣畅淋漓的汗水与多巴胺分泌。" },
       { "text": "走到阳台与弹吉他的室友合唱聊音乐与艺术", "effect": { "love": 10, "happiness": 12, "network": 8 }, "tagAdd": "ARTIST", "log": "你与室友在晚风中聊了很久浪漫与艺术。" }
-    ]
-  },
-  {
-    "id": "freshman_sports_01",
-    "year": 1,
-    "term": 1,
-    "title": "校园跑团与新生杯篮球赛招募",
-    "text": "校园体育馆前摆满了体育社团的招新横幅：‘夜跑团马拉松小队’、‘院篮球队招募控卫/中锋’、‘足球社新生杯联赛’。",
-    "choices": [
-      { "text": "加入校园马拉松跑团，开启每日打卡", "effect": { "health": 18, "happiness": 10, "stress": -8 }, "tagAdd": "RUNNER", "log": "你加入了夜跑团，开启了半马/全马训练筹备。" },
-      { "text": "报名新生杯篮球赛，代表班级出战", "effect": { "health": 12, "network": 12, "happiness": 10 }, "tagAdd": "BALLER", "log": "你成为了班级篮球战队核心主力。" },
-      { "text": "觉得运动太累，回宿舍躺平看动漫", "effect": { "happiness": 8, "health": -5, "stress": -3 }, "tagAdd": "SLACKER", "log": "你选择了最舒服的床位与动漫连播。" }
     ]
   },
   {
@@ -48,36 +61,15 @@
     ]
   },
   {
-    "id": "sophomore_sports_01",
-    "year": 2,
-    "term": 2,
-    "title": "城市半程马拉松挑战赛",
-    "text": "你报名参加了城市赛博半程马拉松（21.0975公里）。比赛当日下着细雨，第15公里时你的双腿开始严重发酸剧痛。",
-    "choices": [
-      { "text": "咬紧牙关，凭钢铁意志冲过终点线！", "effect": { "health": 20, "happiness": 15, "stress": -10 }, "requireTag": "RUNNER", "tagAdd": "MARATHON_FINISHER", "log": "你获得了完赛奖牌！汗水与泪水交织，突破了人生极限。" },
-      { "text": "抽筋无法坚持，选择放弃并呼叫收容车", "effect": { "health": 5, "happiness": -5, "stress": 5 }, "log": "虽然没能完赛，但你学会了听从身体的声音。" }
-    ]
-  },
-  {
-    "id": "junior_fail_01",
-    "year": 3,
-    "term": 1,
-    "title": "大三阵痛：大厂实习简历全拒得",
-    "text": "投递了30家科技大厂的实习简历，结果收到了28封感谢信，剩下的2家面到二面被无情拒掉。眼看着周围同学纷纷拿到了Offer。",
-    "choices": [
-      { "text": "疯狂刷LeetCode算法题，重写底层项目简历", "effect": { "skill": 15, "stress": 18, "health": -5 }, "tagAdd": "GRIND_ALGO", "log": "巨大的挫败感化为了狂刷400道算法题的动力！" },
-      { "text": "放弃冲刺大厂，转向中小企业或自由接单", "effect": { "wealth": 10, "happiness": 5, "stress": -10 }, "tagAdd": "FREELANCER", "log": "调整了期望值，发现中小企业与接单同样能过得很好。" }
-    ]
-  },
-  {
-    "id": "senior_fail_01",
+    "id": "senior_001",
     "year": 4,
     "term": 1,
-    "title": "大四阵痛：考研国家线以2分之差落榜",
-    "text": "考研成绩公布，你的总分比目标院校复试线整整差了2分！自习室里堆积如山的复习全书显得格外刺眼。",
+    "title": "毕业人生终极抉择",
+    "text": "大四即将毕业，面前摆着几条截然不同的人生道路。",
     "choices": [
-      { "text": "抹干眼泪，立刻调剂到二本院校或准备二战", "effect": { "academic": 10, "stress": 20, "happiness": -12 }, "requireTag": "RECOVER_STUDY", "tagAdd": "SECOND_TRY", "log": "虽然心碎，但你没有放弃对学术的追求。" },
-      { "text": "彻底放下考研包袱，直接拥抱社会找工作", "effect": { "wealth": 12, "happiness": 8, "stress": -15 }, "tagAdd": "PATH_INDUSTRY", "log": "你走出自习室，发现阳光依然灿烂，人生路还长。" }
+      { "text": "接受高薪大厂Offer / 深入创业公司", "effect": { "wealth": 25, "skill": 15 }, "tagAdd": "PATH_INDUSTRY", "log": "你决定把赛博技术转化为现实生产力！" },
+      { "text": "直博 / 保研继续深造探求真理", "effect": { "academic": 25, "stress": 10 }, "tagAdd": "PATH_RESEARCH", "log": "你坚定地走上了学者与科学家之路。" },
+      { "text": "选择自由职业 / 数字游民 / 独立创作", "effect": { "happiness": 25, "love": 10 }, "tagAdd": "PATH_FREEDOM", "log": "你选择了无拘无束的自由灵魂之路。" }
     ]
   }
 ]
