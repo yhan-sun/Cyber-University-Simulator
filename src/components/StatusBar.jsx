@@ -1,12 +1,7 @@
 import React from 'react';
-import { Terminal, Calendar, Award } from 'lucide-react';
+import { Terminal, Calendar, Clock } from 'lucide-react';
 
-export default function StatusBar({ schoolName, year, term, eventCount, studentId }) {
-  const getYearName = (y) => {
-    const names = ['', '大一', '大二', '大三', '大四'];
-    return names[y] || '毕业';
-  };
-
+export default function StatusBar({ schoolName, monthLabel, eventCount, studentId }) {
   return (
     <div className="cyber-box" style={{ padding: '14px 18px', marginBottom: '16px' }}>
       <div style={{
@@ -32,11 +27,11 @@ export default function StatusBar({ schoolName, year, term, eventCount, studentI
           </div>
         </div>
 
-        {/* Current Time Progress */}
+        {/* Current Academic Month Calendar Tracker */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '0.85rem' }} className="cyber-mono-font">
           <div style={{ color: 'var(--accent-amber)', display: 'flex', alignItems: 'center', gap: '4px' }}>
             <Calendar size={14} />
-            <span>{getYearName(year)} 第{term}学期</span>
+            <span>{monthLabel}</span>
           </div>
           <div style={{ color: 'var(--text-muted)' }}>
             瞬间: <span className="glow-text-cyan">{eventCount}</span>

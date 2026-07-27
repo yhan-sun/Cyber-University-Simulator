@@ -1,69 +1,10 @@
 [
   {
-    "id": "freshman_cs_01",
-    "year": 1,
-    "term": 1,
-    "title": "计算机系：C++程序设计第一次上机",
-    "text": "机房里安静得只能听到键盘声。老师宣布了第一个实验题目：实现一个链表数据结构。隔壁同学正盯着报错信息发呆。",
-    "requireTag": "MAJOR_CS",
-    "choices": [
-      { "text": "熟练写出节点指针与内存释放，率先提交代码", "effect": { "skill": 14, "academic": 8, "stress": 3 }, "tagAdd": "CS_EXPERT", "log": "你在上机课上第一个通过测试样例，受到了老师的称赞。" },
-      { "text": "一步步照着教材语法调试，并帮同桌看看语法错误", "effect": { "skill": 8, "network": 10, "happiness": 6 }, "log": "你不仅完成了实验，还和同桌打成了一片。" }
-    ]
-  },
-  {
-    "id": "freshman_ee_01",
-    "year": 1,
-    "term": 1,
-    "title": "电子信息：电路分析基础实验",
-    "text": "实验台上摆放着直流稳压电源、万用表与各种电阻元件。今天的任务是验证基尔霍夫电路定律。",
-    "requireTag": "MAJOR_EE",
-    "choices": [
-      { "text": "精确连接电路接线，用万用表逐点测量节点电压", "effect": { "skill": 14, "academic": 8, "stress": 3 }, "tagAdd": "EE_EXPERT", "log": "数据测算极其精准，顺利完成了实验报告。" },
-      { "text": "和实验搭档合作分配任务，一个记录数据一个接线", "effect": { "network": 10, "skill": 8, "happiness": 5 }, "log": "两人合作默契，提前半小时完成了实验。" }
-    ]
-  },
-  {
-    "id": "freshman_finance_01",
-    "year": 1,
-    "term": 1,
-    "title": "金融系：微观经济学案例研讨",
-    "text": "课堂上教授展示了一份真实的商业市场竞争案例，邀请大家从供求曲线角度发表看法。",
-    "requireTag": "MAJOR_FINANCE",
-    "choices": [
-      { "text": "结合最新市场行情，阐述价格弹性与市场均衡", "effect": { "wealth": 12, "academic": 10, "network": 8 }, "tagAdd": "FINANCE_EXPERT", "log": "你的发言条理清晰，展现了出色的经济直觉。" },
-      { "text": "认真记录小组讨论要点，总结汇报", "effect": { "network": 10, "academic": 6, "happiness": 5 }, "log": "小组汇报获得了不错的平时分。" }
-    ]
-  },
-  {
-    "id": "freshman_med_01",
-    "year": 1,
-    "term": 1,
-    "title": "医学系：系统解剖学第一课",
-    "text": "走进解剖学实验室，空气中弥漫着福尔马林的气味。桌上摆放着人体骨骼标本。",
-    "requireTag": "MAJOR_MED",
-    "choices": [
-      { "text": "克服心理障碍，仔细对照图谱观察骨骼结构细节", "effect": { "academic": 14, "skill": 10, "stress": 5 }, "tagAdd": "MED_EXPERT", "log": "你迈出了成为一名医学生的关键第一步。" },
-      { "text": "和室友互相抽背骨骼名称与解剖学方位", "effect": { "network": 8, "academic": 8, "happiness": 4 }, "log": "在互相抽考中掌握了核心名词。" }
-    ]
-  },
-  {
-    "id": "freshman_design_01",
-    "year": 1,
-    "term": 1,
-    "title": "设计系：二维造型基础素描与色彩",
-    "text": "画室里摆满了画架。老师要求大家在3小时内完成一幅构图严谨的静物结构色彩素描。",
-    "requireTag": "MAJOR_DESIGN",
-    "choices": [
-      { "text": "大胆运用明暗对比与质感表现，完成一幅惊艳之作", "effect": { "happiness": 14, "skill": 12, "love": 8 }, "tagAdd": "DESIGN_EXPERT", "log": "你的画作被老师留作下一届的教学示范作品。" },
-      { "text": "尝试不同的配色组合，探索个人设计风格", "effect": { "happiness": 10, "skill": 8 }, "log": "你在实践中找到了属于自己的色彩感觉。" }
-    ]
-  },
-  {
     "id": "freshman_001",
     "year": 1,
     "term": 1,
-    "title": "大学报到的第一个夜晚",
+    "month": 9,
+    "title": "大一 9月：大学报到的第一个夜晚",
     "text": "收拾完床铺，宿舍里弥漫着新席子的味道。室友们有的在低头玩手机，有的在和家里打电话，走廊里偶尔传来其他宿舍的笑闹声。今晚你打算做什么？",
     "choices": [
       { "text": "拿出电脑，把开发工具和专业软件配好", "effect": { "skill": 10, "academic": 4, "stress": 3 }, "tagAdd": "GEEK", "log": "你在安静的夜晚配好了电脑环境，为大学生活做好了准备。" },
@@ -73,10 +14,38 @@
     ]
   },
   {
+    "id": "freshman_002",
+    "year": 1,
+    "term": 1,
+    "month": 10,
+    "title": "大一 10月：林荫道旁的百团招新",
+    "text": "主干道两旁的树荫下摆满了各个社团的桌椅，学长学姐们在热情地分发宣传传单。走在中间，你被其中一个摊位吸引了注意。",
+    "choices": [
+      { "text": "去算法与技术协会的摊位填了一张招新表", "effect": { "skill": 12, "academic": 6, "stress": 5 }, "tagAdd": "GEEK", "log": "你加入到了技术讨论群里，开启了日常学习交流。" },
+      { "text": "去体育社团的摊位看了看晨跑打卡和球赛安排", "effect": { "health": 14, "network": 8, "stress": -4 }, "tagAdd": "RUNNER", "log": "你报名参加了日常体育打卡活动。" },
+      { "text": "去吉他社和二次元动漫社的摊位拿了传单", "effect": { "happiness": 12, "love": 8, "network": 6 }, "tagAdd": "ARTIST", "log": "你找到了和自己兴趣相投的圈子。" },
+      { "text": "拿了几张传单就离开了，准备先观望一阵", "effect": { "happiness": 5, "stress": -3 }, "log": "你保持了自己的节奏，没有盲目报太多的社团。" }
+    ]
+  },
+  {
+    "id": "freshman_cs_01",
+    "year": 1,
+    "term": 1,
+    "month": 11,
+    "title": "大一 11月：C++程序设计第一次上机测试",
+    "text": "机房里安静得只能听到键盘声。老师宣布了第一个实验题目：实现一个链表数据结构。隔壁同学正盯着报错信息发呆。",
+    "requireTag": "MAJOR_CS",
+    "choices": [
+      { "text": "熟练写出节点指针与内存释放，率先提交代码", "effect": { "skill": 14, "academic": 8, "stress": 3 }, "tagAdd": "CS_EXPERT", "log": "你在上机课上第一个通过测试样例，受到了老师的称赞。" },
+      { "text": "一步步照着教材语法调试，并帮同桌看看语法错误", "effect": { "skill": 8, "network": 10, "happiness": 6 }, "log": "你不仅完成了实验，还和同桌打成了一片。" }
+    ]
+  },
+  {
     "id": "freshman_fail_01",
     "year": 1,
     "term": 2,
-    "title": "期末考后的成绩通知",
+    "month": 1,
+    "title": "大一 1月：期末考后的成绩通知与挂科",
     "text": "查分系统开放了。你点开页面，发现有一门课的成绩停在了 55 分，没达到及格线。下学期开学需要准备补考。",
     "choices": [
       { "text": "去图书馆借了复习资料，准备假期好好补一补", "effect": { "academic": 8, "stress": 10, "happiness": -8 }, "tagAdd": "RECOVER_STUDY", "log": "你收起了侥幸心理，准备花时间认真复习。" },
@@ -85,15 +54,66 @@
     ]
   },
   {
+    "id": "freshman_makeup_01",
+    "year": 1,
+    "term": 2,
+    "month": 3,
+    "title": "大一 3月：开学初的补考大关",
+    "text": "开学第一周，你需要参加上学期挂科课程的补考。考场里大家神情都很严肃。",
+    "requireTag": "RECOVER_STUDY",
+    "choices": [
+      { "text": "将假期复习的知识点认真答完试卷", "effect": { "academic": 12, "stress": -5, "happiness": 8 }, "log": "经过假期闭关复习，补考顺利高分通过！" },
+      { "text": "低空擦边过关，长舒了一口气", "effect": { "academic": 6, "stress": -5 }, "log": "补考及格了，保住了学分。" }
+    ]
+  },
+  {
+    "id": "sophomore_001",
+    "year": 2,
+    "term": 1,
+    "month": 9,
+    "title": "大二 9月：大二课外项目的选择",
+    "text": "到了大二，基础课减少，空闲时间变多了。群里有老师在招募项目助手，同时几个同学也在讨论组队参加比赛。",
+    "choices": [
+      { "text": "整理了自己的简历，联系老师申请参与课题组", "effect": { "skill": 14, "academic": 10, "stress": 6 }, "tagAdd": "LAB_MEMBER", "log": "老师同意了你的申请，安排你协助处理基础数据。" },
+      { "text": "和几个熟识的同学组队报名了竞赛", "effect": { "network": 12, "skill": 10, "stress": 5 }, "tagAdd": "TEAM_PLAYER", "log": "你们组成了小团队，开始筹备参赛方案。" },
+      { "text": "保持原有的生活节奏，把精力放在个人兴趣上", "effect": { "happiness": 10, "stress": -4 }, "log": "你享受着充实而不过于压抑的大学生活。" }
+    ]
+  },
+  {
+    "id": "junior_intern_01",
+    "year": 3,
+    "term": 2,
+    "month": 4,
+    "title": "大三 4月：暑期实习招聘季",
+    "text": "大三下学期的4月份，各大公司的暑期实习招聘陆陆续续展开。这是进入大厂或积累实习经验的关键窗口期。",
+    "choices": [
+      { "text": "投递精心修改的简历，参加线上多轮面试", "effect": { "skill": 18, "wealth": 15, "network": 10 }, "tagAdd": "INTERN_OFFER", "log": "经过多轮技术面试，你拿到了满意的暑期实习 Offer。" },
+      { "text": "准备放弃实习，全身心投入考研/保研复习", "effect": { "academic": 15, "stress": 8 }, "tagAdd": "PREPARE_EXAM", "log": "你推掉了实习邀请，在自习室里扎下了根。" }
+    ]
+  },
+  {
+    "id": "senior_paper_01",
+    "year": 4,
+    "term": 2,
+    "month": 5,
+    "title": "大四 5月：毕业论文答辩与终审",
+    "text": "离毕业还有最后一个月。五位答辩老师坐在台前，你的论文 PPT 播放到了最后一页：‘致谢与答辩完毕’。",
+    "choices": [
+      { "text": "回答完答辩组提出的修改意见，顺利通过答辩", "effect": { "academic": 20, "stress": -15, "happiness": 15 }, "log": "随着组长敲定评级，你的毕业论文顺利答辩通过！" },
+      { "text": "诚恳记录教授们的指导建议，准备二次微调", "effect": { "academic": 12, "stress": 4 }, "log": "态度谦逊，获得了答辩组的一致好评。" }
+    ]
+  },
+  {
     "id": "senior_001",
     "year": 4,
-    "term": 1,
-    "title": "毕业前夕的方向思考",
-    "text": "大四的校园里安静了许多。身边有的同学在准备找工作，有的在准备继续深造，有的在规划未来的创业项目。",
+    "term": 2,
+    "month": 6,
+    "title": "大四 6月：毕业典礼与离别前夕",
+    "text": "校园里挂满了毕业祝福横幅。大家穿着学位服在图书馆和操场前合影留念，离别的气息日渐浓厚。",
     "choices": [
-      { "text": "修改好简历，投递心仪公司的岗位", "effect": { "wealth": 20, "skill": 12 }, "tagAdd": "PATH_INDUSTRY", "log": "你迈出了踏入社会的第一步。" },
-      { "text": "专注复习备考，准备深造学习", "effect": { "academic": 20, "stress": 8 }, "tagAdd": "PATH_RESEARCH", "log": "你在自习室里为梦想坚持到了最后。" },
-      { "text": "准备尝试自由职业或独立项目创作", "effect": { "happiness": 20, "love": 8 }, "tagAdd": "PATH_FREEDOM", "log": "你选择了探索属于自己的多元可能性。" }
+      { "text": "接受高薪 Offer / 踏入工作岗位", "effect": { "wealth": 20, "skill": 12 }, "tagAdd": "PATH_INDUSTRY", "log": "你迈出了踏入社会的第一步。" },
+      { "text": "收到研究生录取通知书 / 继续学术之路", "effect": { "academic": 20, "stress": 8 }, "tagAdd": "PATH_RESEARCH", "log": "你在求学之路上迈向了更高峰。" },
+      { "text": "选择自由职业 / 独立项目创作", "effect": { "happiness": 20, "love": 8 }, "tagAdd": "PATH_FREEDOM", "log": "你选择了探索属于自己的多元可能性。" }
     ]
   }
 ]
