@@ -1,111 +1,13 @@
-// Vast Expanded Category Generators for Unlimited Cyber University Experience
+// Deep Interactive Cyber University Storyline Engine with Hobby, Club, Tag & Choice-Tree Memory
 
-const ACADEMIC_EVENTS = [
-  {
-    title: "高数期中全息模拟考",
-    text: "全息考场上，试卷第三道大题是关于‘多元微积分在神经网络反向传播中的应用’，全场响起了深深的叹息声。",
-    choices: [
-      { text: "运筹帷幄，熟练写下完整推导过程", effect: { academic: 8, skill: 5, stress: 3 }, log: "考了全班最高分，老师把你作为优秀答卷全班展示。" },
-      { text: "交白卷并写下：‘此题超出碳基生物理解范畴’", effect: { happiness: 6, academic: -6, stress: -4 }, log: "考卷上了校园墙搞笑榜，虽然拿了0分但收获了快乐。" },
-      { text: "在试卷边缘画了一只赛博朋克风格的猫", effect: { happiness: 8, network: 3, academic: -2 }, log: "老师给你批了个‘画工不错，+2分辛苦分’。" }
-    ]
-  },
-  {
-    title: "跨学科前沿量子计算讲座",
-    text: "中科院院士来到学校大礼堂做‘量子纠缠与赛博意识’报告，座位早早就被抢光了，连走廊都挤满了人。",
-    choices: [
-      { text: "提前一小时去占第一排，全程录音做笔记", effect: { academic: 10, skill: 8, stress: 4 }, log: "收获颇丰，讲座结束后还向院士提出了一个深刻的学术问题。" },
-      { text: "坐在最后一排戴着耳机打手机游戏", effect: { happiness: 6, academic: -2, health: -2 }, log: "虽然没听讲座，但排位赛打上了王者段位。" }
-    ]
-  },
-  {
-    title: "毕业论文第一次开题答辩",
-    text: "面对台上五位表情严肃的答辩专家教授，你的全息PPT刚刚播放到第二页：‘研究背景与创新点’。",
-    choices: [
-      { text: "从容不迫地讲解算法模型与创新架构", effect: { academic: 12, skill: 10, stress: 8 }, log: "答辩组组长微微点头：‘逻辑很严密，通过！’" },
-      { text: "诚恳认错：‘教授们指出的问题都对，我回去全改！’", effect: { academic: 5, network: 5, stress: 2 }, log: "态度极其谦逊，教授们手下留情让你有条件通过。" }
-    ]
-  }
+export const HOBBIES_LIST = [
+  { id: "coding", label: "💻 极客编程", tag: "GEEK" },
+  { id: "e_sports", label: "🎮 电子竞技", tag: "GAMER" },
+  { id: "music_art", label: "🎸 摇滚艺术", tag: "ARTIST" },
+  { id: "fitness", label: "🏋️ 健身运动", tag: "ATHLETE" },
+  { id: "business", label: "💼 商业社团", tag: "ELITE" },
+  { id: "anime", label: "🍱 动漫ACG", tag: "OTAKU" }
 ];
-
-const TECH_EVENTS = [
-  {
-    title: "48小时赛博黑客马拉松",
-    text: "体育馆里灯火通明，几百名程序员正在红牛与咖啡的伴随下通宵写代码。你的团队离Demo展示还有4小时，但遇到了严重Bug。",
-    choices: [
-      { text: "吞下一颗红牛，连续通宵重构底层数据接口", effect: { skill: 15, health: -8, stress: 10, wealth: 10 }, log: "在最后15分钟调通了Bug，斩获了黑客马拉松一等奖！" },
-      { text: "果断砍掉复杂功能，只展示核心MVP流程", effect: { skill: 10, happiness: 5, stress: -2 }, log: "展示极其流畅，获得了‘最佳架构设计奖’。" }
-    ]
-  },
-  {
-    title: "GitHub开源项目破千Star",
-    text: "你大二闲暇时写的赛博辅助小工具突发被HackNews头条推荐，代码仓库的Notification狂刷爆表！",
-    choices: [
-      { text: "连夜撰写完善的英文文档与CI/CD自动构建流程", effect: { skill: 18, network: 12, academic: 5 }, log: "许多海外大厂大佬给你点了Star并提交了PR！" },
-      { text: "在README最上方贴上自己的收款码：‘求捐赠买咖啡’", effect: { wealth: 15, happiness: 8, network: 4 }, log: "收到了一打咖啡赞助，小赚了一笔！" }
-    ]
-  }
-];
-
-const SOCIAL_LOVE_EVENTS = [
-  {
-    title: "草坪音乐节的荧光海",
-    text: "夜幕降临，操场上正在举行草坪音乐节。伴随着摇滚乐队的吉他Solo，身旁的朋友把一支发光的荧光棒递给了你。",
-    choices: [
-      { text: "大声跟着主唱合唱，在草坪上尽情挥舞双臂", effect: { happiness: 15, health: 5, stress: -10, network: 8 }, log: "这一晚的声音彻底释放了所有的积压情绪，极其痛快！" },
-      { text: "拉着暗恋很久的对象悄悄去看操场看台上的星空", effect: { love: 20, happiness: 12, wealth: -2 }, log: "夜风轻拂，你们的手悄悄握在了一起。" }
-    ]
-  },
-  {
-    title: "学生会部长换届选举",
-    text: "部门大会上，上一届部长宣布了即将退任的消息，并问谁愿意接任新一届的部长职务。",
-    choices: [
-      { text: "勇敢站上讲台，发表热情洋溢的竞选演讲", effect: { network: 15, stress: 8, happiness: 4 }, log: "全场高票通过，你成为了新一届部门主理人。" },
-      { text: "鼓掌支持朋友，自己退居二线当顾问", effect: { happiness: 8, stress: -4, network: 5 }, log: "既保持了友谊，又摆脱了繁琐的事务。" }
-    ]
-  }
-];
-
-const LIFE_SLACK_EVENTS = [
-  {
-    title: "双十一零点赛博抢购",
-    text: "零点的钟声即将敲响，购物车里装满了机械键盘、人体工学椅与各种零食食品。",
-    choices: [
-      { text: "准时清空购物车，享受疯狂消费的快感", effect: { wealth: -15, happiness: 15, health: 4 }, log: "买到了心仪已久的神仙装备，幸福感爆棚！" },
-      { text: "关掉手机直接睡觉：‘不买立省百分之百’", effect: { wealth: 10, stress: -5, happiness: 2 }, log: "守护住了可怜的钱包，清晨神清气爽。" }
-    ]
-  },
-  {
-    title: "宿舍猫咪救援行动",
-    text: "宿舍楼底下有一只被困在树枝上的三花小猫，正在弱弱地喵喵叫，吸引了一群同学围观。",
-    choices: [
-      { text: "借来长梯亲自爬上去将小猫安全救下", effect: { happiness: 12, health: 5, network: 10 }, log: "全楼同学为你鼓掌，你成为了今日校园英雄！" },
-      { text: "拿出猫条在树下温柔地引诱它自己跳下来", effect: { happiness: 10, love: 6, wealth: -2 }, log: "小猫跳进了你的怀里，你从此拥有了专属撸猫权。" }
-    ]
-  }
-];
-
-const ALL_DYNAMIC_POOL = [
-  ...ACADEMIC_EVENTS,
-  ...TECH_EVENTS,
-  ...SOCIAL_LOVE_EVENTS,
-  ...LIFE_SLACK_EVENTS
-];
-
-export function generateProceduralEvent(year, term, index) {
-  const template = ALL_DYNAMIC_POOL[Math.floor(Math.random() * ALL_DYNAMIC_POOL.length)];
-  const randomizedId = `proc_${year}_${term}_${index}_${Math.floor(Math.random() * 10000)}`;
-
-  return {
-    id: randomizedId,
-    year,
-    term,
-    isDynamic: true,
-    title: template.title,
-    text: template.text,
-    choices: template.choices
-  };
-}
 
 export const INITIAL_STATS = {
   academic: 50,  // 📚 学业
@@ -117,3 +19,102 @@ export const INITIAL_STATS = {
   health: 70,    // 💪 健康
   stress: 20     // 😰 压力
 };
+
+// Procedural Rich Generator for Endless Dynamic Storylines
+const PROCEDURAL_EVENT_TEMPLATES = [
+  // Academic & Research Branch
+  {
+    category: "academic",
+    title: "全息课程期末大作业选拔",
+    text: "教授在全息投影前宣布：‘本次大作业将作为期末成绩的60%，优秀者可直接推免实习！’",
+    choices: [
+      { text: "选择最具挑战性的硬核底层架构课题", effect: { academic: 10, skill: 12, stress: 8 }, tagAdd: "HARDCORE_ACADEMIC", log: "你挑战了硬核课题，老师对你留下了极深的印象。" },
+      { text: "组队选择成熟稳妥的防踩雷方案", effect: { academic: 6, network: 6, happiness: 4 }, log: "团队协作顺利，稳稳拿到了优秀成绩。" },
+      { text: "在网上找了个开源模板稍微修改交差", effect: { happiness: 8, academic: -4, stress: -5 }, log: "省下了大量时间，去享受大学的休闲时光。" }
+    ]
+  },
+
+  // Geek & Tech Hobby Branch
+  {
+    category: "GEEK",
+    requireTag: "GEEK",
+    title: "赛博极客：暗网漏洞攻防战",
+    text: "你在深夜刷技术论坛时，收到一封匿名邮件：‘校内选课服务器存在盲注漏洞，是否修复？’",
+    choices: [
+      { text: "连夜撰写漏洞修复报告提交给学校网络中心", effect: { skill: 15, network: 10, academic: 5 }, tagAdd: "WHITE_HAT", log: "你成为了校内安全风云人物，获得了技术特别嘉奖！" },
+      { text: "编写脚本帮自己和室友抢到了最火爆的神仙选课", effect: { happiness: 12, skill: 8, stress: -4 }, tagAdd: "BLACK_HAT", log: "室友们对你佩服得五体投地，称你为‘选课战神’。" }
+    ]
+  },
+
+  // E-Sports & Gaming Hobby Branch
+  {
+    category: "GAMER",
+    requireTag: "GAMER",
+    title: "电竞社：全省高校联赛选拔赛",
+    text: "校园电竞社在招募全国比赛主力队员，试训赛最后一波关键龙团，敌方五人压境。",
+    choices: [
+      { text: "极限闪现切入敌方后排斩获五杀！", effect: { happiness: 18, skill: 8, network: 10 }, tagAdd: "ESPORTS_MVP", log: "全场沸腾！你成为了校队绝对主力首发队长。" },
+      { text: "稳健防守指挥队友翻盘", effect: { network: 12, happiness: 10, stress: -3 }, log: "优秀的指挥带飞全场，展现了极强的团队领袖气质。" }
+    ]
+  },
+
+  // Artist & Music Hobby Branch
+  {
+    category: "ARTIST",
+    requireTag: "ARTIST",
+    title: "摇滚社：草坪音乐节压轴演出",
+    text: "舞台灯光汇聚在你身上，数千名同学在台下挥舞荧光棒，主唱示意你弹响开场Solo！",
+    choices: [
+      { text: "演奏一段狂热激昂的即兴狂想Solo", effect: { happiness: 20, love: 12, network: 10 }, tagAdd: "ROCK_STAR", log: "全场齐声欢呼你的名字，这一夜你成为了全校偶像！" },
+      { text: "深情弹唱一首自创的赛博民谣歌曲", effect: { love: 15, happiness: 12, academic: 3 }, tagAdd: "ROMANTIC_ARTIST", log: "深情的歌声感染了台下的某位特别的人。" }
+    ]
+  },
+
+  // Story Memory Sequential Continuation Event (Branching triggered by previous actions)
+  {
+    category: "MEMORY_BRANCH",
+    requireTag: "WHITE_HAT",
+    title: "后续回响：国家安全响应中心调令",
+    text: "因为你此前成功修复了校内重大漏洞，国家安全响应中心（CNCERT）向你发出了特邀研讨函。",
+    choices: [
+      { text: "受邀前往国家安全大楼参与闭门会议", effect: { skill: 20, network: 15, wealth: 10 }, tagAdd: "CYBER_GUARDIAN", log: "你踏入了顶尖安全核心圈层，未来无可限量！" },
+      { text: "婉拒邀请，继续专注于自己的本科课程", effect: { academic: 10, happiness: 5 }, log: "你保持了低调与沉淀。" }
+    ]
+  },
+
+  {
+    category: "MEMORY_BRANCH",
+    requireTag: "HARDCORE_ACADEMIC",
+    title: "后续回响：顶尖学术期刊审稿意见",
+    text: "你此前完成的硬核大作业被导师推荐投稿到了国际顶尖期刊IEEE，今天收到了修改意见！",
+    choices: [
+      { text: "补做两组对比实验，连夜提交返修稿", effect: { academic: 20, skill: 10, stress: 10 }, tagAdd: "IEEE_AUTHOR", log: "论文顺利被正式录用！你成为了本科生中的学术传说。" },
+      { text: "撤回投稿，留作毕业设计课题", effect: { academic: 8, stress: -5 }, log: "减轻了当前的压力，为毕设打下了坚实基础。" }
+    ]
+  }
+];
+
+export function generateProceduralEvent(year, term, index, playerTags = []) {
+  // Try matching branch events that meet player tags memory
+  const memoryCandidates = PROCEDURAL_EVENT_TEMPLATES.filter(t => t.requireTag && playerTags.includes(t.requireTag));
+  
+  let selectedTemplate;
+  if (memoryCandidates.length > 0 && Math.random() > 0.4) {
+    selectedTemplate = memoryCandidates[Math.floor(Math.random() * memoryCandidates.length)];
+  } else {
+    const generalPool = PROCEDURAL_EVENT_TEMPLATES.filter(t => !t.requireTag || playerTags.includes(t.requireTag));
+    selectedTemplate = generalPool[Math.floor(Math.random() * generalPool.length)];
+  }
+
+  const randomizedId = `dynamic_${year}_${term}_${index}_${Math.floor(Math.random() * 10000)}`;
+
+  return {
+    id: randomizedId,
+    year,
+    term,
+    isDynamic: true,
+    title: selectedTemplate.title,
+    text: selectedTemplate.text,
+    choices: selectedTemplate.choices
+  };
+}
