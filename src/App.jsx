@@ -43,28 +43,23 @@ export default function App() {
     const calendarStep = MONTH_CALENDAR[stepIndex];
     if (!calendarStep) return null;
 
-    // 1. Look for matching event in eventsData
     const candidates = eventsData.filter(e => {
       if (usedIds.includes(e.id)) return false;
       if (e.year !== calendarStep.year || e.term !== calendarStep.term) return false;
       if (e.month && e.month !== calendarStep.month) return false;
-      if (e.requireTag && !tags.includes(e.requireTag)) return false;
       return true;
     });
 
     if (candidates.length > 0) {
-      // Prioritize tags match
-      const tagMatch = candidates.filter(e => e.requireTag && tags.includes(e.requireTag));
-      return tagMatch.length > 0 ? tagMatch[0] : candidates[0];
+      return candidates[0];
     }
 
-    // 2. Fallback to procedural synthesizer guaranteed zero repeat
     return generateProceduralEvent(stepIndex, tags, usedIds);
   };
 
   // Save/Load LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v15');
+    const saved = localStorage.getItem('cyber_uni_state_v16');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -88,7 +83,7 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v15', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v16', JSON.stringify({
         gameState,
         selectedSchoolName,
         selectedMajor,
@@ -182,7 +177,6 @@ export default function App() {
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
-    // Get next unique step event
     const nextEvent = getEventForStep(nextStepIndex, updatedTags, newUsedIds);
     setCurrentEvent(nextEvent);
 
@@ -191,23 +185,35 @@ export default function App() {
     }, 150);
   };
 
+  // Organic Tag & Stat Dual-Matching Ending System
   const calculateEnding = (finalStats, finalTags) => {
-    const matchedEndings = endingsData.filter(e => {
+    // 1. First priority: endings with matching playerChoice tags & stats
+    const tagAndStatMatches = endingsData.filter(e => {
+      if (e.requireTag && !finalTags.includes(e.requireTag)) return false;
+      if (!e.condition || Object.keys(e.condition).length === 0) return true;
+      return Object.entries(e.condition).every(([key, val]) => (finalStats[key] || 0) >= val);
+    });
+
+    if (tagAndStatMatches.length > 0) {
+      setFinalEnding(tagAndStatMatches[0]);
+      return;
+    }
+
+    // 2. Fallback: stat matches only
+    const statMatches = endingsData.filter(e => {
       if (!e.condition || Object.keys(e.condition).length === 0) return false;
       return Object.entries(e.condition).every(([key, val]) => (finalStats[key] || 0) >= val);
     });
 
-    let matched = null;
-    if (matchedEndings.length > 0) {
-      matched = matchedEndings[Math.floor(Math.random() * matchedEndings.length)];
+    if (statMatches.length > 0) {
+      setFinalEnding(statMatches[0]);
     } else {
-      matched = endingsData[endingsData.length - 1];
+      setFinalEnding(endingsData[endingsData.length - 1]);
     }
-    setFinalEnding(matched);
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v15');
+    localStorage.removeItem('cyber_uni_state_v16');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');

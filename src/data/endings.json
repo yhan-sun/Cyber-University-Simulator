@@ -3,64 +3,70 @@
     "id": "cqupt_run_king_ending",
     "title": "「重邮约跑王」",
     "subtitle": "文峰塔下的山城跑步传奇",
-    "condition": { "health": 80, "network": 65 },
+    "requireTag": "RUNNER",
+    "condition": { "health": 75 },
     "quote": "文峰塔下的每一寸坡道，都留下了我们热血挥洒的青春！",
-    "description": "你在重庆邮电大学就读期间加入并领导了‘重邮约跑团’。数千个在文峰塔与风雨操场晨跑打卡的日子，打造了你钢铁般的意志与深厚的重邮队友羁绊。"
+    "description": "在大学期间，你坚持在操场与山城坡道上跑步打卡。数千个晨跑与夜跑的日子，打造了你钢铁般的意志与极佳的体魄。"
   },
   {
     "id": "cqupt_tech_legend",
-    "title": "「重邮红岩极客神话」",
-    "subtitle": "山城IT黄埔军校的骄傲",
-    "condition": { "skill": 80, "wealth": 65 },
+    "title": "「红岩极客神话」",
+    "subtitle": "硬核赛博工程的骄傲",
+    "requireTag": "GEEK",
+    "condition": { "skill": 75 },
     "quote": "修德博学，求实创新，代码塑造未来。",
-    "description": "从大一加入重邮红岩网校/软件协会，到大三主导千万级架构，大四斩获大厂顶薪。你完美诠释了重邮作为IT黄埔军校的硬核工程传奇！"
+    "description": "从大一配置好第一个开发环境，到大二加入课题攻克重难点，大四斩获顶薪。你用满分的技术功底诠释了硬核工程传奇！"
   },
   {
     "id": "marathon_legend",
     "title": "「赛博马拉松传奇」",
     "subtitle": "极度自律的硬核跑者",
-    "condition": { "health": 80, "happiness": 55 },
+    "requireTag": "RUNNER",
+    "condition": { "health": 80 },
     "quote": "跑步是自己与灵魂的对话，用双脚丈量赛博世界。",
-    "description": "大学四年你跑过了上千公里，斩获了半马与全马完赛奖牌。健美的体魄与坚韧不拔的意志，成为了你一生最大的财富。"
-  },
-  {
-    "id": "resilient_fighter",
-    "title": "「逆风翻盘者」",
-    "subtitle": "从挂科挫折中崛起的硬汉",
-    "condition": { "stress": 60, "skill": 60 },
-    "quote": "凡杀不死我的，必使我更强大。",
-    "description": "你经历了高数挂科、竞赛落选、实习被拒等重重打击，但每一次你都顽强地站了起来，最终凭硬实力逆风翻盘！"
+    "description": "大学四年你跑过了上千公里，斩获了多张完赛奖牌。健美的体魄与坚韧不拔的意志，成为了你一生最大的财富。"
   },
   {
     "id": "researcher_top",
     "title": "「人类知识探索者」",
     "subtitle": "顶尖研究院首席科学家",
-    "condition": { "academic": 80, "skill": 70 },
+    "requireTag": "PATH_RESEARCH_PREP",
+    "condition": { "academic": 75 },
     "quote": "站在巨人的肩膀上，为人类文明拓展外延。",
-    "description": "你在大学四年保持着近乎完美的GPA，发表了数篇顶会论文。毕业后直接免试进入国家级实验室，继续探索未知。"
+    "description": "你在大学四年保持着近乎完美的GPA，在深造求学之路上坚定前行。毕业后顺利进入实验室，继续探索未知的知识前沿。"
   },
   {
     "id": "coder_architect",
     "title": "「代码筑梦师」",
-    "subtitle": "赛博大厂核心架构师",
-    "condition": { "skill": 75, "wealth": 60 },
+    "subtitle": "核心大厂架构师",
+    "requireTag": "PATH_JOB_PREP",
+    "condition": { "skill": 75 },
     "quote": "Talk is cheap. Show me the code.",
-    "description": "大一开始写代码，大二贡献开源库，大三在硅谷大厂实习，大四斩获全场最高Package。"
+    "description": "大一开始钻研技术，大二参与竞赛，大三顺利斩获大厂暑期实习并最终拿到满意 Package。"
+  },
+  {
+    "id": "resilient_fighter",
+    "title": "「逆风翻盘者」",
+    "subtitle": "从挫折中崛起的坚韧灵魂",
+    "requireTag": "STUDIOUS",
+    "condition": { "academic": 60 },
+    "quote": "凡杀不死我的，必使我更强大。",
+    "description": "面对高难度的专业课程与考核，你顽强地克服了困难，凭硬实力与自律实现了逆风翻盘！"
   },
   {
     "id": "happy_slacker",
-    "title": "「快乐普通人」",
+    "title": "「快乐生活家」",
     "subtitle": "生活艺术家与自由灵魂",
-    "condition": { "happiness": 75 },
+    "condition": { "happiness": 65 },
     "quote": "人生不是一场比赛，而是一段绝妙的旅程。",
-    "description": "虽然考试经常及格万岁，但你收获了一群肝胆相照的至交好友，心态阳光健康，活出了最真实的自己。"
+    "description": "虽然生活平凡，但你收获了一群肝胆相照的至交好友，心态阳光健康，活出了最真实的自己。"
   },
   {
     "id": "default_graduate",
     "title": "「新晋赛博公民」",
-    "subtitle": "踏入广阔世界的勇敢毕业生",
+    "subtitle": "踏上漫漫人生新途",
     "condition": {},
-    "quote": "关关难过关关过，前路漫漫亦灿灿。",
-    "description": "四年的大学时光悄然流逝。你经历了汗水、欢笑、挂科与迷茫，如今带着沉甸甸的记忆，勇敢迈向广阔的社会。"
+    "quote": "前方浩瀚无垠，未来皆有可能。",
+    "description": "四年的大学时光悄然流逝，你带着属于自己的珍贵记忆，坚定地迈向了广阔的社会舞台。"
   }
 ]
