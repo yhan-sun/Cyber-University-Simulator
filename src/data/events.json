@@ -6,95 +6,78 @@
     "title": "赛博大学报到：第一个夜晚",
     "text": "整理完宿舍床铺已是深夜。室友们各自在忙自己的事情：左边的室友在疯狂敲击机械键盘配环境，右边的室友在打游戏大喊大叫，阳台上有人在弹吉他。你决定怎么度过大学第一个夜晚？",
     "choices": [
-      { "text": "打开电脑，配置 Linux 与 IDE 尝试写几行代码", "effect": { "skill": 12, "academic": 5, "stress": 3 }, "tagAdd": "GEEK", "log": "你在大学第一夜就开启了极客之旅，配置好了专属开发环境。" },
-      { "text": "戴上耳机组队加入室友的开黑队伍", "effect": { "happiness": 15, "network": 10, "academic": -3 }, "tagAdd": "GAMER", "log": "你与室友酣畅淋漓地打了五排，迅速打成了一片。" },
-      { "text": "走到阳台与弹吉他的室友合唱聊音乐与电影", "effect": { "love": 10, "happiness": 12, "network": 8 }, "tagAdd": "ARTIST", "log": "你与室友在晚风中聊了很久浪漫与艺术。" },
-      { "text": "在校园二手交易群里刷到了一个创业兼职招募", "effect": { "wealth": 10, "network": 10, "stress": 4 }, "tagAdd": "ELITE", "log": "你展现了强烈的商业嗅觉，第一时间关注到了创业资讯。" }
+      { "text": "打开电脑，配置 Linux 与 IDE 尝试写几行代码", "effect": { "skill": 12, "academic": 5, "stress": 4 }, "tagAdd": "GEEK", "log": "你在大学第一夜就开启了极客之旅，配置好了专属开发环境。" },
+      { "text": "戴上耳机组队加入室友的开黑队伍", "effect": { "happiness": 15, "network": 10, "academic": -4 }, "tagAdd": "GAMER", "log": "你与室友酣畅淋漓地打了五排，迅速打成了一片。" },
+      { "text": "换上跑鞋去操场跑夜跑5公里", "effect": { "health": 15, "happiness": 8, "stress": -5 }, "tagAdd": "RUNNER", "log": "夜风拂面，你感受到了酣畅淋漓的汗水与多巴胺分泌。" },
+      { "text": "走到阳台与弹吉他的室友合唱聊音乐与艺术", "effect": { "love": 10, "happiness": 12, "network": 8 }, "tagAdd": "ARTIST", "log": "你与室友在晚风中聊了很久浪漫与艺术。" }
     ]
   },
   {
-    "id": "freshman_002",
+    "id": "freshman_sports_01",
     "year": 1,
     "term": 1,
-    "title": "百团大战纳新日",
-    "text": "主干道两旁摆满了上百个社团的摊位，海报眼花缭乱。一位热情洋溢的学长/学姐塞给你几张宣传单。",
+    "title": "校园跑团与新生杯篮球赛招募",
+    "text": "校园体育馆前摆满了体育社团的招新横幅：‘夜跑团马拉松小队’、‘院篮球队招募控卫/中锋’、‘足球社新生杯联赛’。",
     "choices": [
-      { "text": "填写 ACM 算法竞赛与网络安全协会申请表", "effect": { "skill": 15, "academic": 8, "stress": 6 }, "tagAdd": "GEEK", "log": "你正式加入了黑客与算法社团，开启了刷题竞赛生涯。" },
-      { "text": "报名电竞社与独立游戏制作工坊", "effect": { "happiness": 15, "skill": 8, "network": 6 }, "tagAdd": "GAMER", "log": "你加入了电竞与独立游戏基地，开启了玩家与制作人模式。" },
-      { "text": "报名流行音乐社与话剧社", "effect": { "happiness": 15, "love": 12, "network": 8 }, "tagAdd": "ARTIST", "log": "你加入了舞台与音乐艺术阵地，成为了舞台闪耀的一员。" },
-      { "text": "报名创客俱乐部与赛博商业实战社", "effect": { "network": 15, "wealth": 12, "stress": 5 }, "tagAdd": "ELITE", "log": "你踏入了创业者与投资人的圈子，开始接触实战商业案例。" }
+      { "text": "加入校园马拉松跑团，开启每日打卡", "effect": { "health": 18, "happiness": 10, "stress": -8 }, "tagAdd": "RUNNER", "log": "你加入了夜跑团，开启了半马/全马训练筹备。" },
+      { "text": "报名新生杯篮球赛，代表班级出战", "effect": { "health": 12, "network": 12, "happiness": 10 }, "tagAdd": "BALLER", "log": "你成为了班级篮球战队核心主力。" },
+      { "text": "觉得运动太累，回宿舍躺平看动漫", "effect": { "happiness": 8, "health": -5, "stress": -3 }, "tagAdd": "SLACKER", "log": "你选择了最舒服的床位与动漫连播。" }
     ]
   },
   {
-    "id": "freshman_003",
-    "year": 1,
-    "term": 1,
-    "title": "星期一早八高数课",
-    "text": "闹钟在7:15疯狂震动。今天第一节是高数课。室友在被窝里含糊不清地说：‘别去了，老师从不点名。’",
-    "choices": [
-      { "text": "爬起来去上课，坐在第一排", "effect": { "academic": 10, "health": -2, "happiness": -3 }, "tagAdd": "HARDCORE_ACADEMIC", "log": "你在第一排认真听完了极限与导数，感觉大脑得到了洗礼。" },
-      { "text": "关掉闹钟继续睡到中午", "effect": { "happiness": 10, "academic": -5, "stress": -4 }, "tagAdd": "SLACKER", "log": "这一觉睡到了中午11点，爽翻了！" },
-      { "text": "打开电脑在宿舍自学网课与相关开源项目", "effect": { "skill": 8, "academic": 4, "happiness": 4 }, "tagAdd": "AUTODIDACT", "log": "你看完了哔哩哔哩上的高数网课，效率奇高。" }
-    ]
-  },
-  {
-    "id": "freshman_004",
+    "id": "freshman_fail_01",
     "year": 1,
     "term": 2,
-    "title": "因果回响：第一个学年节点",
-    "text": "大一期末到了，学院要评选优秀学生干部、技术先锋与社团风云人物。",
+    "title": "遭遇挂科危机：高数期末惨败",
+    "text": "高数期末成绩公布，大屏幕上赫然显示着你的名字：54分！距离及格线只差6分！群里辅导员通知挂科学生准备重修补考。",
     "choices": [
-      { "text": "展示你之前在算法/开源技术上的积累申请先锋", "effect": { "skill": 18, "network": 12, "academic": 5 }, "requireTag": "GEEK", "log": "你凭硬核技术当选学院‘赛博技术先锋’！" },
-      { "text": "在电竞与游戏设计比赛中脱颖而出申请荣誉", "effect": { "happiness": 18, "network": 12, "wealth": 6 }, "requireTag": "GAMER", "log": "你成为了校内赫赫有名的游戏界风云人物！" },
-      { "text": "在校园艺术节晚会上压轴表演征服全场", "effect": { "love": 18, "happiness": 15, "network": 10 }, "requireTag": "ARTIST", "log": "晚会演出风靡朋友圈，你成为了全校偶像！" },
-      { "text": "展示你带队完成的商业实战项目与外快收益", "effect": { "wealth": 20, "network": 15, "skill": 5 }, "requireTag": "ELITE", "log": "你的商业敏锐度被导师看中，获得了创业基金扶持！" }
+      { "text": "痛定思痛，闭关图书馆重修复习", "effect": { "academic": 8, "stress": 12, "happiness": -10 }, "tagAdd": "RECOVER_STUDY", "log": "挂科的打击让你警醒，开启了高强度复习。" },
+      { "text": "心态崩塌，沉迷网游逃避现实", "effect": { "happiness": 5, "academic": -10, "health": -8, "stress": 15 }, "tagAdd": "FAIL_GAMER", "log": "挂科让你无比沮丧，你选择在虚拟游戏世界中麻痹自己。" },
+      { "text": "找高数老师诚恳沟通争取平时分", "effect": { "network": 6, "academic": 4, "stress": 5 }, "log": "老师被你的态度打动，帮你分析了扣分原因并鼓励你补考。" }
     ]
   },
   {
-    "id": "sophomore_001",
+    "id": "sophomore_fail_01",
     "year": 2,
     "term": 1,
-    "title": "大二分支：实验室/创业/创作选择",
-    "text": "大二上学期，知名教授在招募本科生进实验室参与省部级科研项目，同时校园孵化器也在招募项目合伙人。",
+    "title": "大二阵痛：比赛落选与团队解散",
+    "text": "你准备了整整两个月的科技竞赛/创业项目在第一轮就被评委淘汰，团队内部爆发了严重争吵，室友甚至退出了项目组。",
     "choices": [
-      { "text": "申请加入顶尖AI与量子计算实验室", "effect": { "skill": 15, "academic": 15, "stress": 8 }, "tagAdd": "LAB_MEMBER", "log": "你获得了专属实验室工位，开启科研之路！" },
-      { "text": "作为技术/市场负责人组建创业团队", "effect": { "network": 15, "wealth": 15, "skill": 8 }, "tagAdd": "STARTUP_FOUNDER", "log": "你成为了创业团队核心成员，体验激情的商业洗礼。" },
-      { "text": "专注于开发一款独立游戏/赛博艺术作品", "effect": { "skill": 16, "happiness": 15, "stress": -2 }, "tagAdd": "INDIE_DEV", "log": "你在Steam与GitHub上开启了自己的独立作品。" }
+      { "text": "独自扛下所有，深夜在实验室修改方案", "effect": { "skill": 10, "stress": 15, "health": -8, "happiness": -8 }, "tagAdd": "LONELY_HACKER", "log": "虽然备受挫折，但你硬生生把个人技术拉到了新高度。" },
+      { "text": "承认失败，请大家吃夜宵散伙解散", "effect": { "network": 5, "wealth": -5, "happiness": -5 }, "log": "项目虽然黄了，但至少保住了朋友情谊。" }
     ]
   },
   {
-    "id": "sophomore_002",
+    "id": "sophomore_sports_01",
     "year": 2,
     "term": 2,
-    "title": "因果回响：中途成果验收大考",
-    "text": "大二下学期，之前选择的项目到了成果验收与融资本阶段！",
+    "title": "城市半程马拉松挑战赛",
+    "text": "你报名参加了城市赛博半程马拉松（21.0975公里）。比赛当日下着细雨，第15公里时你的双腿开始严重发酸剧痛。",
     "choices": [
-      { "text": "带领团队上线MVP产品并拿到第一笔种子轮融资", "effect": { "wealth": 22, "network": 18, "skill": 10 }, "requireTag": "STARTUP_FOUNDER", "log": "项目获得数百万估值，你成为了校园风云创业者！" },
-      { "text": "以第一作者身份在顶会上发表学术论文", "effect": { "academic": 28, "skill": 14, "stress": 8 }, "requireTag": "LAB_MEMBER", "log": "本科生发顶会轰动学院，导师逢人就夸你！" },
-      { "text": "独立作品在 Steam / GitHub 获得万人关注", "effect": { "skill": 22, "happiness": 18, "wealth": 12 }, "requireTag": "INDIE_DEV", "log": "你的独立作品火爆圈内，获得了极佳口碑。" }
+      { "text": "咬紧牙关，凭钢铁意志冲过终点线！", "effect": { "health": 20, "happiness": 15, "stress": -10 }, "requireTag": "RUNNER", "tagAdd": "MARATHON_FINISHER", "log": "你获得了完赛奖牌！汗水与泪水交织，突破了人生极限。" },
+      { "text": "抽筋无法坚持，选择放弃并呼叫收容车", "effect": { "health": 5, "happiness": -5, "stress": 5 }, "log": "虽然没能完赛，但你学会了听从身体的声音。" }
     ]
   },
   {
-    "id": "junior_001",
+    "id": "junior_fail_01",
     "year": 3,
     "term": 1,
-    "title": "大三实战：大厂实习与顶尖竞赛",
-    "text": "大三下学期，硅谷与国内科技巨头开启了暑期实习招聘，面试官们在屏幕另一端看着你。",
+    "title": "大三阵痛：大厂实习简历全拒得",
+    "text": "投递了30家科技大厂的实习简历，结果收到了28封感谢信，剩下的2家面到二面被无情拒掉。眼看着周围同学纷纷拿到了Offer。",
     "choices": [
-      { "text": "拿出丰厚的项目、开源与论文成果，从容应答", "effect": { "skill": 22, "wealth": 18, "network": 12 }, "log": "面试官连连称赞，当场下发最高薪资级别Offer！" },
-      { "text": "紧张得脑袋一片空白，但凭借真诚打动面试官", "effect": { "network": 10, "skill": 8, "stress": 4 }, "log": "虽然过程坎坷，但依然拿到了宝贵的实习机会。" }
+      { "text": "疯狂刷LeetCode算法题，重写底层项目简历", "effect": { "skill": 15, "stress": 18, "health": -5 }, "tagAdd": "GRIND_ALGO", "log": "巨大的挫败感化为了狂刷400道算法题的动力！" },
+      { "text": "放弃冲刺大厂，转向中小企业或自由接单", "effect": { "wealth": 10, "happiness": 5, "stress": -10 }, "tagAdd": "FREELANCER", "log": "调整了期望值，发现中小企业与接单同样能过得很好。" }
     ]
   },
   {
-    "id": "senior_001",
+    "id": "senior_fail_01",
     "year": 4,
     "term": 1,
-    "title": "毕业人生终极抉择",
-    "text": "大四即将毕业，面前摆着几条截然不同的人生道路。",
+    "title": "大四阵痛：考研国家线以2分之差落榜",
+    "text": "考研成绩公布，你的总分比目标院校复试线整整差了2分！自习室里堆积如山的复习全书显得格外刺眼。",
     "choices": [
-      { "text": "接受高薪大厂Offer / 深入创业公司", "effect": { "wealth": 25, "skill": 15 }, "tagAdd": "PATH_INDUSTRY", "log": "你决定把赛博技术转化为现实生产力！" },
-      { "text": "直博 / 保研继续深造探求真理", "effect": { "academic": 25, "stress": 10 }, "tagAdd": "PATH_RESEARCH", "log": "你坚定地走上了学者与科学家之路。" },
-      { "text": "选择自由职业 / 数字游民 / 独立创作", "effect": { "happiness": 25, "love": 10 }, "tagAdd": "PATH_FREEDOM", "log": "你选择了无拘无束的自由灵魂之路。" }
+      { "text": "抹干眼泪，立刻调剂到二本院校或准备二战", "effect": { "academic": 10, "stress": 20, "happiness": -12 }, "requireTag": "RECOVER_STUDY", "tagAdd": "SECOND_TRY", "log": "虽然心碎，但你没有放弃对学术的追求。" },
+      { "text": "彻底放下考研包袱，直接拥抱社会找工作", "effect": { "wealth": 12, "happiness": 8, "stress": -15 }, "tagAdd": "PATH_INDUSTRY", "log": "你走出自习室，发现阳光依然灿烂，人生路还长。" }
     ]
   }
 ]

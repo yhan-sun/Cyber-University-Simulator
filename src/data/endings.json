@@ -1,123 +1,67 @@
 [
   {
+    "id": "marathon_legend",
+    "title": "「赛博马拉松传奇」",
+    "subtitle": "极度自律的硬核跑者",
+    "condition": { "health": 80, "happiness": 55 },
+    "quote": "跑步是自己与灵魂的对话，用双脚丈量赛博世界。",
+    "description": "大学四年你跑过了上千公里，斩获了半马与全马完赛奖牌。健美的体魄与坚韧不拔的意志，成为了你一生最大的财富。"
+  },
+  {
+    "id": "basketball_ace",
+    "title": "「球场绝杀王」",
+    "subtitle": "校篮球队MVP控卫",
+    "condition": { "health": 75, "network": 65 },
+    "quote": "球过人过，永不言弃！",
+    "description": "你在新生杯与校联赛上多次贡献致命三分压哨绝杀，风靡校园，留下了属于你的热血竞技传说。"
+  },
+  {
+    "id": "resilient_fighter",
+    "title": "「逆风翻盘者」",
+    "subtitle": "从挂科挫折中崛起的硬汉",
+    "condition": { "stress": 60, "skill": 60 },
+    "quote": "凡杀不死我的，必使我更强大。",
+    "description": "你经历了高数挂科、竞赛落选、实习被拒等重重打击，但每一次你都顽强地站了起来，最终凭硬实力逆风翻盘！"
+  },
+  {
+    "id": "ordinary_struggler",
+    "title": "「平凡但坚韧的赛博打工人」",
+    "subtitle": "踏实奋斗的普通青年",
+    "condition": { "wealth": 50, "happiness": 50 },
+    "quote": "即使生活给了一把烂牌，也要打出自己的节奏。",
+    "description": "没有开挂的天赋与顶尖的名校光环，你在大学里尝到了挫败与迷茫，但也收获了成长。如今你带着踏实的态度融入社会。"
+  },
+  {
+    "id": "game_overcome_addict",
+    "title": "「沉迷迷途知返者」",
+    "subtitle": "走出游戏依赖重获新生",
+    "condition": { "happiness": 60, "academic": 40 },
+    "quote": "迷途知返，未为迟也。",
+    "description": "曾经因挂科与挫折沉迷游戏，但在毕业前夕你幡然醒悟，及时调整了心态，勇敢踏出了迈向社会的第一步。"
+  },
+  {
     "id": "researcher_top",
     "title": "「人类知识探索者」",
     "subtitle": "顶尖研究院首席科学家",
-    "condition": { "academic": 75, "skill": 60 },
+    "condition": { "academic": 80, "skill": 70 },
     "quote": "站在巨人的肩膀上，为人类文明拓展外延。",
-    "description": "你在大学四年保持着近乎完美的GPA，发表了数篇顶会论文。毕业后直接免试进入国家级高能物理与AI实验室，继续探索未知世界。"
+    "description": "你在大学四年保持着近乎完美的GPA，发表了数篇顶会论文。毕业后直接免试进入国家级实验室，继续探索未知。"
   },
   {
     "id": "coder_architect",
     "title": "「代码筑梦师」",
     "subtitle": "赛博大厂核心架构师",
-    "condition": { "skill": 75, "wealth": 55 },
+    "condition": { "skill": 75, "wealth": 60 },
     "quote": "Talk is cheap. Show me the code.",
-    "description": "大一开始写代码，大二贡献开源库，大三在硅谷大厂实习，大四斩获全场最高Package。你用一行行优雅的代码塑造着赛博世界的骨架。"
-  },
-  {
-    "id": "indie_game_dev",
-    "title": "「第九艺术创造者」",
-    "subtitle": "爆款独立游戏制作人",
-    "condition": { "skill": 70, "happiness": 65 },
-    "quote": "用代码与艺术，给所有人带来温暖与感动。",
-    "description": "毕业设计你用极低成本独立制作了一款赛博朋克风独立游戏，上线Steam首月销量破50万套，获得了极高赞誉！"
-  },
-  {
-    "id": "ai_hacker",
-    "title": "「赛博黑客守护者」",
-    "subtitle": "网络安全最高特别顾问",
-    "condition": { "skill": 80, "stress": 40 },
-    "quote": "在数字洪流中，我就是最后的防火墙。",
-    "description": "你在大学期间发现并提交了数十个高危漏洞，曾因拯救校内服务器免受外网攻防而名震赛博圈，毕业被特聘为国家级网络安全顾问。"
-  },
-  {
-    "id": "entrepreneur_unicorn",
-    "title": "「赛博新星创业家」",
-    "subtitle": "独角兽科技公司创始人",
-    "condition": { "network": 70, "wealth": 65 },
-    "quote": "预测未来的最好方式，就是去亲自创造它。",
-    "description": "凭借敏锐的商业嗅觉与广阔的人脉网络，你大三创立的项目成功获得了数千万A轮融资，毕业即成为行业瞩目的科技领头人。"
-  },
-  {
-    "id": "wallstreet_quant",
-    "title": "「量化金融操盘手」",
-    "subtitle": "华尔街赛博量化专家",
-    "condition": { "academic": 65, "wealth": 75 },
-    "quote": "在随机游走的市场中，寻找概率与理性的确定性。",
-    "description": "你将复杂的数学模型与自动化交易代码相结合，在大四实习期间为对冲基金创造了惊人的收益，毕业直接入职顶级量化机构。"
-  },
-  {
-    "id": "romantic_couple",
-    "title": "「赛博双星」",
-    "subtitle": "真爱相伴的幸福胜者",
-    "condition": { "love": 75, "happiness": 60 },
-    "quote": "在浩瀚的数字宇宙里，我幸运地找到了属于我的另一半频率。",
-    "description": "大一相识，大二携手，大三共同面对困境，大四一起步入社会。你们成为了所有人羡慕的赛博神仙眷侣。"
-  },
-  {
-    "id": "social_star",
-    "title": "「赛博社交元勋」",
-    "subtitle": "百万粉丝科技KOL / 社区领袖",
-    "condition": { "network": 75, "happiness": 65 },
-    "quote": "连接每一个孤独的数字节点，让思考碰撞出火花。",
-    "description": "你创建的校园社区与技术公众号粉丝破百万，你的一句话就能引发全网科技圈的热议，成为了时代无形的连接者。"
+    "description": "大一开始写代码，大二贡献开源库，大三在硅谷大厂实习，大四斩获全场最高Package。"
   },
   {
     "id": "happy_slacker",
     "title": "「快乐普通人」",
     "subtitle": "生活艺术家与自由灵魂",
-    "condition": { "happiness": 70, "health": 60 },
+    "condition": { "happiness": 75 },
     "quote": "人生不是一场比赛，而是一段绝妙的旅程。",
-    "description": "虽然考试经常及格万岁，游戏时长累积了数千小时，但你收获了一群肝胆相照的至交好友，心态阳光健康，活出了最真实的自己。"
-  },
-  {
-    "id": "digital_nomad",
-    "title": "「数字游民」",
-    "subtitle": "环游世界的赛博自由人",
-    "condition": { "happiness": 65, "wealth": 50 },
-    "quote": "只要有网络与咖啡，全地球都是我的办公室。",
-    "description": "毕业后你没有选择任何大厂格子的牢笼，带着笔记本电脑在清迈、巴厘岛与大理之间游走，一边远程接单一边享受蔚蓝大海。"
-  },
-  {
-    "id": "sports_runner",
-    "title": "「赛博钢铁之躯」",
-    "subtitle": "马拉松狂热者 & 健身达人",
-    "condition": { "health": 80 },
-    "quote": "野蛮其体魄，文明其精神。",
-    "description": "大学四年风雨无阻地晨跑打卡，你练就了一身无懈可击的健美体魄，成为了毕业典礼上最耀眼的运动明星。"
-  },
-  {
-    "id": "esports_champion",
-    "title": "「赛博电竞传奇」",
-    "subtitle": "高校联赛总冠军 MVP",
-    "condition": { "happiness": 60, "skill": 60, "network": 55 },
-    "quote": "电子竞技，没有退路！",
-    "description": "大二你组建校园战队斩获全国高校总冠军，手握MVP奖杯，在万众瞩目的欢呼声中为大学生涯画上了狂热的一笔。"
-  },
-  {
-    "id": "academic_postgrad",
-    "title": "「考研上岸战士」",
-    "subtitle": "985名校研究生新生",
-    "condition": { "academic": 65, "stress": 50 },
-    "quote": "所有的深夜暗流，终将汇聚成星辰大海。",
-    "description": "经历了考研自习室无数个日夜的孤寂与拼搏，拟录取名单公布那一刻，你的泪水划过脸颊，成功迈向更高的学术殿堂。"
-  },
-  {
-    "id": "civil_servant",
-    "title": "「赛博公仆」",
-    "subtitle": "体制内顶尖公务人员",
-    "condition": { "academic": 60, "network": 60 },
-    "quote": "为人民服务，做赛博城市的坚实基石。",
-    "description": "你国考以第一名的成绩高分过关，踏入了稳健体面、服务大众的体制内岗位，拥有了无比充实安心的人生轨迹。"
-  },
-  {
-    "id": "burnout_healer",
-    "title": "「隐世疗愈师」",
-    "subtitle": "山野农场 / 咖啡馆主理人",
-    "condition": { "stress": 65, "happiness": 55 },
-    "quote": "在喧嚣的数字喧闹中，寻找内心的安宁。",
-    "description": "承受了繁重的学业压力后，你在毕业后选择开一家静谧的赛博咖啡馆兼猫咖，用慢节奏的生活疗愈自己与每一个过路人。"
+    "description": "虽然考试经常及格万岁，但你收获了一群肝胆相照的至交好友，心态阳光健康，活出了最真实的自己。"
   },
   {
     "id": "default_graduate",
@@ -125,6 +69,6 @@
     "subtitle": "踏入广阔世界的勇敢毕业生",
     "condition": {},
     "quote": "关关难过关关过，前路漫漫亦灿灿。",
-    "description": "四年的大学时光悄然流逝。你经历了汗水、欢笑与迷茫，如今带着沉甸甸的记忆与技能，向着广阔的社会勇敢迈进。"
+    "description": "四年的大学时光悄然流逝。你经历了汗水、欢笑、挂科与迷茫，如今带着沉甸甸的记忆，勇敢迈向广阔的社会。"
   }
 ]
