@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import eventsData from './data/events.json';
 import endingsData from './data/endings.json';
-import { generateProceduralEvent, INITIAL_STATS, HOBBIES_LIST } from './engine/simulator';
+import { generateProceduralEvent, INITIAL_STATS } from './engine/simulator';
 
 import StatusBar from './components/StatusBar';
 import EventCard from './components/EventCard';
 import Ending from './components/Ending';
 
-import { Terminal, Play, RefreshCw, Zap, Building2, HeartHandshake, Sparkles } from 'lucide-react';
+import { Terminal, Play, RefreshCw, Zap, Building2 } from 'lucide-react';
 
 export default function App() {
-  // Game State Machine: 'INPUT_SCHOOL' | 'SELECT_HOBBY' | 'PLAYING' | 'ENDED'
+  // Seamless Flow: 'INPUT_SCHOOL' | 'PLAYING' | 'ENDED'
   const [gameState, setGameState] = useState('INPUT_SCHOOL'); 
   const [schoolNameInput, setSchoolNameInput] = useState('');
   const [selectedSchoolName, setSelectedSchoolName] = useState('');
   const [studentId, setStudentId] = useState('');
-  const [selectedHobby, setSelectedHobby] = useState(null);
   
-  // Internal Player Stats, Tags & Choice-Tree Memory
+  // Internal Player Stats, Tags & Choice Memory
   const [stats, setStats] = useState(INITIAL_STATS);
-  const [playerTags, setPlayerTags] = useState([]); // Memory tags driven by player choices
+  const [playerTags, setPlayerTags] = useState([]); // Secretly accumulated tags from natural choices
   const [year, setYear] = useState(1);
   const [term, setTerm] = useState(1);
   const [eventIndex, setEventIndex] = useState(0);
@@ -31,16 +30,15 @@ export default function App() {
 
   const PRESET_SCHOOLS = ['重庆邮电大学', '清华大学', '北京大学', '中山大学', '赛博黑客学院'];
 
-  // Save/Load from LocalStorage
+  // Save/Load progress from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v5');
+    const saved = localStorage.getItem('cyber_uni_state_v6');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         setGameState(parsed.gameState || 'INPUT_SCHOOL');
         setSelectedSchoolName(parsed.selectedSchoolName || '');
         setStudentId(parsed.studentId || '');
-        setSelectedHobby(parsed.selectedHobby || null);
         setStats(parsed.stats || INITIAL_STATS);
         setPlayerTags(parsed.playerTags || []);
         setYear(parsed.year || 1);
@@ -58,11 +56,10 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v5', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v6', JSON.stringify({
         gameState,
         selectedSchoolName,
         studentId,
-        selectedHobby,
         stats,
         playerTags,
         year,
@@ -74,42 +71,35 @@ export default function App() {
         finalEnding
       }));
     }
-  }, [gameState, selectedSchoolName, studentId, selectedHobby, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, finalEnding]);
+  }, [gameState, selectedSchoolName, studentId, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, finalEnding]);
 
-  // Step 1: Input School Name
-  const handleConfirmSchool = (targetName) => {
+  // Start game directly with custom school input
+  const handleStartGame = (targetName) => {
     const finalName = targetName.trim() || '赛博大学';
     setSelectedSchoolName(finalName);
     const generatedId = `2026${Math.floor(100000 + Math.random() * 900000)}`;
     setStudentId(generatedId);
-    setGameState('SELECT_HOBBY');
-  };
 
-  // Step 2: Select Initial Hobby / Interest Orientation
-  const handleSelectHobby = (hobby) => {
-    setSelectedHobby(hobby);
     setStats({ ...INITIAL_STATS });
-    const initialTags = [hobby.tag];
-    setPlayerTags(initialTags);
-    
+    setPlayerTags([]);
     setYear(1);
     setTerm(1);
     setEventIndex(0);
-    setChoiceHistory([`入学社团兴趣倾向设定为：[${hobby.label}]`]);
+    setChoiceHistory([]);
     setFinalEnding(null);
 
-    // Pick first event
+    // Pick first event naturally from eventsData
     const firstCandidates = eventsData.filter(e => e.year === 1 && e.term === 1);
-    const firstEvent = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, initialTags);
+    const firstEvent = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, []);
 
     setCurrentEvent(firstEvent);
     setUsedEventIds([firstEvent.id]);
     setGameState('PLAYING');
   };
 
-  // Step 3: Handle Choice Selection with Memory Tags & Story Tree Propagation
+  // Organic Tag Collection & Choice Processing
   const handleChoiceSelect = (choice) => {
-    // 1. Secretly update internal stats
+    // 1. Update hidden stats
     const newStats = { ...stats };
     if (choice.effect) {
       Object.entries(choice.effect).forEach(([key, delta]) => {
@@ -118,7 +108,7 @@ export default function App() {
     }
     setStats(newStats);
 
-    // 2. Add choice tags to memory if present
+    // 2. Organically collect player preference tags from natural dialogue choices
     const updatedTags = [...playerTags];
     if (choice.tagAdd && !updatedTags.includes(choice.tagAdd)) {
       updatedTags.push(choice.tagAdd);
@@ -153,30 +143,26 @@ export default function App() {
       return;
     }
 
-    // 3. Choice-Tree Memory: Find events matching previous tags and year/term
+    // 3. Match next event using organically accumulated tags & choice history
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
     const eligibleEvents = eventsData.filter(e => {
       if (newUsedIds.includes(e.id)) return false;
       if (e.year !== nextYear || e.term !== nextTerm) return false;
-      // If event requires a specific tag memory, check if player has it
       if (e.requireTag && !updatedTags.includes(e.requireTag)) return false;
       return true;
     });
 
     if (eligibleEvents.length > 0) {
-      // Prioritize events requiring memory tags
       const memoryMatched = eligibleEvents.filter(e => e.requireTag);
       const selected = memoryMatched.length > 0 ? memoryMatched[0] : eligibleEvents[Math.floor(Math.random() * eligibleEvents.length)];
       setCurrentEvent(selected);
     } else {
-      // Fallback to procedurally generated event with player's tags
       setCurrentEvent(generateProceduralEvent(nextYear, nextTerm, nextEventIndex, updatedTags));
     }
   };
 
-  // Calculate ending matching both stats and story tags memory
   const calculateEnding = (finalStats, finalTags) => {
     const matchedEndings = endingsData.filter(e => {
       if (!e.condition || Object.keys(e.condition).length === 0) return false;
@@ -193,11 +179,10 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v5');
+    localStorage.removeItem('cyber_uni_state_v6');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
-    setSelectedHobby(null);
     setPlayerTags([]);
     setFinalEnding(null);
     setUsedEventIds([]);
@@ -212,7 +197,7 @@ export default function App() {
       display: 'flex',
       flexDirection: 'column'
     }}>
-      {/* Mobile-optimized Header */}
+      {/* Header */}
       <header style={{
         display: 'flex',
         alignItems: 'center',
@@ -238,7 +223,7 @@ export default function App() {
               CYBER UNIVERSITY
             </h1>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }} className="cyber-mono-font">
-              赛博上大学 • 故事记忆树演化引擎
+              赛博上大学 • 潜移默化对话塑造大学人生
             </div>
           </div>
         </div>
@@ -266,7 +251,7 @@ export default function App() {
               fontSize: '0.85rem',
               marginBottom: '12px'
             }} className="cyber-mono-font">
-              <Zap size={16} /> STEP 1: INSTITUTION
+              <Zap size={16} /> INITIALIZATION
             </div>
             
             <h2 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
@@ -274,10 +259,10 @@ export default function App() {
             </h2>
             
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
-              你的每一次选择都会产生蝴蝶效应，深刻影响后续大学人生的剧情走向。
+              在 10 秒微瞬间的自然对话与抉择中，不知不觉塑造你的性格与独特大学结局。
             </p>
 
-            <form onSubmit={(e) => { e.preventDefault(); handleConfirmSchool(schoolNameInput); }}>
+            <form onSubmit={(e) => { e.preventDefault(); handleStartGame(schoolNameInput); }}>
               <div style={{ position: 'relative', marginBottom: '20px' }}>
                 <input
                   type="text"
@@ -303,7 +288,7 @@ export default function App() {
                   color: '#050811'
                 }}
               >
-                <Play size={18} /> 下一步：选择兴趣社团
+                <Play size={18} /> 开启大学人生
               </button>
             </form>
 
@@ -315,7 +300,7 @@ export default function App() {
                 {PRESET_SCHOOLS.map((name, idx) => (
                   <button
                     key={idx}
-                    onClick={() => handleConfirmSchool(name)}
+                    onClick={() => handleStartGame(name)}
                     style={{
                       background: 'rgba(255, 255, 255, 0.05)',
                       border: '1px solid rgba(0, 240, 255, 0.2)',
@@ -338,50 +323,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Screen 2: Select Initial Hobby & Club Orientation */}
-      {gameState === 'SELECT_HOBBY' && (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="cyber-box" style={{ padding: '28px 20px', textAlign: 'center' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: 'var(--accent-pink)',
-              fontSize: '0.85rem',
-              marginBottom: '12px'
-            }} className="cyber-mono-font">
-              <HeartHandshake size={16} /> STEP 2: CLUB & INTEREST
-            </div>
-
-            <h2 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
-              选择你的大学核心兴趣社团
-            </h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '20px' }}>
-              兴趣社团将决定大一到大四专属剧情事件的分支解锁方向。
-            </p>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-              {HOBBIES_LIST.map((hobby) => (
-                <button
-                  key={hobby.id}
-                  onClick={() => handleSelectHobby(hobby)}
-                  className="cyber-btn"
-                  style={{
-                    padding: '14px 10px',
-                    justifyContent: 'center',
-                    fontSize: '0.95rem',
-                    textAlign: 'center'
-                  }}
-                >
-                  {hobby.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Screen 3: Playing State with Story Tree */}
+      {/* Screen 2: Playing State */}
       {gameState === 'PLAYING' && currentEvent && (
         <div style={{ flex: 1 }}>
           <StatusBar
@@ -400,7 +342,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Screen 4: Ending State */}
+      {/* Screen 3: Ending State */}
       {gameState === 'ENDED' && finalEnding && (
         <Ending
           ending={finalEnding}
