@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import eventsData from './data/events.json';
 import endingsData from './data/endings.json';
-import { generateProceduralEvent, INITIAL_STATS, analyzeUniversityTier } from './engine/simulator';
+import { generateProceduralEvent, INITIAL_STATS, analyzeUniversityTier, MAJORS_LIST } from './engine/simulator';
 
 import StatusBar from './components/StatusBar';
 import EventCard from './components/EventCard';
 import Ending from './components/Ending';
 
-import { Terminal, Play, RefreshCw, Zap, Building2 } from 'lucide-react';
+import { Terminal, Play, RefreshCw, Zap, Building2, BookOpen } from 'lucide-react';
 
 export default function App() {
+  // Flow State Machine: 'INPUT_SCHOOL' | 'SELECT_MAJOR' | 'PLAYING' | 'ENDED'
   const [gameState, setGameState] = useState('INPUT_SCHOOL'); 
   const [schoolNameInput, setSchoolNameInput] = useState('');
   const [selectedSchoolName, setSelectedSchoolName] = useState('');
+  const [selectedMajor, setSelectedMajor] = useState(null);
   const [universityTierInfo, setUniversityTierInfo] = useState(null);
   const [studentId, setStudentId] = useState('');
   
@@ -23,7 +25,7 @@ export default function App() {
   const [term, setTerm] = useState(1);
   const [eventIndex, setEventIndex] = useState(0);
   const [currentEvent, setCurrentEvent] = useState(null);
-  const [isProcessingChoice, setIsProcessingChoice] = useState(false); // Debounce double clicks
+  const [isProcessingChoice, setIsProcessingChoice] = useState(false);
   
   const [choiceHistory, setChoiceHistory] = useState([]);
   const [usedEventIds, setUsedEventIds] = useState([]);
@@ -40,12 +42,13 @@ export default function App() {
 
   // Save/Load from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v10');
+    const saved = localStorage.getItem('cyber_uni_state_v11');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         setGameState(parsed.gameState || 'INPUT_SCHOOL');
         setSelectedSchoolName(parsed.selectedSchoolName || '');
+        setSelectedMajor(parsed.selectedMajor || null);
         setUniversityTierInfo(parsed.universityTierInfo || null);
         setStudentId(parsed.studentId || '');
         setStats(parsed.stats || INITIAL_STATS);
@@ -66,9 +69,10 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v10', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v11', JSON.stringify({
         gameState,
         selectedSchoolName,
+        selectedMajor,
         universityTierInfo,
         studentId,
         stats,
@@ -83,10 +87,10 @@ export default function App() {
         finalEnding
       }));
     }
-  }, [gameState, selectedSchoolName, universityTierInfo, studentId, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, usedTemplateIds, finalEnding]);
+  }, [gameState, selectedSchoolName, selectedMajor, universityTierInfo, studentId, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, usedTemplateIds, finalEnding]);
 
-  // Start Game
-  const handleStartGame = (targetName) => {
+  // Step 1: Input School
+  const handleConfirmSchool = (targetName) => {
     const finalName = targetName.trim() || '赛博大学';
     setSelectedSchoolName(finalName);
     
@@ -96,41 +100,49 @@ export default function App() {
     const generatedId = `2026${Math.floor(100000 + Math.random() * 900000)}`;
     setStudentId(generatedId);
 
+    setGameState('SELECT_MAJOR');
+  };
+
+  // Step 2: Select Major
+  const handleSelectMajor = (major) => {
+    setSelectedMajor(major);
+
     const initStats = { ...INITIAL_STATS };
-    if (tierResult.statBonus) {
-      Object.entries(tierResult.statBonus).forEach(([k, delta]) => {
+    if (universityTierInfo && universityTierInfo.statBonus) {
+      Object.entries(universityTierInfo.statBonus).forEach(([k, delta]) => {
         initStats[k] = Math.max(0, Math.min(100, (initStats[k] || 50) + delta));
       });
     }
 
     setStats(initStats);
-    const initialTags = [tierResult.eventsTag];
+
+    const initialTags = [universityTierInfo.eventsTag, major.tag];
     setPlayerTags(initialTags);
 
     setYear(1);
     setTerm(1);
     setEventIndex(0);
-    setChoiceHistory([]);
+    setChoiceHistory([`录取专业设定为：[${major.label}]`]);
     setFinalEnding(null);
     setUsedTemplateIds([]);
 
-    const firstCandidates = eventsData.filter(e => e.year === 1 && e.term === 1);
-    const firstEvent = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, initialTags, []);
+    // Pick major-specific first event
+    const firstCandidates = eventsData.filter(e => e.year === 1 && e.term === 1 && (!e.requireTag || initialTags.includes(e.requireTag)));
+    const selectedFirst = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, initialTags, []);
 
-    setCurrentEvent(firstEvent);
-    setUsedEventIds([firstEvent.id]);
-    if (firstEvent.templateId) {
-      setUsedTemplateIds([firstEvent.templateId]);
+    setCurrentEvent(selectedFirst);
+    setUsedEventIds([selectedFirst.id]);
+    if (selectedFirst.templateId) {
+      setUsedTemplateIds([selectedFirst.templateId]);
     }
     setGameState('PLAYING');
   };
 
   const handleChoiceSelect = (choice) => {
-    // Debounce to prevent needing double clicks or duplicate submissions
     if (isProcessingChoice) return;
     setIsProcessingChoice(true);
 
-    // 1. Update hidden stats
+    // 1. Update stats
     const newStats = { ...stats };
     if (choice.effect) {
       Object.entries(choice.effect).forEach(([key, delta]) => {
@@ -175,7 +187,7 @@ export default function App() {
       return;
     }
 
-    // 3. Strict Non-Repeating Event Matching
+    // 3. Strict Non-Repeating Major-Driven Event Matching
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
@@ -196,7 +208,6 @@ export default function App() {
       const selected = memoryMatched.length > 0 ? memoryMatched[0] : eligibleEvents[Math.floor(Math.random() * eligibleEvents.length)];
       setCurrentEvent(selected);
     } else {
-      // Procedural event with strict template deduplication
       const generated = generateProceduralEvent(nextYear, nextTerm, nextEventIndex, updatedTags, newUsedTemplates);
       setCurrentEvent(generated);
       if (generated.templateId) {
@@ -204,7 +215,6 @@ export default function App() {
       }
     }
 
-    // Unlock debounce lock
     setTimeout(() => {
       setIsProcessingChoice(false);
     }, 150);
@@ -226,10 +236,11 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v10');
+    localStorage.removeItem('cyber_uni_state_v11');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
+    setSelectedMajor(null);
     setUniversityTierInfo(null);
     setPlayerTags([]);
     setFinalEnding(null);
@@ -301,7 +312,7 @@ export default function App() {
               fontSize: '0.85rem',
               marginBottom: '12px'
             }} className="cyber-mono-font">
-              <Zap size={16} /> INITIALIZATION
+              <Zap size={16} /> STEP 1: INSTITUTION
             </div>
             
             <h2 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
@@ -309,10 +320,10 @@ export default function App() {
             </h2>
             
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
-              经历 1000 个微小瞬间，在不知不觉的选择中推演属于你的大学人生。
+              选择你的大学与专业，经历 1000 个微小瞬间，生成属于你的大学人生。
             </p>
 
-            <form onSubmit={(e) => { e.preventDefault(); handleStartGame(schoolNameInput); }}>
+            <form onSubmit={(e) => { e.preventDefault(); handleConfirmSchool(schoolNameInput); }}>
               <div style={{ position: 'relative', marginBottom: '20px' }}>
                 <input
                   type="text"
@@ -338,7 +349,7 @@ export default function App() {
                   color: '#050811'
                 }}
               >
-                <Play size={18} /> 开启大学人生
+                <Play size={18} /> 下一步：选择录取专业
               </button>
             </form>
 
@@ -350,7 +361,7 @@ export default function App() {
                 {PRESET_SCHOOLS.map((item, idx) => (
                   <button
                     key={idx}
-                    onClick={() => handleStartGame(item.name)}
+                    onClick={() => handleConfirmSchool(item.name)}
                     style={{
                       background: 'rgba(255, 255, 255, 0.05)',
                       border: '1px solid rgba(0, 240, 255, 0.2)',
@@ -374,7 +385,50 @@ export default function App() {
         </div>
       )}
 
-      {/* Screen 2: Playing State */}
+      {/* Screen 2: Select Major */}
+      {gameState === 'SELECT_MAJOR' && (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div className="cyber-box" style={{ padding: '28px 20px', textAlign: 'center' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              color: 'var(--accent-pink)',
+              fontSize: '0.85rem',
+              marginBottom: '12px'
+            }} className="cyber-mono-font">
+              <BookOpen size={16} /> STEP 2: SELECT MAJOR
+            </div>
+
+            <h2 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
+              选择你的录取专业
+            </h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '20px' }}>
+              专业将决定大学期间上机实验、专业课考核与强相关核心事件。
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {MAJORS_LIST.map((major) => (
+                <button
+                  key={major.id}
+                  onClick={() => handleSelectMajor(major)}
+                  className="cyber-btn"
+                  style={{
+                    padding: '14px 16px',
+                    justifyContent: 'flex-start',
+                    fontSize: '0.98rem',
+                    textAlign: 'left'
+                  }}
+                >
+                  {major.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Screen 3: Playing State */}
       {gameState === 'PLAYING' && currentEvent && (
         <div style={{ flex: 1 }}>
           <StatusBar
@@ -393,7 +447,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Screen 3: Ending State */}
+      {/* Screen 4: Ending State */}
       {gameState === 'ENDED' && finalEnding && (
         <Ending
           ending={finalEnding}
