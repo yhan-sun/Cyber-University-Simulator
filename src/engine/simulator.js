@@ -1,54 +1,93 @@
-// University Tier Classifier & Custom Treatment Generator
+// Granular Multi-Tier University Classification & Specialized Treatment System
 
 export function analyzeUniversityTier(name) {
   const cleanName = name.trim();
 
-  // Tier 1: Top Ivory League / C9 / 985 Top
-  const topKeywords = ["清华", "北京大学", "北大", "复旦", "上海交通大学", "交大", "浙江大学", "浙大", "中国科学技术大学", "中科大", "南京大学", "南大", "哈尔滨工业大学", "哈工大", "西安交通大学", "Cyber Matrix", "赛博黑客"];
-  if (topKeywords.some(k => cleanName.includes(k))) {
+  // 1. 🏛️ C9 / 顶尖 985 (Top Ivory League)
+  const topC9List = ["清华", "北京大学", "北大", "复旦", "上海交通大学", "上海交大", "浙江大学", "浙大", "中国科学技术大学", "中科大", "南京大学", "南大", "哈尔滨工业大学", "哈工大", "西安交通大学", "西安交大", "Cyber Matrix", "赛博黑客"];
+  if (topC9List.some(k => cleanName.includes(k))) {
     return {
       tier: "TOP_C9",
-      tierLabel: "🏛️ C9/985 顶级名校",
+      tierLabel: "👑 C9/顶尖985名校",
       badgeColor: "#ff007f",
-      description: "科研资源顶尖，企业全线绿灯，但周围全员卷王，竞争压力巨大。",
-      statBonus: { academic: 15, skill: 10, stress: 15, happiness: -5, network: 10 },
-      eventsTag: "TIER_TOP"
+      description: "科研资源顶尖，国家重点实验室全线绿灯，全员极客卷王，竞争压力极大。",
+      statBonus: { academic: 18, skill: 12, stress: 18, happiness: -6, network: 12 },
+      eventsTag: "TIER_C9"
     };
   }
 
-  // Tier 2: 985 / 211 Project Key Universities
-  const keyKeywords = ["邮电", "中山大学", "武汉大学", "华中科技", "同济", "南开", "天津大学", "四川大学", "电子科技大学", "成电", "厦门大学", "吉林大学", "理工大学", "科技大学", "工业大学", "农业大学", "师范大学", "985", "211"];
-  if (keyKeywords.some(k => cleanName.includes(k))) {
+  // 2. 🏛️ 985 工程大学 (985 Universities)
+  const g985List = ["中山大学", "武汉大学", "华中科技大学", "华科", "同济大学", "南开大学", "天津大学", "四川大学", "川大", "电子科技大学", "成电", "厦门大学", "厦大", "吉林大学", "北京航空航天大学", "北航", "北京理工大学", "北理", "西北工业大学", "西工大", "中国人民大学", "人大", "山东大学", "山大", "中南大学", "湖南大学", "重庆大学", "重大", "兰州大学", "大连理工大学", "东南大学", "985"];
+  if (g985List.some(k => cleanName.includes(k))) {
     return {
-      tier: "KEY_211",
-      tierLabel: "⭐ 985/211 重点大学",
-      badgeColor: "#00f0ff",
-      description: "行业认可度极高，大厂实习名额充沛，实战工程能力突出。",
-      statBonus: { skill: 12, network: 8, wealth: 5, academic: 8 },
-      eventsTag: "TIER_KEY"
+      tier: "TIER_985",
+      tierLabel: "🏛️ 985工程重点大学",
+      badgeColor: "#9d00ff",
+      description: "国家重点保研率极高，名企HR直接入驻，拥有极雄厚的校友网络资源。",
+      statBonus: { academic: 14, skill: 10, network: 10, stress: 12, wealth: 5 },
+      eventsTag: "TIER_985"
     };
   }
 
-  // Tier 3: Vocational / Junior College (大专 / 职业学院)
-  const vocationalKeywords = ["职业", "专科", "大专", "职业技术", "高等专科", "技师", "职业学院"];
-  if (vocationalKeywords.some(k => cleanName.includes(k))) {
+  // 3. ⭐ 211 工程大学 (211 Universities)
+  const g211List = ["重庆邮电大学", "重邮", "北京邮电大学", "北邮", "南京邮电大学", "南邮", "西安电子科技大学", "西电", "上海大学", "苏州大学", "暨南大学", "华中师范", "华东师范", "中国政法大学", "西南财经大学", "中南财经政法", "上海财经大学", "北京交通大学", "西南交通大学", "河海大学", "江南大学", "211"];
+  if (g211List.some(k => cleanName.includes(k))) {
+    return {
+      tier: "TIER_211",
+      tierLabel: "⭐ 211工程特色大学",
+      badgeColor: "#00f0ff",
+      description: "行业垂直领域统治级存在，大厂实习名额充沛，实战工程能力极强。",
+      statBonus: { skill: 15, network: 8, wealth: 8, academic: 8, stress: 8 },
+      eventsTag: "TIER_211"
+    };
+  }
+
+  // 4. 🎨 艺术 / 体育 / 语言特色单科院校 (Art / Sports / Foreign Language Specialty)
+  const specialtyList = ["音乐", "美术", "艺术", "体育", "外国语", "传媒", "电影", "戏剧", "舞蹈", "中戏", "北电", "上戏", "国音", "央美", "北外", "上外"];
+  if (specialtyList.some(k => cleanName.includes(k))) {
+    return {
+      tier: "SPECIALTY",
+      tierLabel: "🎨 艺术/体育/语言特色高校",
+      badgeColor: "#ff3366",
+      description: "校园文化多元且浪漫，颜值与艺术氛围拉满，充满无限个人创作灵感。",
+      statBonus: { love: 18, happiness: 15, network: 12, academic: -4, stress: -5 },
+      eventsTag: "TIER_SPECIALTY"
+    };
+  }
+
+  // 5. 🌍 赛博海外中外合办 / 留学院校 (Sino-Foreign / Overseas)
+  const overseasList = ["纽约大学", "西交利物浦", "宁波诺丁汉", "昆山杜克", "香港", "澳门", "哈佛", "麻省理工", "斯坦福", "剑桥", "牛津", "帝国理工", "海外", "留学"];
+  if (overseasList.some(k => cleanName.includes(k))) {
+    return {
+      tier: "OVERSEAS",
+      tierLabel: "🌍 中外合办/赛博海归名校",
+      badgeColor: "#ffaa00",
+      description: "全英文教学与国际化视野，拥有极其充沛的资本与海外游学资源。",
+      statBonus: { wealth: 20, network: 12, happiness: 10, stress: 5, academic: 8 },
+      eventsTag: "TIER_OVERSEAS"
+    };
+  }
+
+  // 6. 🛠️ 职业技术学院 / 专科 (Vocational / College)
+  const vocationalList = ["职业", "专科", "大专", "职业技术", "高等专科", "技师", "职业学院", "职高", "技校"];
+  if (vocationalList.some(k => cleanName.includes(k))) {
     return {
       tier: "VOCATIONAL",
       tierLabel: "🛠️ 职业技术学院 (大专)",
-      badgeColor: "#ffaa00",
-      description: "接地气的实操技能培训，早早踏入社会锻炼，摆脱了枯燥的纯理论课。",
-      statBonus: { skill: 15, happiness: 10, academic: -8, wealth: 8, stress: -8 },
+      badgeColor: "#00ff88",
+      description: "接地气的硬核实操技术培训，早早踏入社会实战积累，摆脱枯燥纯理论。",
+      statBonus: { skill: 16, happiness: 12, academic: -10, wealth: 10, stress: -10 },
       eventsTag: "TIER_VOCATIONAL"
     };
   }
 
-  // Tier 4: Standard Regular University (普通本科 / 地方院校)
+  // 7. 🏫 普通本科院校 (Standard Regular University)
   return {
     tier: "REGULAR_BEN",
     tierLabel: "🏫 普通本科院校",
-    badgeColor: "#00ff88",
-    description: "环境自由适宜，拥有充分的自我探索时间，靠个人硬实力逆风翻盘。",
-    statBonus: { happiness: 8, stress: -5, skill: 5, network: 5 },
+    badgeColor: "#64748b",
+    description: "环境自由适宜，拥有极大的自我探索空间，全靠个人硬实力逆风翻盘。",
+    statBonus: { happiness: 8, stress: -5, skill: 6, network: 6 },
     eventsTag: "TIER_REGULAR"
   };
 }
@@ -64,41 +103,77 @@ export const INITIAL_STATS = {
   stress: 20     // 😰 压力
 };
 
-// Tier-Specific Specialized Events Pool
+// Specialized Event Generators for 7 Granular Tiers
 const TIER_SPECIALIZED_EVENTS = [
-  // Top 985 Special Treatment Event
+  // C9 Top Tier Event
   {
-    category: "TIER_TOP",
-    requireTag: "TIER_TOP",
-    title: "顶级名校专属：国家重点实验室全息算力倾斜",
-    text: "凭借你所在 C9/985 顶级名校的学术背景，学院直接为你分配了价值百万的专属算力卡与教授一对一指导机会！",
+    category: "TIER_C9",
+    requireTag: "TIER_C9",
+    title: "C9 顶尖专属：院士国家课题与百万级算力直通",
+    text: "你在 C9 顶尖名校的实验室课题被院士亲自批示，获得了国家高能物理与 AI 大模型专属算力卡！",
     choices: [
-      { text: "利用顶级算力冲击顶会论文并做课题突破", effect: { academic: 20, skill: 15, stress: 8 }, log: "名校资源光环加持，你的研究成果轰动业内！" },
-      { text: "组队带系里学弟学妹拿全国竞赛特等奖", effect: { network: 15, happiness: 12, academic: 10 }, log: "名校大佬光环闪耀全场。" }
+      { text: "率队冲刺发表国际顶会论文并做成果转化", effect: { academic: 22, skill: 16, stress: 10 }, log: "C9 光环加持，你的研究轰动国内外科技圈！" },
+      { text: "组队带系里学弟学妹包揽全国科技竞赛特等奖", effect: { network: 18, happiness: 14, academic: 10 }, log: "C9 学神称号实至名归。" }
     ]
   },
 
-  // Vocational / College Special Treatment Event
+  // 985 Tier Event
+  {
+    category: "TIER_985",
+    requireTag: "TIER_985",
+    title: "985 重点专属：985 保研名额与顶级名企绿色通道",
+    text: "大三下学期，学院公布了 985 专属保研名额与顶级大厂 HR 专属面试直通卡！",
+    choices: [
+      { text: "锁定 985 免试保研直博名额", effect: { academic: 20, stress: 5, network: 10 }, log: "成功锁定 985 直博，未来科研之路一片坦途！" },
+      { text: "选择顶级大厂 HR 专属直通卡高薪入职", effect: { wealth: 20, skill: 15, network: 10 }, log: "凭 985 牌子与硬核能力斩获 Sp-Offer！" }
+    ]
+  },
+
+  // 211 Tier Event
+  {
+    category: "TIER_211",
+    requireTag: "TIER_211",
+    title: "211 特色专属：垂直行业巨头专场校招",
+    text: "作为垂直领域强校（如IT/邮电/财经/政法），华为、腾讯、中电等行业巨头在学校体育馆举办专场招聘！",
+    choices: [
+      { text: "拿着简历直奔垂直大厂现场快面", effect: { skill: 18, wealth: 18, network: 12 }, log: "凭 211 垂直领域口碑，当场拿到Offer！" },
+      { text: "联系杰出校友学长进行内部推荐", effect: { network: 18, skill: 10 }, log: "庞大的 211 校友帮扶你轻松拿到面试推荐。" }
+    ]
+  },
+
+  // Art/Sports Specialty Tier Event
+  {
+    category: "TIER_SPECIALTY",
+    requireTag: "TIER_SPECIALTY",
+    title: "艺术特色专属：国际先锋艺术展与时尚盛典",
+    text: "学院举办赛博时尚艺术周，你的个人创作作品被选为全场封面大作展出！",
+    choices: [
+      { text: "登台公开发表你的艺术设计理念", effect: { happiness: 22, love: 18, network: 15 }, log: "颜值与才华惊艳全场，粉丝瞬间暴涨！" },
+      { text: "与知名艺术机构当场签约合作", effect: { wealth: 20, happiness: 15, love: 10 }, log: "还没毕业就已经成为了知名签约艺术家！" }
+    ]
+  },
+
+  // Overseas Sino-Foreign Event
+  {
+    category: "TIER_OVERSEAS",
+    requireTag: "TIER_OVERSEAS",
+    title: "海归合办专属：硅谷游学与国际风险投资对接",
+    text: "学校组织赴硅谷与海外学术中心全额游学，并且国际 VC 机构在校园举办创业大赛。",
+    choices: [
+      { text: "全英文展示你的国际化项目并获得海外 VC 投资", effect: { wealth: 25, network: 18, academic: 10 }, log: "国际化视野拉满，项目斩获美金投资！" },
+      { text: "结识来自全球顶尖名校的跨国青年精英", effect: { network: 22, happiness: 15, wealth: 10 }, log: "建立了极广的国际化人脉网络。" }
+    ]
+  },
+
+  // Vocational Tier Event
   {
     category: "TIER_VOCATIONAL",
     requireTag: "TIER_VOCATIONAL",
-    title: "大专实操专属：校企合作与技能大赛入场券",
-    text: "虽然没有枯燥的高数理论大课，但学校直通一线企业顶岗实训，并且全省职业技能大赛正在招募选手。",
+    title: "大专实操专属：校企连线与全国技能大赛冠军",
+    text: "学校直接安排一线工厂与大厂实习轮岗，全国职业技能大赛开赛在即。",
     choices: [
-      { text: "苦练一手不可替代的硬核设备维修/实战编程技术", effect: { skill: 22, wealth: 15, stress: -4 }, log: "比赛斩获一等奖，毕业前夕就被多家知名企业抢先高薪预定！" },
-      { text: "利用丰富实战经验早早开启线下兼职创业", effect: { wealth: 20, network: 12, happiness: 10 }, log: "积累了第一桶金，比同龄人更早看清商业社会本质。" }
-    ]
-  },
-
-  // Key 211 Special Event
-  {
-    category: "TIER_KEY",
-    requireTag: "TIER_KEY",
-    title: "985/211 重点大厂校招专场",
-    text: "校体育馆举办 985/211 专场招聘会，腾讯、阿里、华为等几十家科技巨头HR直接在现场发绿色通道面试卡！",
-    choices: [
-      { text: "拿着简历直奔大厂HR专场进行现场快面", effect: { skill: 15, wealth: 15, network: 10 }, log: "凭重点大学学历门槛与扎实工程能力，现场斩获直通卡！" },
-      { text: "与学长交流拿到大厂内推专属推荐信", effect: { network: 15, skill: 8 }, log: "利用丰厚的校友资源打通了求职路。" }
+      { text: "凭借一身炉火纯青的实操硬核技术斩获冠军", effect: { skill: 25, wealth: 18, stress: -5 }, log: "全国大赛冠军！企业现场高薪争抢签订合同！" },
+      { text: "利用丰富实战经验早早开启线下创业店面", effect: { wealth: 22, network: 15, happiness: 12 }, log: "早早实现了财务自由与个人当老板。" }
     ]
   }
 ];
