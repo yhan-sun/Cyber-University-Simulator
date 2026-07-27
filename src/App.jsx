@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import eventsData from './data/events.json';
 import endingsData from './data/endings.json';
-import { generateProceduralEvent, INITIAL_STATS, analyzeUniversityTier, MAJORS_LIST } from './engine/simulator';
+import { generateProceduralEvent, INITIAL_STATS, analyzeUniversityTier, MAJOR_CATEGORIES } from './engine/simulator';
 
 import StatusBar from './components/StatusBar';
 import EventCard from './components/EventCard';
@@ -42,7 +42,7 @@ export default function App() {
 
   // Save/Load from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v11');
+    const saved = localStorage.getItem('cyber_uni_state_v12');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -69,7 +69,7 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v11', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v12', JSON.stringify({
         gameState,
         selectedSchoolName,
         selectedMajor,
@@ -103,7 +103,7 @@ export default function App() {
     setGameState('SELECT_MAJOR');
   };
 
-  // Step 2: Select Major
+  // Step 2: Select Major from Categorized List
   const handleSelectMajor = (major) => {
     setSelectedMajor(major);
 
@@ -126,7 +126,6 @@ export default function App() {
     setFinalEnding(null);
     setUsedTemplateIds([]);
 
-    // Pick major-specific first event
     const firstCandidates = eventsData.filter(e => e.year === 1 && e.term === 1 && (!e.requireTag || initialTags.includes(e.requireTag)));
     const selectedFirst = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, initialTags, []);
 
@@ -142,7 +141,6 @@ export default function App() {
     if (isProcessingChoice) return;
     setIsProcessingChoice(true);
 
-    // 1. Update stats
     const newStats = { ...stats };
     if (choice.effect) {
       Object.entries(choice.effect).forEach(([key, delta]) => {
@@ -151,7 +149,6 @@ export default function App() {
     }
     setStats(newStats);
 
-    // 2. Collect tags organically
     const updatedTags = [...playerTags];
     if (choice.tagAdd && !updatedTags.includes(choice.tagAdd)) {
       updatedTags.push(choice.tagAdd);
@@ -187,7 +184,6 @@ export default function App() {
       return;
     }
 
-    // 3. Strict Non-Repeating Major-Driven Event Matching
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
@@ -236,7 +232,7 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v11');
+    localStorage.removeItem('cyber_uni_state_v12');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
@@ -385,43 +381,61 @@ export default function App() {
         </div>
       )}
 
-      {/* Screen 2: Select Major */}
+      {/* Screen 2: Categorized Major Selection */}
       {gameState === 'SELECT_MAJOR' && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="cyber-box" style={{ padding: '28px 20px', textAlign: 'center' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: 'var(--accent-pink)',
-              fontSize: '0.85rem',
-              marginBottom: '12px'
-            }} className="cyber-mono-font">
-              <BookOpen size={16} /> STEP 2: SELECT MAJOR
+          <div className="cyber-box" style={{ padding: '24px 18px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '18px' }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                color: 'var(--accent-pink)',
+                fontSize: '0.85rem',
+                marginBottom: '8px'
+              }} className="cyber-mono-font">
+                <BookOpen size={16} /> STEP 2: SELECT MAJOR
+              </div>
+
+              <h2 style={{ fontSize: '1.4rem', color: '#fff', fontWeight: '700' }}>
+                选择你的录取专业
+              </h2>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '4px' }}>
+                涵盖工学、经管、文艺、理医、法政5大学科门类，20+ 细分专业方向。
+              </p>
             </div>
 
-            <h2 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
-              选择你的录取专业
-            </h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '20px' }}>
-              专业将决定大学期间上机实验、专业课考核与强相关核心事件。
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {MAJORS_LIST.map((major) => (
-                <button
-                  key={major.id}
-                  onClick={() => handleSelectMajor(major)}
-                  className="cyber-btn"
-                  style={{
-                    padding: '14px 16px',
-                    justifyContent: 'flex-start',
-                    fontSize: '0.98rem',
-                    textAlign: 'left'
-                  }}
-                >
-                  {major.label}
-                </button>
+            <div style={{ maxHeight: '60vh', overflowY: 'auto', paddingRight: '4px' }}>
+              {MAJOR_CATEGORIES.map((cat, cIdx) => (
+                <div key={cIdx} style={{ marginBottom: '18px' }}>
+                  <div style={{
+                    fontSize: '0.85rem',
+                    fontWeight: 'bold',
+                    color: 'var(--primary-cyan)',
+                    marginBottom: '8px',
+                    borderBottom: '1px solid rgba(0, 240, 255, 0.15)',
+                    paddingBottom: '4px'
+                  }} className="cyber-mono-font">
+                    {cat.categoryName}
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '8px' }}>
+                    {cat.majors.map((major) => (
+                      <button
+                        key={major.id}
+                        onClick={() => handleSelectMajor(major)}
+                        className="cyber-btn"
+                        style={{
+                          padding: '12px 14px',
+                          justifyContent: 'flex-start',
+                          fontSize: '0.9rem',
+                          textAlign: 'left'
+                        }}
+                      >
+                        {major.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>

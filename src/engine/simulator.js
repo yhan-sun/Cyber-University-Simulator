@@ -1,13 +1,56 @@
-// Major (Specialty) Definition & Specific Event Pools for Deep Major Correlation
+// Comprehensive Major Category & Fine-Grained Major List
 
-export const MAJORS_LIST = [
-  { id: "cs_tech", label: "💻 计算机科学与技术 / 软件工程", tag: "MAJOR_CS" },
-  { id: "electronic", label: "⚡ 电子信息工程 / 通信工程", tag: "MAJOR_EE" },
-  { id: "finance", label: "📈 金融学 / 国际经济与贸易", tag: "MAJOR_FINANCE" },
-  { id: "literature", label: "📚 汉语言文学 / 赛博传媒", tag: "MAJOR_ARTS" },
-  { id: "medicine", label: "🩺 临床医学 / 赛博生物工程", tag: "MAJOR_MED" },
-  { id: "design", label: "🎨 视觉传达设计 / 数字媒体艺术", tag: "MAJOR_DESIGN" }
+export const MAJOR_CATEGORIES = [
+  {
+    categoryName: "💻 工学·计算机与电子信息类",
+    majors: [
+      { id: "cs_tech", label: "💻 计算机科学与技术", tag: "MAJOR_CS" },
+      { id: "soft_eng", label: "🛠️ 软件工程", tag: "MAJOR_CS" },
+      { id: "cyber_sec", label: "🛡️ 网络空间安全 / 黑客攻防", tag: "MAJOR_CS" },
+      { id: "ai_ds", label: "🤖 人工智能 / 数据科学", tag: "MAJOR_CS" },
+      { id: "electronic", label: "⚡ 电子信息工程 / 集成电路", tag: "MAJOR_EE" },
+      { id: "comm_eng", label: "📡 通信工程 / 5G网络", tag: "MAJOR_EE" }
+    ]
+  },
+  {
+    categoryName: "📊 经管·金融与商业财会类",
+    majors: [
+      { id: "finance", label: "📈 金融学 / 量化投资", tag: "MAJOR_FINANCE" },
+      { id: "econ", label: "🌐 经济学 / 国际经济与贸易", tag: "MAJOR_FINANCE" },
+      { id: "accounting", label: "🧾 会计学 / 注册会计师(CPA)", tag: "MAJOR_FINANCE" },
+      { id: "bus_mgmt", label: "💼 工商管理 / 市场营销", tag: "MAJOR_FINANCE" }
+    ]
+  },
+  {
+    categoryName: "🎨 文艺·传媒与艺术设计类",
+    majors: [
+      { id: "design", label: "🎨 视觉传达 / 数字媒体艺术", tag: "MAJOR_DESIGN" },
+      { id: "media", label: "🎥 新闻传播学 / 赛博自媒体", tag: "MAJOR_ARTS" },
+      { id: "chinese_lit", label: "📚 汉语言文学 / 戏剧影视文学", tag: "MAJOR_ARTS" },
+      { id: "foreign_lang", label: "🗣️ 英语 / 赛博同声传译", tag: "MAJOR_ARTS" },
+      { id: "music_perf", label: "🎸 音乐表演 / 声乐与器乐", tag: "MAJOR_DESIGN" }
+    ]
+  },
+  {
+    categoryName: "🩺 理医·医学与理工基础类",
+    majors: [
+      { id: "medicine", label: "🩺 临床医学 (八年制)", tag: "MAJOR_MED" },
+      { id: "pharmacy", label: "💊 药学 / 生物制药", tag: "MAJOR_MED" },
+      { id: "math_physics", label: "📐 应用数学 / 理论物理学", tag: "MAJOR_SCI" },
+      { id: "architecture", label: "🏛️ 建筑学 / 城市规划", tag: "MAJOR_DESIGN" }
+    ]
+  },
+  {
+    categoryName: "⚖️ 法政·法学与公共管理类",
+    majors: [
+      { id: "law", label: "⚖️ 法学 / 司法考试", tag: "MAJOR_LAW" },
+      { id: "pub_admin", label: "🏛️ 行政管理 / 考公方向", tag: "MAJOR_LAW" }
+    ]
+  }
 ];
+
+// Flat helper list for backward compatibility
+export const MAJORS_LIST = MAJOR_CATEGORIES.flatMap(c => c.majors);
 
 export const INITIAL_STATS = {
   academic: 50,  // 📚 学业
@@ -42,76 +85,50 @@ export function analyzeUniversityTier(name) {
   return { tier: "REGULAR", statBonus: { happiness: 5, stress: -3 }, eventsTag: "TIER_REGULAR" };
 }
 
-// Major-Driven Story Templates
-const MAJOR_DRIVEN_TEMPLATES = [
-  // CS & Software Engineering
+// Major-Driven Story Templates Pool for Expanded Majors
+const EXPANDED_MAJOR_DRIVEN_TEMPLATES = [
+  // Law Major
   {
-    templateId: "tpl_cs_lab_debug",
-    category: "MAJOR_CS",
-    requireTag: "MAJOR_CS",
-    title: "数据结构与操作系统实验课",
-    text: "机房里键盘敲击声此起彼伏。你负责的操作系统内存分配模块跑出了段错误（Segmentation Fault）。",
+    templateId: "tpl_law_moot_court",
+    category: "MAJOR_LAW",
+    requireTag: "MAJOR_LAW",
+    title: "法学系：模拟法庭辩论赛",
+    text: "模拟法庭里气氛庄严肃穆。作为原告/被告辩护人，你需要就合同争议条款发表代理意见。",
     choices: [
-      { text: "打开 GDB 调试器逐行追踪指针，定位问题根源", effect: { skill: 14, academic: 8, stress: 5 }, tagAdd: "CS_EXPERT", log: "你定位并修复了指针越界 Bug，对底层原理理解加深。" },
-      { text: "向同桌的高手求助，交流解决方案", effect: { skill: 8, network: 8 }, log: "在同桌提醒下顺利完成了实验任务。" }
+      { text: "引用最新司法解释条文，展开条理清晰的逻辑质证", effect: { academic: 14, skill: 10, stress: 5 }, tagAdd: "LAW_EXPERT", log: "你的辩护意见逻辑严密，赢得了模拟法庭裁判肯定。" },
+      { text: "与队友分工合作，准备质证清单与证据链", effect: { network: 10, academic: 8 }, log: "团队配合默契，完成了精彩的辩论。" }
     ]
   },
 
-  // EE & Electronics Engineering
+  // Basic Science (Math & Physics) Major
   {
-    templateId: "tpl_ee_circuit_burn",
-    category: "MAJOR_EE",
-    requireTag: "MAJOR_EE",
-    title: "模拟电子技术电路焊接实验",
-    text: "实验桌上摆满了烙铁、示波器与电路板。你正在焊接放大电路，示波器波形始终存在严重失真。",
+    templateId: "tpl_sci_quantum_proof",
+    category: "MAJOR_SCI",
+    requireTag: "MAJOR_SCI",
+    title: "数学与物理系：偏微分方程证明",
+    text: "草稿纸上写满了复杂算符。老师布置了一道关于偏微分方程解的存在性推导题。",
     choices: [
-      { text: "调整偏置电阻阻值，重新测绘频率响应曲线", effect: { skill: 14, academic: 8, stress: 4 }, tagAdd: "EE_EXPERT", log: "示波器上出现了完美的正弦波形，实验高分通过。" },
-      { text: "检查焊点是否存在虚焊，重新焊接关键节点", effect: { skill: 10, stress: 3 }, log: "重新焊接后电路正常工作。" }
+      { text: "尝试运用泛函分析方法推导极小化序列", effect: { academic: 16, skill: 12, stress: 6 }, tagAdd: "SCI_EXPERT", log: "你做出了漂亮的证明，展现了扎实的数学功底。" },
+      { text: "和同桌探讨推导步骤中的逻辑关卡", effect: { academic: 10, network: 8 }, log: "讨论过程中厘清了证明思路。" }
     ]
   },
 
-  // Finance & Economics
+  // Accounting & CPA Major
   {
-    templateId: "tpl_finance_quant_model",
+    templateId: "tpl_acct_audit_statement",
     category: "MAJOR_FINANCE",
     requireTag: "MAJOR_FINANCE",
-    title: "计量经济学与量化建模实训",
-    text: "全息金融实验终端前，老师布置了利用 Python 测算资本资产定价模型（CAPM）与股票回测的课题。",
+    title: "会计系：财务报表分析与审计实训",
+    text: "电脑屏幕上密密麻麻全是 Excel 报表数据。你需要从资产负债表中找出异常勾稽关系。",
     choices: [
-      { text: "撰写量化策略脚本，测算最佳资产配置组合", effect: { wealth: 15, skill: 12, academic: 8 }, tagAdd: "FINANCE_EXPERT", log: "策略回测年化收益优秀，受到了专业老师赞赏。" },
-      { text: "分析商业案例，撰写研报分析行业走势", effect: { wealth: 10, network: 8, academic: 6 }, log: "研报逻辑清晰，展现了扎实的商业分析基础。" }
-    ]
-  },
-
-  // Medical Major
-  {
-    templateId: "tpl_med_anatomy_night",
-    category: "MAJOR_MED",
-    requireTag: "MAJOR_MED",
-    title: "解剖学与生理学深夜备考",
-    text: "解剖学期末考前夕，实验室里静悄悄的。你需要背诵记忆人体几百处骨骼与神经肌肉的定位。",
-    choices: [
-      { text: "对照全息人体模型逐一记忆，熬夜攻克难题", effect: { academic: 16, stress: 10, health: -4 }, tagAdd: "MED_EXPERT", log: "你掌握了全部解剖定位，基础知识无比扎实。" },
-      { text: "和组员互相抽背名词解释", effect: { academic: 10, network: 8 }, log: "组员互相鼓励，缓解了备考焦虑。" }
-    ]
-  },
-
-  // Design & Media Major
-  {
-    templateId: "tpl_design_portfolio",
-    category: "MAJOR_DESIGN",
-    requireTag: "MAJOR_DESIGN",
-    title: "数字媒体作品集评委审核",
-    text: "离视觉设计展提交只剩最后1天，你在渲染器前调整色彩搭配与 UI 动态微交互镜头。",
-    choices: [
-      { text: "加入赛博朋克极简风视觉与交互细节", effect: { happiness: 15, skill: 14, love: 6 }, tagAdd: "DESIGN_EXPERT", log: "作品集设计极具震撼力，在学院设计展上引发围观。" },
-      { text: "采用典雅温暖的插画风格完成叙事", effect: { happiness: 12, love: 10 }, log: "作品呈现出温馨动人的情感关怀。" }
+      { text: "利用数据分析函数快速勾稽，发现隐蔽调整项", effect: { wealth: 12, skill: 14, academic: 8 }, tagAdd: "ACCT_EXPERT", log: "你准确指出了报表异常，实操能力得到了锻炼。" },
+      { text: "一步步核对凭证与明细账目", effect: { academic: 8, stress: 3 }, log: "严谨细致地完成了核对工作。" }
     ]
   }
 ];
 
 export function generateProceduralEvent(year, term, index, playerTags = [], usedTemplateIds = []) {
-  const availableTemplates = MAJOR_DRIVEN_TEMPLATES.filter(t => !usedTemplateIds.includes(t.templateId));
+  const availableTemplates = EXPANDED_MAJOR_DRIVEN_TEMPLATES.filter(t => !usedTemplateIds.includes(t.templateId));
   const memoryCandidates = availableTemplates.filter(t => t.requireTag && playerTags.includes(t.requireTag));
   
   let selectedTemplate;
@@ -121,7 +138,7 @@ export function generateProceduralEvent(year, term, index, playerTags = [], used
     const generalPool = availableTemplates.filter(t => !t.requireTag || playerTags.includes(t.requireTag));
     selectedTemplate = generalPool.length > 0 ? generalPool[Math.floor(Math.random() * generalPool.length)] : availableTemplates[0];
   } else {
-    selectedTemplate = MAJOR_DRIVEN_TEMPLATES[index % MAJOR_DRIVEN_TEMPLATES.length];
+    selectedTemplate = EXPANDED_MAJOR_DRIVEN_TEMPLATES[index % EXPANDED_MAJOR_DRIVEN_TEMPLATES.length];
   }
 
   const randomizedId = `${selectedTemplate.templateId}_${year}_${term}_${index}`;
