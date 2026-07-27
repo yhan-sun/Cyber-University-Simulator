@@ -31,7 +31,7 @@ export default function App() {
 
   // Initialize or load from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v3');
+    const saved = localStorage.getItem('cyber_uni_state_v4');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -55,7 +55,7 @@ export default function App() {
   // Save progress to LocalStorage
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v3', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v4', JSON.stringify({
         gameState,
         selectedSchoolName,
         studentId,
@@ -71,7 +71,17 @@ export default function App() {
     }
   }, [gameState, selectedSchoolName, studentId, stats, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, finalEnding]);
 
-  // Start game with custom user input school
+  // Fisher-Yates array shuffle for randomized event experience
+  const shuffleArray = (array) => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  // Start game with randomized seed per user run
   const handleStartGame = (targetName) => {
     const finalName = targetName.trim() || '赛博大学';
     setSelectedSchoolName(finalName);
@@ -85,7 +95,11 @@ export default function App() {
     setChoiceHistory([]);
     setFinalEnding(null);
 
-    const firstEvent = eventsData.find(e => e.year === 1 && e.term === 1) || generateProceduralEvent(1, 1, 0);
+    // Pick a randomized candidate from term 1 events or procedural
+    const term1Candidates = eventsData.filter(e => e.year === 1 && e.term === 1);
+    const shuffledTerm1 = shuffleArray(term1Candidates);
+    const firstEvent = shuffledTerm1.length > 0 ? shuffledTerm1[0] : generateProceduralEvent(1, 1, 0);
+
     setCurrentEvent(firstEvent);
     setUsedEventIds([firstEvent.id]);
     setGameState('PLAYING');
@@ -130,32 +144,40 @@ export default function App() {
       return;
     }
 
-    // 2. Pick unused event for the current year/term, or generate a procedural event
+    // 2. Pick unused randomized event for the current year/term, or generate a procedural event
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
-    const matchedEvent = eventsData.find(e => e.year === nextYear && e.term === nextTerm && !newUsedIds.includes(e.id));
-    if (matchedEvent) {
-      setCurrentEvent(matchedEvent);
+    const termCandidates = eventsData.filter(e => e.year === nextYear && e.term === nextTerm && !newUsedIds.includes(e.id));
+    const shuffledCandidates = shuffleArray(termCandidates);
+
+    if (shuffledCandidates.length > 0) {
+      setCurrentEvent(shuffledCandidates[0]);
     } else {
       setCurrentEvent(generateProceduralEvent(nextYear, nextTerm, nextEventIndex));
     }
   };
 
+  // Dynamically calculate ending from rich endings list with stochastic tie-breaking
   const calculateEnding = (finalStats) => {
-    let matched = endingsData.find(e => {
-      if (!e.condition) return false;
+    // Filter all endings where conditions are fully satisfied
+    const matchedEndings = endingsData.filter(e => {
+      if (!e.condition || Object.keys(e.condition).length === 0) return false;
       return Object.entries(e.condition).every(([key, val]) => (finalStats[key] || 0) >= val);
     });
 
-    if (!matched) {
-      matched = endingsData[endingsData.length - 1];
+    let matched = null;
+    if (matchedEndings.length > 0) {
+      // Pick the ending with highest matching complexity or random among candidates
+      matched = matchedEndings[Math.floor(Math.random() * matchedEndings.length)];
+    } else {
+      matched = endingsData[endingsData.length - 1]; // Fallback default
     }
     setFinalEnding(matched);
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v3');
+    localStorage.removeItem('cyber_uni_state_v4');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
@@ -234,7 +256,7 @@ export default function App() {
             </h2>
             
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
-              经历 1000 个微小瞬间，生成属于你的专属大学人生。
+              经历 1000 个微小瞬间，随机推演属于你的专属大学结局。
             </p>
 
             <form onSubmit={(e) => { e.preventDefault(); handleStartGame(schoolNameInput); }}>
