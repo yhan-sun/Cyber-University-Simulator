@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import eventsData from './data/events.json';
 import endingsData from './data/endings.json';
-import { generateProceduralEvent, INITIAL_STATS } from './engine/simulator';
+import { generateProceduralEvent, INITIAL_STATS, analyzeUniversityTier } from './engine/simulator';
 
 import StatusBar from './components/StatusBar';
 import EventCard from './components/EventCard';
 import Ending from './components/Ending';
 
-import { Terminal, Play, RefreshCw, Zap, Building2 } from 'lucide-react';
+import { Terminal, Play, RefreshCw, Zap, Building2, ShieldCheck, Sparkles } from 'lucide-react';
 
 export default function App() {
-  // Seamless Flow: 'INPUT_SCHOOL' | 'PLAYING' | 'ENDED'
   const [gameState, setGameState] = useState('INPUT_SCHOOL'); 
   const [schoolNameInput, setSchoolNameInput] = useState('');
   const [selectedSchoolName, setSelectedSchoolName] = useState('');
+  const [universityTierInfo, setUniversityTierInfo] = useState(null);
   const [studentId, setStudentId] = useState('');
   
-  // Internal Player Stats, Tags & Choice Memory
+  // Internal Player Stats & Tags
   const [stats, setStats] = useState(INITIAL_STATS);
-  const [playerTags, setPlayerTags] = useState([]); // Secretly accumulated tags from natural choices
+  const [playerTags, setPlayerTags] = useState([]); 
   const [year, setYear] = useState(1);
   const [term, setTerm] = useState(1);
   const [eventIndex, setEventIndex] = useState(0);
@@ -28,16 +28,23 @@ export default function App() {
   const [usedEventIds, setUsedEventIds] = useState([]);
   const [finalEnding, setFinalEnding] = useState(null);
 
-  const PRESET_SCHOOLS = ['重庆邮电大学', '清华大学', '北京大学', '中山大学', '赛博黑客学院'];
+  const PRESET_SCHOOLS = [
+    { name: '清华大学', tag: 'C9/985 顶尖' },
+    { name: '重庆邮电大学', tag: '985/211 重点' },
+    { name: '深圳职业技术大学', tag: '大专/职高' },
+    { name: '北京大学', tag: 'C9/985 顶尖' },
+    { name: '赛博黑客学院', tag: '隐藏黑客' }
+  ];
 
-  // Save/Load progress from LocalStorage
+  // Save/Load from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v6');
+    const saved = localStorage.getItem('cyber_uni_state_v7');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         setGameState(parsed.gameState || 'INPUT_SCHOOL');
         setSelectedSchoolName(parsed.selectedSchoolName || '');
+        setUniversityTierInfo(parsed.universityTierInfo || null);
         setStudentId(parsed.studentId || '');
         setStats(parsed.stats || INITIAL_STATS);
         setPlayerTags(parsed.playerTags || []);
@@ -56,9 +63,10 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v6', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v7', JSON.stringify({
         gameState,
         selectedSchoolName,
+        universityTierInfo,
         studentId,
         stats,
         playerTags,
@@ -71,33 +79,51 @@ export default function App() {
         finalEnding
       }));
     }
-  }, [gameState, selectedSchoolName, studentId, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, finalEnding]);
+  }, [gameState, selectedSchoolName, universityTierInfo, studentId, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, finalEnding]);
 
-  // Start game directly with custom school input
+  // Start Game with Tier Analysis & Differential Treatment Setup
   const handleStartGame = (targetName) => {
     const finalName = targetName.trim() || '赛博大学';
     setSelectedSchoolName(finalName);
+    
+    // Analyze University Tier Difference
+    const tierResult = analyzeUniversityTier(finalName);
+    setUniversityTierInfo(tierResult);
+
     const generatedId = `2026${Math.floor(100000 + Math.random() * 900000)}`;
     setStudentId(generatedId);
 
-    setStats({ ...INITIAL_STATS });
-    setPlayerTags([]);
+    // Apply Tier Stat Bonus
+    const initStats = { ...INITIAL_STATS };
+    if (tierResult.statBonus) {
+      Object.entries(tierResult.statBonus).forEach(([k, delta]) => {
+        initStats[k] = Math.max(0, Math.min(100, (initStats[k] || 50) + delta));
+      });
+    }
+
+    setStats(initStats);
+
+    const initialTags = [tierResult.eventsTag];
+    setPlayerTags(initialTags);
+
     setYear(1);
     setTerm(1);
     setEventIndex(0);
-    setChoiceHistory([]);
+    setChoiceHistory([
+      `录取大学定位识别: [${tierResult.tierLabel}]`,
+      `专属待遇说明: ${tierResult.description}`
+    ]);
     setFinalEnding(null);
 
-    // Pick first event naturally from eventsData
+    // Pick first event
     const firstCandidates = eventsData.filter(e => e.year === 1 && e.term === 1);
-    const firstEvent = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, []);
+    const firstEvent = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, initialTags);
 
     setCurrentEvent(firstEvent);
     setUsedEventIds([firstEvent.id]);
     setGameState('PLAYING');
   };
 
-  // Organic Tag Collection & Choice Processing
   const handleChoiceSelect = (choice) => {
     // 1. Update hidden stats
     const newStats = { ...stats };
@@ -108,7 +134,7 @@ export default function App() {
     }
     setStats(newStats);
 
-    // 2. Organically collect player preference tags from natural dialogue choices
+    // 2. Collect tags from choice
     const updatedTags = [...playerTags];
     if (choice.tagAdd && !updatedTags.includes(choice.tagAdd)) {
       updatedTags.push(choice.tagAdd);
@@ -143,7 +169,7 @@ export default function App() {
       return;
     }
 
-    // 3. Match next event using organically accumulated tags & choice history
+    // 3. Match next event using tags & tier specialty
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
@@ -179,10 +205,11 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v6');
+    localStorage.removeItem('cyber_uni_state_v7');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
+    setUniversityTierInfo(null);
     setPlayerTags([]);
     setFinalEnding(null);
     setUsedEventIds([]);
@@ -223,7 +250,7 @@ export default function App() {
               CYBER UNIVERSITY
             </h1>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }} className="cyber-mono-font">
-              赛博上大学 • 潜移默化对话塑造大学人生
+              赛博上大学 • 高校梯队差异化模拟器
             </div>
           </div>
         </div>
@@ -255,18 +282,18 @@ export default function App() {
             </div>
             
             <h2 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
-              输入你的大学名称
+              输入你的目标大学名称
             </h2>
             
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
-              在 10 秒微瞬间的自然对话与抉择中，不知不觉塑造你的性格与独特大学结局。
+              自动识别 985 / 211 / 顶级 C9 / 普通本科 / 职业大专，赋予不一样的大学待遇与专属经历！
             </p>
 
             <form onSubmit={(e) => { e.preventDefault(); handleStartGame(schoolNameInput); }}>
               <div style={{ position: 'relative', marginBottom: '20px' }}>
                 <input
                   type="text"
-                  placeholder="例如：重庆邮电大学 / 清华大学..."
+                  placeholder="例如：清华大学 / 重庆邮电大学 / 深圳职业技术大学..."
                   value={schoolNameInput}
                   onChange={(e) => setSchoolNameInput(e.target.value)}
                   className="cyber-input"
@@ -294,13 +321,13 @@ export default function App() {
 
             <div style={{ marginTop: '24px', textAlign: 'left' }}>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '10px' }} className="cyber-mono-font">
-                或快速选择推荐院校：
+                测试不同高校梯队专属待遇：
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {PRESET_SCHOOLS.map((name, idx) => (
+                {PRESET_SCHOOLS.map((item, idx) => (
                   <button
                     key={idx}
-                    onClick={() => handleStartGame(name)}
+                    onClick={() => handleStartGame(item.name)}
                     style={{
                       background: 'rgba(255, 255, 255, 0.05)',
                       border: '1px solid rgba(0, 240, 255, 0.2)',
@@ -311,10 +338,12 @@ export default function App() {
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '4px'
+                      gap: '6px'
                     }}
                   >
-                    <Building2 size={12} color="var(--primary-cyan)" /> {name}
+                    <Building2 size={12} color="var(--primary-cyan)" />
+                    <span>{item.name}</span>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--accent-amber)' }}>({item.tag})</span>
                   </button>
                 ))}
               </div>
@@ -323,9 +352,33 @@ export default function App() {
         </div>
       )}
 
-      {/* Screen 2: Playing State */}
+      {/* Screen 2: Playing State with Tier Banner */}
       {gameState === 'PLAYING' && currentEvent && (
         <div style={{ flex: 1 }}>
+          {universityTierInfo && (
+            <div style={{
+              background: 'rgba(5, 12, 28, 0.8)',
+              border: `1px solid ${universityTierInfo.badgeColor}`,
+              borderRadius: '10px',
+              padding: '10px 14px',
+              marginBottom: '14px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontSize: '0.85rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <ShieldCheck size={16} color={universityTierInfo.badgeColor} />
+                <span style={{ fontWeight: 'bold', color: universityTierInfo.badgeColor }}>
+                  {universityTierInfo.tierLabel}
+                </span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>
+                {universityTierInfo.description}
+              </div>
+            </div>
+          )}
+
           <StatusBar
             schoolName={selectedSchoolName}
             year={year}
