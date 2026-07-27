@@ -17,7 +17,7 @@ export default function App() {
   const [universityTierInfo, setUniversityTierInfo] = useState(null);
   const [studentId, setStudentId] = useState('');
   
-  // Chronological Time Engine & Anti-Repetition Store
+  // Chronological Time Engine
   const [currentStepIndex, setCurrentStepIndex] = useState(0); 
   const [stats, setStats] = useState(INITIAL_STATS);
   const [playerTags, setPlayerTags] = useState([]); 
@@ -26,7 +26,6 @@ export default function App() {
   
   const [choiceHistory, setChoiceHistory] = useState([]);
   const [usedEventIds, setUsedEventIds] = useState([]);
-  const [usedTitles, setUsedTitles] = useState([]);
   const [finalEnding, setFinalEnding] = useState(null);
 
   const PRESET_SCHOOLS = [
@@ -39,9 +38,33 @@ export default function App() {
 
   const currentCalendarStep = MONTH_CALENDAR[Math.min(currentStepIndex, MONTH_CALENDAR.length - 1)];
 
+  // Helper to pick exact unique event for step
+  const getEventForStep = (stepIndex, tags, usedIds) => {
+    const calendarStep = MONTH_CALENDAR[stepIndex];
+    if (!calendarStep) return null;
+
+    // 1. Look for matching event in eventsData
+    const candidates = eventsData.filter(e => {
+      if (usedIds.includes(e.id)) return false;
+      if (e.year !== calendarStep.year || e.term !== calendarStep.term) return false;
+      if (e.month && e.month !== calendarStep.month) return false;
+      if (e.requireTag && !tags.includes(e.requireTag)) return false;
+      return true;
+    });
+
+    if (candidates.length > 0) {
+      // Prioritize tags match
+      const tagMatch = candidates.filter(e => e.requireTag && tags.includes(e.requireTag));
+      return tagMatch.length > 0 ? tagMatch[0] : candidates[0];
+    }
+
+    // 2. Fallback to procedural synthesizer guaranteed zero repeat
+    return generateProceduralEvent(stepIndex, tags, usedIds);
+  };
+
   // Save/Load LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v14');
+    const saved = localStorage.getItem('cyber_uni_state_v15');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -56,7 +79,6 @@ export default function App() {
         setCurrentEvent(parsed.currentEvent || null);
         setChoiceHistory(parsed.choiceHistory || []);
         setUsedEventIds(parsed.usedEventIds || []);
-        setUsedTitles(parsed.usedTitles || []);
         setFinalEnding(parsed.finalEnding || null);
       } catch (e) {
         console.error('Failed to load saved state', e);
@@ -66,7 +88,7 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v14', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v15', JSON.stringify({
         gameState,
         selectedSchoolName,
         selectedMajor,
@@ -78,11 +100,10 @@ export default function App() {
         currentEvent,
         choiceHistory,
         usedEventIds,
-        usedTitles,
         finalEnding
       }));
     }
-  }, [gameState, selectedSchoolName, selectedMajor, universityTierInfo, studentId, currentStepIndex, stats, playerTags, currentEvent, choiceHistory, usedEventIds, usedTitles, finalEnding]);
+  }, [gameState, selectedSchoolName, selectedMajor, universityTierInfo, studentId, currentStepIndex, stats, playerTags, currentEvent, choiceHistory, usedEventIds, finalEnding]);
 
   // Step 1: Input School Name
   const handleConfirmSchool = (targetName) => {
@@ -117,20 +138,11 @@ export default function App() {
     setCurrentStepIndex(0);
     setChoiceHistory([`录取专业设定为：[${major.label}]`]);
     setFinalEnding(null);
-    setUsedTitles([]);
 
-    const step1Month = MONTH_CALENDAR[0];
-    const eligibleFirstEvents = eventsData.filter(e => 
-      e.year === step1Month.year && 
-      e.term === step1Month.term && 
-      (!e.requireTag || initialTags.includes(e.requireTag))
-    );
+    const firstEvent = getEventForStep(0, initialTags, []);
 
-    const selectedFirst = eligibleFirstEvents.length > 0 ? eligibleFirstEvents[0] : generateProceduralEvent(0, initialTags, []);
-
-    setCurrentEvent(selectedFirst);
-    setUsedEventIds([selectedFirst.id]);
-    setUsedTitles([selectedFirst.title]);
+    setCurrentEvent(firstEvent);
+    setUsedEventIds([firstEvent.id]);
     setGameState('PLAYING');
   };
 
@@ -167,37 +179,12 @@ export default function App() {
       return;
     }
 
-    const nextCalendarStep = MONTH_CALENDAR[nextStepIndex];
-
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
-    const newUsedTitles = (currentEvent && currentEvent.title)
-      ? [...usedTitles, currentEvent.title]
-      : usedTitles;
-    setUsedTitles(newUsedTitles);
-
-    // Strict Anti-Repetition Matcher (checking ID and Title)
-    const eligibleEvents = eventsData.filter(e => {
-      if (newUsedIds.includes(e.id)) return false;
-      if (newUsedTitles.includes(e.title)) return false;
-      if (e.year !== nextCalendarStep.year || e.term !== nextCalendarStep.term) return false;
-      if (e.month && e.month !== nextCalendarStep.month) return false;
-      if (e.requireTag && !updatedTags.includes(e.requireTag)) return false;
-      return true;
-    });
-
-    if (eligibleEvents.length > 0) {
-      const memoryMatched = eligibleEvents.filter(e => e.requireTag);
-      const selected = memoryMatched.length > 0 ? memoryMatched[0] : eligibleEvents[Math.floor(Math.random() * eligibleEvents.length)];
-      setCurrentEvent(selected);
-      setUsedTitles(prev => [...prev, selected.title]);
-    } else {
-      // Dynamic Synthesizer Guaranteed Zero Repeat Title
-      const generated = generateProceduralEvent(nextStepIndex, updatedTags, newUsedTitles);
-      setCurrentEvent(generated);
-      setUsedTitles(prev => [...prev, generated.title]);
-    }
+    // Get next unique step event
+    const nextEvent = getEventForStep(nextStepIndex, updatedTags, newUsedIds);
+    setCurrentEvent(nextEvent);
 
     setTimeout(() => {
       setIsProcessingChoice(false);
@@ -220,7 +207,7 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v14');
+    localStorage.removeItem('cyber_uni_state_v15');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
@@ -230,7 +217,6 @@ export default function App() {
     setCurrentStepIndex(0);
     setFinalEnding(null);
     setUsedEventIds([]);
-    setUsedTitles([]);
     setIsProcessingChoice(false);
   };
 
