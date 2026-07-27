@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages & Cloudflare Pages
+name: Deploy to Cloudflare Pages & GitHub Pages
 
 on:
   push:
@@ -26,6 +26,14 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: cyber-university-simulator
+          directory: dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
