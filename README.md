@@ -1,16 +1,40 @@
-# React + Vite
+# Cyber University
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+赛博上大学是一个 React + Vite 制作的中文互动大学人生模拟器。玩家输入学校、选择专业，并在 18 个关键月份中做选择，最后根据学校、专业、路线、属性和标签得到不同毕业结局。
 
-Currently, two official plugins are available:
+## 当前玩法
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 学校识别：根据输入学校识别 TOP/C9、985、211、普通院校，并给初始属性加成。
+- 专业分支：计算机、电子信息、金融、文学传媒、医学、设计拥有不同专业事件和结局。
+- 路线分支：大三开始分为深造、求职、弹性探索，后续事件会跟随路线变化。
+- 状态系统：学业、技能、财富、爱情、人脉、快乐、健康、压力共同影响结局。
+- 结局系统：18 个结局，覆盖深造、求职、学校特色、专业身份、关系、人脉、健康与过载。
 
-## React Compiler
+## 内容设计原则
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 选择要有回声：大三路线会影响大四事件，不再把所有玩家塞进同一条线。
+- 结局要有因果：学校特色、专业标签、属性阈值和关键选择共同决定结果。
+- 现实和趣味并存：保留赛博风格，但事件逻辑尽量贴近真实大学节奏。
+- 低频结局可达：马拉松、关系、人脉、过载等不是主流，但专门选择可以触发。
 
-## Expanding the Oxlint configuration
+## 开发命令
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm run dev
+npm run lint
+npm run build
+```
+
+## 主要文件
+
+- `src/data/events.json`：固定与条件剧情事件。
+- `src/data/endings.json`：结局文案、优先级和触发条件。
+- `src/engine/simulator.js`：学校识别、事件匹配、条件判断和结局选择。
+- `src/App.jsx`：游戏状态流转、存档、选择处理。
+
+## 下一步可扩展方向
+
+- 增加失败/低谷事件，让压力和健康更有戏剧张力。
+- 增加“二周目成就图鉴”，展示已解锁和未解锁结局。
+- 给每个专业补 2-3 个中后期专属事件，让专业身份更强。
+- 增加结局分享卡片，生成可截图的毕业报告。

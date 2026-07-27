@@ -44,6 +44,105 @@ export const INITIAL_STATS = {
   stress: 20
 };
 
+const toList = (value) => {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+};
+
+const normalizeCondition = (condition) => {
+  if (!condition || Object.keys(condition).length === 0) {
+    return { min: {}, max: {} };
+  }
+
+  if (condition.min || condition.max) {
+    return {
+      min: condition.min || {},
+      max: condition.max || {}
+    };
+  }
+
+  return { min: condition, max: {} };
+};
+
+const hasRequirement = (value) => toList(value).length > 0;
+
+export function matchesCondition(condition, stats = {}) {
+  const { min, max } = normalizeCondition(condition);
+
+  const minPassed = Object.entries(min).every(([key, val]) => (stats[key] || 0) >= val);
+  const maxPassed = Object.entries(max).every(([key, val]) => (stats[key] || 0) <= val);
+
+  return minPassed && maxPassed;
+}
+
+export function matchesRequirements(item = {}, context = {}) {
+  const {
+    tags = [],
+    stats = {},
+    selectedMajor,
+    universityTier,
+    schoolName = ''
+  } = context;
+
+  const requiredTags = toList(item.requireTag);
+  if (requiredTags.length > 0 && requiredTags.some(tag => !tags.includes(tag))) return false;
+
+  const anyTags = toList(item.anyTag);
+  if (anyTags.length > 0 && !anyTags.some(tag => tags.includes(tag))) return false;
+
+  const excludedTags = toList(item.excludeTag);
+  if (excludedTags.length > 0 && excludedTags.some(tag => tags.includes(tag))) return false;
+
+  const requiredMajors = toList(item.requireMajor);
+  if (requiredMajors.length > 0 && !requiredMajors.includes(selectedMajor?.tag)) return false;
+
+  const requiredTiers = toList(item.requireTier);
+  if (requiredTiers.length > 0 && !requiredTiers.includes(universityTier?.tier)) return false;
+
+  const schoolKeywords = toList(item.requireSchoolKeyword);
+  if (schoolKeywords.length > 0 && !schoolKeywords.some(keyword => schoolName.includes(keyword))) return false;
+
+  return matchesCondition(item.condition, stats);
+}
+
+export function eventSpecificityScore(event = {}) {
+  const tagScore = (hasRequirement(event.requireTag) ? 20 : 0) + (hasRequirement(event.anyTag) ? 10 : 0);
+  const majorScore = hasRequirement(event.requireMajor) ? 18 : 0;
+  const tierScore = hasRequirement(event.requireTier) ? 12 : 0;
+  const schoolScore = hasRequirement(event.requireSchoolKeyword) ? 14 : 0;
+  const conditionScore = event.condition ? 8 : 0;
+  const priorityScore = event.priority || 0;
+
+  return tagScore + majorScore + tierScore + schoolScore + conditionScore + priorityScore;
+}
+
+export function selectEnding(endings, finalStats, finalTags, context = {}) {
+  const enrichedContext = {
+    ...context,
+    stats: finalStats,
+    tags: finalTags
+  };
+
+  const matches = endings
+    .filter(ending => matchesRequirements(ending, enrichedContext))
+    .map((ending, index) => ({
+      ending,
+      index,
+      score:
+        (ending.priority || 0) +
+        (hasRequirement(ending.requireTag) ? 30 : 0) +
+        (hasRequirement(ending.anyTag) ? 12 : 0) +
+        (hasRequirement(ending.requireMajor) ? 20 : 0) +
+        (hasRequirement(ending.requireTier) ? 14 : 0) +
+        (hasRequirement(ending.requireSchoolKeyword) ? 16 : 0) +
+        Object.keys(normalizeCondition(ending.condition).min).length * 4 +
+        Object.keys(normalizeCondition(ending.condition).max).length * 4
+    }))
+    .sort((a, b) => b.score - a.score || a.index - b.index);
+
+  return matches[0]?.ending || endings[endings.length - 1];
+}
+
 export function analyzeUniversityTier(name) {
   const cleanName = name.trim();
 
@@ -106,6 +205,18 @@ const SCENARIO_MATRIX = {
       { action: "宏观经济数据解读讨论", choiceA: "撰写加息周期下的资产配置研报", choiceB: "收集行业板块数据进行对比分析" },
       { action: "公司财务造假识别实训", choiceA: "从现金流量表与存货周转率查找线索", choiceB: "分析审计报告中的保留意见条款" }
     ],
+    MAJOR_ARTS: [
+      { action: "校园议题深度采访", choiceA: "整理采访录音，写成有温度的特稿", choiceB: "从不同立场梳理观点，避免单线叙事" },
+      { action: "新媒体叙事工作坊", choiceA: "设计互动长图，强化阅读节奏", choiceB: "组织选题会，找到真正值得写的人" }
+    ],
+    MAJOR_MED: [
+      { action: "临床病案推理训练", choiceA: "列出鉴别诊断路径，逐项排除风险", choiceB: "先安抚标准化病人，再补全病史细节" },
+      { action: "基础医学实验复盘", choiceA: "按实验记录追查异常指标", choiceB: "和小组复盘操作流程，减少误差" }
+    ],
+    MAJOR_DESIGN: [
+      { action: "作品集评审与用户访谈", choiceA: "重构信息层级，让作品叙事更清晰", choiceB: "邀请真实用户试用，记录卡点" },
+      { action: "数字媒体原型冲刺", choiceA: "打磨动效和交互反馈", choiceB: "拆解竞品流程，提炼可复用组件" }
+    ],
     DEFAULT: [
       { action: "选修课学术交叉研讨", choiceA: "结合本专业知识发表跨界独到见解", choiceB: "认真听取其他专业同学的切入视角" },
       { action: "社团志愿服务与经验分享", choiceA: "主动承担组织协调工作，保障活动顺畅", choiceB: "协助后勤保障，和大家打成一片" },
@@ -124,6 +235,9 @@ export function generateProceduralEvent(currentStepIndex, playerTags = [], usedT
   if (playerTags.includes("MAJOR_CS")) majorKey = "MAJOR_CS";
   else if (playerTags.includes("MAJOR_EE")) majorKey = "MAJOR_EE";
   else if (playerTags.includes("MAJOR_FINANCE")) majorKey = "MAJOR_FINANCE";
+  else if (playerTags.includes("MAJOR_ARTS")) majorKey = "MAJOR_ARTS";
+  else if (playerTags.includes("MAJOR_MED")) majorKey = "MAJOR_MED";
+  else if (playerTags.includes("MAJOR_DESIGN")) majorKey = "MAJOR_DESIGN";
 
   const activityList = SCENARIO_MATRIX.MAJOR_ACTIVITIES[majorKey] || SCENARIO_MATRIX.MAJOR_ACTIVITIES.DEFAULT;
   const activity = activityList[currentStepIndex % activityList.length];

@@ -110,6 +110,90 @@
     ]
   },
   {
+    "id": "m3_sophomore_cs_hackathon",
+    "year": 2,
+    "term": 2,
+    "month": 3,
+    "requireMajor": "MAJOR_CS",
+    "priority": 12,
+    "title": "大二 3月：黑客松与开源项目初战",
+    "text": "周末的实验楼被临时改成黑客松现场。屏幕上滚动着仓库提交记录，队友们正在争论产品方向。",
+    "choices": [
+      { "text": "用最小可行 Demo 把核心功能先跑通", "effect": { "skill": 14, "network": 8, "stress": 5 }, "tagAdd": "HACKATHON_BUILDER", "log": "你们赶在截止前跑通了 Demo，评委记住了你的工程判断。" },
+      { "text": "重构代码结构，避免演示前临场崩盘", "effect": { "skill": 16, "academic": 6, "stress": 4 }, "tagAdd": "GEEK", "log": "项目没有做得花哨，但稳定性让你们拿到了关键加分。" }
+    ]
+  },
+  {
+    "id": "m3_sophomore_ee_lab",
+    "year": 2,
+    "term": 2,
+    "month": 3,
+    "requireMajor": "MAJOR_EE",
+    "priority": 12,
+    "title": "大二 3月：电路调试与信号异常",
+    "text": "实验台上的示波器波形突然开始抖动，老师让你们在下课前定位问题来源。",
+    "choices": [
+      { "text": "沿着信号链路逐级排查，定位接地噪声", "effect": { "skill": 15, "academic": 8, "stress": 5 }, "tagAdd": "SIGNAL_DEBUGGER", "log": "你通过波形判断找到了噪声源，实验报告写得很扎实。" },
+      { "text": "和搭档重写单片机测试程序验证外围模块", "effect": { "skill": 12, "network": 10 }, "tagAdd": "EMBEDDED_BUILDER", "log": "你们用程序验证硬件状态，调试效率明显提高。" }
+    ]
+  },
+  {
+    "id": "m3_sophomore_finance_case",
+    "year": 2,
+    "term": 2,
+    "month": 3,
+    "requireMajor": "MAJOR_FINANCE",
+    "priority": 12,
+    "title": "大二 3月：企业估值案例赛",
+    "text": "学院发布了一场真实公司估值案例赛，财报、行业数据和路演材料堆满了桌面。",
+    "choices": [
+      { "text": "搭建三表模型，拆出增长与毛利的敏感性", "effect": { "academic": 12, "skill": 12, "stress": 5 }, "tagAdd": "FINANCE_CASE_WIN", "log": "你的模型把商业逻辑讲清楚了，答辩时非常有说服力。" },
+      { "text": "联系校友访谈，补充行业一线判断", "effect": { "network": 14, "wealth": 6, "skill": 6 }, "tagAdd": "NETWORKING", "log": "校友的行业视角让你们避开了纸面分析的盲区。" }
+    ]
+  },
+  {
+    "id": "m3_sophomore_arts_fieldwork",
+    "year": 2,
+    "term": 2,
+    "month": 3,
+    "requireMajor": "MAJOR_ARTS",
+    "priority": 12,
+    "title": "大二 3月：校园议题与深度采访",
+    "text": "一则校园议题在论坛里引发讨论。老师建议你别急着下结论，先去和真正经历过的人聊聊。",
+    "choices": [
+      { "text": "做一组深度采访，把复杂处境写成特稿", "effect": { "academic": 10, "network": 10, "love": 6 }, "tagAdd": "STORYTELLER", "log": "你写出了有温度的故事，也学会了尊重事实的复杂性。" },
+      { "text": "写一篇锋利但克制的评论，提出改进方案", "effect": { "skill": 10, "happiness": 8, "stress": 3 }, "tagAdd": "WRITER", "log": "你的文章在同学间传开，观点鲜明但没有失去分寸。" }
+    ]
+  },
+  {
+    "id": "m3_sophomore_med_clinic",
+    "year": 2,
+    "term": 2,
+    "month": 3,
+    "requireMajor": "MAJOR_MED",
+    "priority": 12,
+    "title": "大二 3月：模拟诊疗与病案讨论",
+    "text": "标准化病人坐在诊室里，病史信息并不完整。你需要在有限时间内完成问诊和初步判断。",
+    "choices": [
+      { "text": "严谨整理主诉、现病史与鉴别诊断路径", "effect": { "academic": 14, "skill": 10, "stress": 6 }, "tagAdd": "CLINICAL_THINKING", "log": "你把病案逻辑梳理得非常清楚，老师点名表扬了你的严谨。" },
+      { "text": "先安抚病人的焦虑，再逐步补全关键信息", "effect": { "skill": 8, "network": 8, "happiness": 6 }, "tagAdd": "EMPATHIC_HEALER", "log": "你的沟通让病人放松下来，很多被遗漏的细节浮出水面。" }
+    ]
+  },
+  {
+    "id": "m3_sophomore_design_studio",
+    "year": 2,
+    "term": 2,
+    "month": 3,
+    "requireMajor": "MAJOR_DESIGN",
+    "priority": 12,
+    "title": "大二 3月：作品集评审与用户访谈",
+    "text": "导师把你的作品投到大屏上，第一句话是：形式不错，但你想解决的问题是什么？",
+    "choices": [
+      { "text": "重构作品集叙事，把问题、过程和结果串起来", "effect": { "skill": 14, "academic": 6, "stress": 5 }, "tagAdd": "PORTFOLIO_BUILDER", "log": "你的作品不再只是好看，而是能说明判断和取舍。" },
+      { "text": "约真实用户访谈，记录他们卡住的每个瞬间", "effect": { "network": 12, "skill": 8, "happiness": 5 }, "tagAdd": "UX_RESEARCHER", "log": "用户反馈让你推翻了几个自以为漂亮的设计。" }
+    ]
+  },
+  {
     "id": "m5_sophomore_cert",
     "year": 2,
     "term": 2,
@@ -130,7 +214,8 @@
     "text": "大三伊始，班会上辅导员分析了往年的就业、保研与考研数据。你开始认真思考未来。",
     "choices": [
       { "text": "坚定选择考研/保研深造之路", "effect": { "academic": 15, "stress": 8 }, "tagAdd": "PATH_RESEARCH_PREP", "log": "你制定了详尽的复习计划，准备深造。" },
-      { "text": "瞄准企业求职，开始准备校招简历与实习", "effect": { "skill": 15, "wealth": 10 }, "tagAdd": "PATH_JOB_PREP", "log": "你开始打磨项目经历，筹备求职面试。" }
+      { "text": "瞄准企业求职，开始准备校招简历与实习", "effect": { "skill": 15, "wealth": 10 }, "tagAdd": "PATH_JOB_PREP", "log": "你开始打磨项目经历，筹备求职面试。" },
+      { "text": "先保留弹性，同时试探科研、实习和社团项目", "effect": { "academic": 6, "skill": 6, "network": 8, "happiness": 5 }, "tagAdd": "PATH_BALANCED", "log": "你没有急着给未来贴标签，而是用几个月收集真实反馈。" }
     ]
   },
   {
@@ -146,6 +231,34 @@
     ]
   },
   {
+    "id": "m11_junior_job_sprint",
+    "year": 3,
+    "term": 1,
+    "month": 11,
+    "requireTag": "PATH_JOB_PREP",
+    "priority": 24,
+    "title": "大三 11月：简历项目与技术面试冲刺",
+    "text": "招聘群里开始流传往年面经。你发现自己不是缺努力，而是需要把经历讲成一个可信的成长故事。",
+    "choices": [
+      { "text": "把核心项目改造成可演示作品集", "effect": { "skill": 18, "wealth": 8, "stress": 8 }, "tagAdd": "PORTFOLIO_READY", "log": "项目终于能在三分钟内讲清楚价值，简历也有了重心。" },
+      { "text": "和同学互相模拟群面与 HR 面", "effect": { "network": 12, "skill": 10, "stress": -2 }, "tagAdd": "INTERVIEW_READY", "log": "你学会了把经历讲得具体、诚实，也更像一个可靠的合作者。" }
+    ]
+  },
+  {
+    "id": "m11_junior_balanced_project",
+    "year": 3,
+    "term": 1,
+    "month": 11,
+    "requireTag": "PATH_BALANCED",
+    "priority": 22,
+    "title": "大三 11月：跨专业项目与未来试错",
+    "text": "你没有押注单一路线，而是拉了几位不同专业的同学做一个校园工具原型，想用真实反馈判断自己适合什么。",
+    "choices": [
+      { "text": "负责调研和排期，把混乱需求拆成版本计划", "effect": { "network": 14, "skill": 8, "happiness": 6 }, "tagAdd": "CROSS_DISCIPLINE_LEAD", "log": "你在项目里找到了协调复杂问题的乐趣。" },
+      { "text": "承担最难的核心模块，验证自己能否独当一面", "effect": { "skill": 14, "academic": 8, "stress": 5 }, "tagAdd": "PORTFOLIO_READY", "log": "试错没有让你更迷茫，反而暴露了真正能让你投入的方向。" }
+    ]
+  },
+  {
     "id": "m4_junior_intern_hunt",
     "year": 3,
     "term": 2,
@@ -155,6 +268,20 @@
     "choices": [
       { "text": "海投几十家心仪企业，接连参加多轮面试", "effect": { "skill": 18, "wealth": 15, "network": 10 }, "tagAdd": "INTERN_OFFER", "log": "经过多轮技术与 HR 面试，你斩获了满意的暑期实习 Offer！" },
       { "text": "精投头部企业，集中精力攻克目标岗位", "effect": { "skill": 14, "academic": 8 }, "tagAdd": "INTERN_OFFER", "log": "精准出击，顺利拿到了实习录取通知。" }
+    ]
+  },
+  {
+    "id": "m4_junior_research_camp",
+    "year": 3,
+    "term": 2,
+    "month": 4,
+    "requireTag": "PATH_RESEARCH_PREP",
+    "priority": 24,
+    "title": "大三 4月：夏令营申请与科研材料",
+    "text": "各高校夏令营通知陆续发布。你需要把成绩单、项目经历和研究兴趣整理成一份可信的申请材料。",
+    "choices": [
+      { "text": "打磨研究计划，联系心仪方向的导师", "effect": { "academic": 18, "network": 8, "stress": 8 }, "tagAdd": "RESEARCH_CAMP_READY", "log": "你的邮件没有模板感，导师回复说可以进一步聊聊。" },
+      { "text": "复盘课题经历，把失败实验也写进材料", "effect": { "academic": 14, "skill": 8, "happiness": 5 }, "tagAdd": "RESEARCH_MINDSET", "log": "你意识到科研不是包装完美，而是诚实地解释问题。" }
     ]
   },
   {
@@ -170,6 +297,20 @@
     ]
   },
   {
+    "id": "m6_junior_research_work",
+    "year": 3,
+    "term": 2,
+    "month": 6,
+    "requireTag": "PATH_RESEARCH_PREP",
+    "priority": 24,
+    "title": "大三 6月：暑期科研与第一次组会汇报",
+    "text": "你进入课题组参与暑研。真实科研不像课堂题目，很多问题没有标准答案，甚至没有明确题目。",
+    "choices": [
+      { "text": "追踪论文脉络，搭建一个可复现实验基线", "effect": { "academic": 20, "skill": 12, "stress": 8 }, "tagAdd": "RESEARCH_BASELINE", "log": "你没有急着创新，而是先把别人做过的东西真正复现出来。" },
+      { "text": "在组会上诚实汇报卡点，争取导师反馈", "effect": { "academic": 14, "network": 10, "stress": -3 }, "tagAdd": "MENTOR_TRUST", "log": "导师欣赏你不粉饰进度，给了你更适合的切入点。" }
+    ]
+  },
+  {
     "id": "m10_senior_autumn_recruit",
     "year": 4,
     "term": 1,
@@ -179,6 +320,20 @@
     "choices": [
       { "text": "带上简历穿梭在招聘会现场，争取高薪 SP Offer", "effect": { "wealth": 22, "skill": 15 }, "tagAdd": "JOB_SP_OFFER", "log": "你在秋招中脱颖而出，锁定了满意的高薪岗位。" },
       { "text": "与导师细致讨论毕设题目，做好学术开题", "effect": { "academic": 20, "skill": 10 }, "log": "毕设开题报告高分通过，受到导师认可。" }
+    ]
+  },
+  {
+    "id": "m10_senior_research_gate",
+    "year": 4,
+    "term": 1,
+    "month": 10,
+    "requireTag": "PATH_RESEARCH_PREP",
+    "priority": 22,
+    "title": "大四 10月：推免边缘与复试准备",
+    "text": "保研名单和复试安排陆续公布。有人尘埃落定，有人还要继续考试，你需要决定最后一段冲刺怎么打。",
+    "choices": [
+      { "text": "稳住专业课和科研陈述，准备复试问答", "effect": { "academic": 18, "network": 8, "stress": 6 }, "tagAdd": "GRAD_SCHOOL_SHORTLIST", "log": "你把经历讲成了清晰的问题意识，而不是堆满奖项的清单。" },
+      { "text": "保留考研方案，不把希望押在单一结果上", "effect": { "academic": 14, "happiness": 5, "stress": -3 }, "tagAdd": "BACKUP_PLAN", "log": "你承认不确定性存在，但没有让它吞掉行动力。" }
     ]
   },
   {
@@ -194,6 +349,34 @@
     ]
   },
   {
+    "id": "m12_senior_offer_decision",
+    "year": 4,
+    "term": 1,
+    "month": 12,
+    "requireTag": "PATH_JOB_PREP",
+    "priority": 24,
+    "title": "大四 12月：Offer 谈判与三方签约",
+    "text": "几份录用通知摆在面前，薪资、城市、团队、成长空间都不完全一样。第一次，你要为自己的职业判断负责。",
+    "choices": [
+      { "text": "比较薪资、城市和成长空间，谨慎谈判", "effect": { "wealth": 22, "network": 8, "stress": 5 }, "tagAdd": "SIGNED_OFFER", "log": "你没有被第一个数字冲昏头脑，而是认真谈出了更适合自己的方案。" },
+      { "text": "选择节奏更健康的团队，保留长期成长空间", "effect": { "wealth": 12, "happiness": 12, "health": 5, "stress": -8 }, "tagAdd": "BALANCED_OFFER", "log": "你选择了一份不只看起薪，也能让你持续成长的工作。" }
+    ]
+  },
+  {
+    "id": "m12_senior_balanced_decision",
+    "year": 4,
+    "term": 1,
+    "month": 12,
+    "requireTag": "PATH_BALANCED",
+    "priority": 22,
+    "title": "大四 12月：多重去向的最后筛选",
+    "text": "你手里没有单一标准答案：一个项目机会、一份还不错的工作、一个继续深造的可能性同时出现。",
+    "choices": [
+      { "text": "把四年作品和经历整理成个人项目集", "effect": { "skill": 14, "network": 10, "happiness": 8 }, "tagAdd": "PORTFOLIO_READY", "log": "你终于看见，那些绕路并不是浪费，而是组成了独特的证据链。" },
+      { "text": "和导师、朋友、家人分别聊一次真实期待", "effect": { "network": 12, "love": 8, "stress": -6 }, "tagAdd": "LIFE_CLARITY", "log": "不同人的建议没有替你决定人生，却帮你听清了自己的声音。" }
+    ]
+  },
+  {
     "id": "m5_senior_thesis_defense",
     "year": 4,
     "term": 2,
@@ -206,6 +389,20 @@
     ]
   },
   {
+    "id": "m5_senior_burnout_warning",
+    "year": 4,
+    "term": 2,
+    "month": 5,
+    "condition": { "min": { "stress": 82 } },
+    "priority": 40,
+    "title": "大四 5月：毕业前的过载警报",
+    "text": "答辩、签约、升学、告别一起压来。你发现自己不是不努力，而是已经很久没有真正休息了。",
+    "choices": [
+      { "text": "主动降载，向导师和队友说明真实状态", "effect": { "health": 14, "happiness": 12, "stress": -24 }, "tagAdd": "BALANCE_FOUND", "log": "你没有把求助当成失败，反而把最后一段路走稳了。" },
+      { "text": "硬扛最后一波，把所有任务一次性推完", "effect": { "academic": 12, "skill": 10, "stress": 12, "health": -18 }, "tagAdd": "OVERLOADED", "log": "你确实撑过来了，但身体把代价记得很清楚。" }
+    ]
+  },
+  {
     "id": "m6_senior_graduation",
     "year": 4,
     "term": 2,
@@ -215,6 +412,20 @@
     "choices": [
       { "text": "拥抱室友与朋友，带着满满的回忆开启人生新征程", "effect": { "happiness": 30, "love": 15, "wealth": 15 }, "tagAdd": "GRADUATED_HAPPY", "log": "大学四年完美收官，你勇敢地迈向了未知的未来！" },
       { "text": "在校园里独自走一遍熟悉的跑道和教室", "effect": { "happiness": 20, "academic": 10 }, "log": "向这片承载了青春的土地道别。" }
+    ]
+  },
+  {
+    "id": "m6_senior_relationship_farewell",
+    "year": 4,
+    "term": 2,
+    "month": 6,
+    "condition": { "min": { "love": 62, "happiness": 70 } },
+    "priority": 18,
+    "title": "大四 6月：站台、合影与没说出口的话",
+    "text": "毕业照拍完后，朋友们陆续奔向不同城市。你在站台旁意识到，有些关系不是结局，而是下一段人生的开头。",
+    "choices": [
+      { "text": "认真说出感谢和喜欢，不把遗憾留给以后", "effect": { "love": 18, "happiness": 16, "stress": -8 }, "tagAdd": "SOULMATE", "log": "你没有把真心藏进玩笑里，于是某段关系有了继续生长的可能。" },
+      { "text": "把所有回忆整理成一封长信，发给重要的人", "effect": { "love": 12, "happiness": 20, "network": 8 }, "tagAdd": "DEEP_BONDS", "log": "那封信没有惊天动地，却让很多人认真回复了你。" }
     ]
   }
 ]

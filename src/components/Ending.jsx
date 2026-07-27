@@ -1,8 +1,19 @@
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { Award, RotateCcw, Share2, Sparkles, BookOpen, Cpu, Heart, Smile } from 'lucide-react';
+import { Award, RotateCcw } from 'lucide-react';
 
-export default function Ending({ ending, stats, schoolName, studentId, eventHistoryCount, onRestart }) {
+const STAT_ITEMS = [
+  ['学业', 'academic', '#00f0ff'],
+  ['技能', 'skill', '#9d00ff'],
+  ['财富', 'wealth', '#ffaa00'],
+  ['爱情', 'love', '#ff007f'],
+  ['人脉', 'network', '#00ff88'],
+  ['快乐', 'happiness', '#00e5ff'],
+  ['健康', 'health', '#8df7b7'],
+  ['压力', 'stress', '#ff3366']
+];
+
+export default function Ending({ ending, stats, schoolName, majorLabel, studentId, eventHistoryCount, onRestart }) {
   useEffect(() => {
     // Trigger congratulatory cyberpunk confetti
     confetti({
@@ -41,11 +52,11 @@ export default function Ending({ ending, stats, schoolName, studentId, eventHist
       {/* Quote Card */}
       <blockquote style={{
         background: 'rgba(0, 240, 255, 0.05)',
-        borderLeft: '4px solid var(--primary-cyan)',
+        border: '1px solid rgba(0, 240, 255, 0.28)',
         padding: '16px 20px',
         margin: '0 auto 28px auto',
         maxWidth: '600px',
-        borderRadius: '0 8px 8px 0',
+        borderRadius: '8px',
         fontStyle: 'italic',
         color: '#e2e8f0',
         lineHeight: '1.6'
@@ -85,26 +96,17 @@ export default function Ending({ ending, stats, schoolName, studentId, eventHist
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '0.9rem', marginBottom: '12px' }}>
           <div>所就读大学: <span style={{ color: '#fff', fontWeight: '600' }}>{schoolName}</span></div>
+          <div>录取专业: <span style={{ color: '#fff', fontWeight: '600' }}>{majorLabel}</span></div>
           <div>经历了瞬间: <span style={{ color: 'var(--primary-cyan)', fontWeight: '600' }}>{eventHistoryCount} 个小事件</span></div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', paddingTop: '8px' }} className="cyber-mono-font">
-          <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.03)', padding: '6px', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>学业</div>
-            <div style={{ color: '#00f0ff', fontWeight: 'bold' }}>{stats.academic}</div>
-          </div>
-          <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.03)', padding: '6px', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>技能</div>
-            <div style={{ color: '#9d00ff', fontWeight: 'bold' }}>{stats.skill}</div>
-          </div>
-          <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.03)', padding: '6px', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>爱情</div>
-            <div style={{ color: '#ff007f', fontWeight: 'bold' }}>{stats.love}</div>
-          </div>
-          <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.03)', padding: '6px', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>快乐</div>
-            <div style={{ color: '#00e5ff', fontWeight: 'bold' }}>{stats.happiness}</div>
-          </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(86px, 1fr))', gap: '8px', paddingTop: '8px' }} className="cyber-mono-font">
+          {STAT_ITEMS.map(([label, key, color]) => (
+            <div key={key} style={{ textAlign: 'center', background: 'rgba(255,255,255,0.03)', padding: '6px', borderRadius: '6px' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{label}</div>
+              <div style={{ color, fontWeight: 'bold' }}>{stats[key]}</div>
+            </div>
+          ))}
         </div>
       </div>
 

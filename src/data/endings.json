@@ -1,72 +1,189 @@
 [
   {
+    "id": "burnout_reboot",
+    "title": "「过载重启者」",
+    "subtitle": "把人生从红色告警里拉回来",
+    "priority": 120,
+    "anyTag": ["OVERLOADED"],
+    "condition": { "min": { "stress": 85 }, "max": { "health": 68 } },
+    "quote": "真正的强大，不是永远硬扛，而是知道什么时候该停下来。",
+    "description": "你在大学最后阶段把许多目标推到了极限，也第一次认真看见自己的身体和情绪。毕业不是胜利冲线，而是一次重启：你学会了把长期可持续放进人生判断。"
+  },
+  {
     "id": "cqupt_run_king_ending",
     "title": "「重邮约跑王」",
     "subtitle": "文峰塔下的山城跑步传奇",
+    "priority": 72,
+    "requireSchoolKeyword": ["重庆邮电", "重邮"],
     "requireTag": "RUNNER",
-    "condition": { "health": 75 },
-    "quote": "文峰塔下的每一寸坡道，都留下了我们热血挥洒的青春！",
-    "description": "在大学期间，你坚持在操场与山城坡道上跑步打卡。数千个晨跑与夜跑的日子，打造了你钢铁般的意志与极佳的体魄。"
+    "condition": { "min": { "health": 85, "happiness": 70 } },
+    "quote": "山城的坡不会变平，但你的步伐会越来越稳。",
+    "description": "你把操场、坡道和夜风跑成了自己的大学地图。别人记住的是成绩和 Offer，你记住的是每一次把疲惫甩在身后的呼吸。"
   },
   {
     "id": "cqupt_tech_legend",
     "title": "「红岩极客神话」",
-    "subtitle": "硬核赛博工程的骄傲",
+    "subtitle": "硬核工程与山城代码的传说",
+    "priority": 75,
+    "requireSchoolKeyword": ["重庆邮电", "重邮"],
     "requireTag": "GEEK",
-    "condition": { "skill": 75 },
-    "quote": "修德博学，求实创新，代码塑造未来。",
-    "description": "从大一配置好第一个开发环境，到大二加入课题攻克重难点，大四斩获顶薪。你用满分的技术功底诠释了硬核工程传奇！"
-  },
-  {
-    "id": "marathon_legend",
-    "title": "「赛博马拉松传奇」",
-    "subtitle": "极度自律的硬核跑者",
-    "requireTag": "RUNNER",
-    "condition": { "health": 80 },
-    "quote": "跑步是自己与灵魂的对话，用双脚丈量赛博世界。",
-    "description": "大学四年你跑过了上千公里，斩获了多张完赛奖牌。健美的体魄与坚韧不拔的意志，成为了你一生最大的财富。"
+    "condition": { "min": { "skill": 88 } },
+    "quote": "修德博学，求实创新，代码也要落到真实问题里。",
+    "description": "从第一晚配环境，到项目、竞赛、实习和毕业设计，你没有只追逐炫技，而是把工程判断练成了稳定的本能。"
   },
   {
     "id": "researcher_top",
-    "title": "「人类知识探索者」",
-    "subtitle": "顶尖研究院首席科学家",
+    "title": "「知识边界探索者」",
+    "subtitle": "从不确定中提出好问题的人",
+    "priority": 93,
     "requireTag": "PATH_RESEARCH_PREP",
-    "condition": { "academic": 75 },
-    "quote": "站在巨人的肩膀上，为人类文明拓展外延。",
-    "description": "你在大学四年保持着近乎完美的GPA，在深造求学之路上坚定前行。毕业后顺利进入实验室，继续探索未知的知识前沿。"
+    "condition": { "min": { "academic": 90 } },
+    "quote": "科研不是证明自己聪明，而是让问题变得更清楚。",
+    "description": "你在复习、夏令营、组会和答辩之间逐渐建立了真正的问题意识。毕业后，你带着扎实的训练进入下一段深造，不再害怕没有标准答案的题目。"
   },
   {
     "id": "coder_architect",
     "title": "「代码筑梦师」",
-    "subtitle": "核心大厂架构师",
+    "subtitle": "能把复杂需求落地的人",
+    "priority": 88,
     "requireTag": "PATH_JOB_PREP",
-    "condition": { "skill": 75 },
-    "quote": "Talk is cheap. Show me the code.",
-    "description": "大一开始钻研技术，大二参与竞赛，大三顺利斩获大厂暑期实习并最终拿到满意 Package。"
+    "anyTag": ["JOB_SP_OFFER", "SIGNED_OFFER", "PORTFOLIO_READY"],
+    "condition": { "min": { "skill": 88, "wealth": 72 } },
+    "quote": "能上线、能解释、能维护，才是真正的工程能力。",
+    "description": "你把项目经历打磨成可信的作品集，在面试和真实业务中证明了自己的判断。毕业时，你拿到的不只是一份工作，而是一套解决问题的方法。"
+  },
+  {
+    "id": "balanced_offer_holder",
+    "title": "「松弛感 Offer 持有者」",
+    "subtitle": "选择长期成长，而不是只赢一次",
+    "priority": 84,
+    "requireTag": "BALANCED_OFFER",
+    "condition": { "min": { "skill": 75, "happiness": 75, "health": 70 } },
+    "quote": "好的选择不是最响亮的选择，是你能持续走下去的选择。",
+    "description": "你没有被最高起薪完全绑架，也没有假装自己不在乎现实。你选择了一条能学习、能生活、也能继续成长的职业路径。"
+  },
+  {
+    "id": "finance_city_analyst",
+    "title": "「城市灯火分析师」",
+    "subtitle": "在数据、行业和人之间找答案",
+    "priority": 85,
+    "requireMajor": "MAJOR_FINANCE",
+    "anyTag": ["FINANCE_CASE_WIN", "NETWORKING", "SIGNED_OFFER"],
+    "condition": { "min": { "wealth": 72, "network": 65 } },
+    "quote": "模型给出边界，真实世界负责提醒你谦逊。",
+    "description": "你从财报、估值和校友访谈里学会了更现实的商业判断。毕业后，你进入快速变化的城市产业现场，既看数字，也看数字背后的人。"
+  },
+  {
+    "id": "clinical_warm_light",
+    "title": "「临床暖光」",
+    "subtitle": "严谨和共情并不冲突",
+    "priority": 85,
+    "requireMajor": "MAJOR_MED",
+    "anyTag": ["CLINICAL_THINKING", "EMPATHIC_HEALER"],
+    "condition": { "min": { "academic": 78, "skill": 72 } },
+    "quote": "诊断需要证据，治疗也需要被看见的人。",
+    "description": "你在病案、实验和沟通训练里同时磨出了严谨与耐心。未来的路很长，但你已经知道，医学不是冷冰冰地答题。"
+  },
+  {
+    "id": "narrative_creator",
+    "title": "「叙事造风者」",
+    "subtitle": "把复杂的人和事讲清楚",
+    "priority": 85,
+    "requireMajor": "MAJOR_ARTS",
+    "anyTag": ["STORYTELLER", "WRITER"],
+    "condition": { "min": { "happiness": 72, "network": 60 } },
+    "quote": "文字不是装饰，它能让被忽略的经验重新出现。",
+    "description": "你没有把表达当成情绪宣泄，而是学会采访、核实、克制和组织。毕业后，你带着一支更锋利也更温柔的笔出发。"
+  },
+  {
+    "id": "design_problem_solver",
+    "title": "「问题重构设计师」",
+    "subtitle": "不止做漂亮东西，也做正确取舍",
+    "priority": 85,
+    "requireMajor": "MAJOR_DESIGN",
+    "anyTag": ["PORTFOLIO_BUILDER", "UX_RESEARCHER"],
+    "condition": { "min": { "skill": 78, "network": 58 } },
+    "quote": "形式会吸引目光，判断才能留下价值。",
+    "description": "你从作品集评审和用户访谈里明白，设计不是把界面涂亮，而是重新理解问题。毕业时，你已经能讲清每一个取舍。"
+  },
+  {
+    "id": "signal_engineer",
+    "title": "「信号捕手」",
+    "subtitle": "在噪声里找到真实波形",
+    "priority": 85,
+    "requireMajor": "MAJOR_EE",
+    "anyTag": ["SIGNAL_DEBUGGER", "EMBEDDED_BUILDER"],
+    "condition": { "min": { "skill": 80, "academic": 65 } },
+    "quote": "世界不是没有答案，只是答案常常藏在噪声里。",
+    "description": "你在电路、嵌入式和实验报告之间练出了扎实的工程手感。毕业后，你能把抽象原理接到真实设备上。"
+  },
+  {
+    "id": "open_source_builder",
+    "title": "「开源建造者」",
+    "subtitle": "把个人能力放进公共协作",
+    "priority": 85,
+    "requireMajor": "MAJOR_CS",
+    "anyTag": ["HACKATHON_BUILDER", "GEEK", "PORTFOLIO_READY"],
+    "condition": { "min": { "skill": 85, "network": 58 } },
+    "quote": "好的代码会运行，好的协作会留下来。",
+    "description": "你从黑客松、项目和代码评审里学会了工程协作。毕业时，你不只是会写功能，也懂得让别人能理解、使用和继续维护。"
+  },
+  {
+    "id": "campus_connector",
+    "title": "「校园连接器」",
+    "subtitle": "让不同的人开始互相信任",
+    "priority": 103,
+    "anyTag": ["NETWORKING", "TEAM_PLAYER", "INTERVIEW_READY", "CROSS_DISCIPLINE_LEAD"],
+    "condition": { "min": { "network": 95, "happiness": 62 } },
+    "quote": "真正的人脉不是通讯录，是别人愿意和你一起做难事。",
+    "description": "你在社团、项目、比赛和面试中不断练习合作。你的大学不只有个人成长，也留下了一张彼此支持的网络。"
+  },
+  {
+    "id": "campus_romance",
+    "title": "「未完待续的双人地图」",
+    "subtitle": "毕业不是所有关系的终点",
+    "priority": 112,
+    "anyTag": ["SOULMATE", "DEEP_BONDS", "ARTIST", "LIFE_CLARITY"],
+    "condition": { "min": { "love": 66, "happiness": 70 } },
+    "quote": "有些告别不是句号，而是换一种方式并肩。",
+    "description": "你认真经营过那些细小但重要的关系。离校那天，你没有让真心停在玩笑里，也因此带走了一段仍会继续生长的故事。"
+  },
+  {
+    "id": "marathon_legend",
+    "title": "「赛博马拉松传奇」",
+    "subtitle": "极度自律的长期主义者",
+    "priority": 89,
+    "requireTag": "RUNNER",
+    "condition": { "min": { "health": 88 } },
+    "quote": "每一次起跑都很小，但四年足够把人变成另一个人。",
+    "description": "你把跑步变成稳定生活的锚。它不一定给你最耀眼的履历，却给了你面对长期难题的耐心。"
   },
   {
     "id": "resilient_fighter",
     "title": "「逆风翻盘者」",
-    "subtitle": "从挫折中崛起的坚韧灵魂",
+    "subtitle": "从挫折里长出方法",
+    "priority": 89,
     "requireTag": "STUDIOUS",
-    "condition": { "academic": 60 },
-    "quote": "凡杀不死我的，必使我更强大。",
-    "description": "面对高难度的专业课程与考核，你顽强地克服了困难，凭硬实力与自律实现了逆风翻盘！"
+    "condition": { "min": { "academic": 70 } },
+    "quote": "不是所有逆风都浪漫，但每一次调整都算数。",
+    "description": "你经历过吃力、焦虑和不确定，却没有把一次困难误认成人生定论。你毕业时带走的是重新学习的能力。"
   },
   {
-    "id": "happy_slacker",
+    "id": "happy_life_artist",
     "title": "「快乐生活家」",
-    "subtitle": "生活艺术家与自由灵魂",
-    "condition": { "happiness": 65 },
-    "quote": "人生不是一场比赛，而是一段绝妙的旅程。",
-    "description": "虽然生活平凡，但你收获了一群肝胆相照的至交好友，心态阳光健康，活出了最真实的自己。"
+    "subtitle": "把普通日子过得有声有色",
+    "priority": 108,
+    "condition": { "min": { "happiness": 78 }, "max": { "stress": 76 } },
+    "quote": "人生不是一张排名表，幸福也不是低配目标。",
+    "description": "你没有在每个赛道上都争第一，但你保留了朋友、兴趣、健康和对生活的好奇。这样的大学，也很珍贵。"
   },
   {
     "id": "default_graduate",
     "title": "「新晋赛博公民」",
     "subtitle": "踏上漫漫人生新途",
+    "priority": 0,
     "condition": {},
     "quote": "前方浩瀚无垠，未来皆有可能。",
-    "description": "四年的大学时光悄然流逝，你带着属于自己的珍贵记忆，坚定地迈向了广阔的社会舞台。"
+    "description": "四年的大学时光悄然流逝。你带着那些看似普通、其实很具体的记忆，坚定地迈向更广阔的世界。"
   }
 ]

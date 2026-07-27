@@ -2,7 +2,7 @@ import React from 'react';
 import ChoiceButton from './ChoiceButton';
 import { Terminal, Clock, Flame } from 'lucide-react';
 
-export default function EventCard({ event, onChoiceSelect, choiceHistory }) {
+export default function EventCard({ event, onChoiceSelect, choiceHistory, isProcessingChoice }) {
   if (!event) return null;
 
   return (
@@ -50,7 +50,7 @@ export default function EventCard({ event, onChoiceSelect, choiceHistory }) {
         background: 'rgba(255, 255, 255, 0.02)',
         padding: '16px',
         borderRadius: '8px',
-        borderLeft: '3px solid var(--primary-cyan)'
+        border: '1px solid rgba(0, 240, 255, 0.22)'
       }}>
         {event.text}
       </p>
@@ -62,6 +62,7 @@ export default function EventCard({ event, onChoiceSelect, choiceHistory }) {
             key={idx}
             choice={choice}
             onSelect={onChoiceSelect}
+            disabled={isProcessingChoice}
           />
         ))}
       </div>

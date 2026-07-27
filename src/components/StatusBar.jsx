@@ -1,5 +1,5 @@
 import React from 'react';
-import { Terminal, Calendar, Clock } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 export default function StatusBar({ schoolName, monthLabel, eventCount, studentId }) {
   return (

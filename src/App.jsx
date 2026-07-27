@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import eventsData from './data/events.json';
 import endingsData from './data/endings.json';
-import { generateProceduralEvent, INITIAL_STATS, analyzeUniversityTier, MAJORS_LIST, MONTH_CALENDAR } from './engine/simulator';
+import {
+  generateProceduralEvent,
+  INITIAL_STATS,
+  analyzeUniversityTier,
+  MAJORS_LIST,
+  MONTH_CALENDAR,
+  eventSpecificityScore,
+  matchesRequirements,
+  selectEnding
+} from './engine/simulator';
 
 import StatusBar from './components/StatusBar';
 import EventCard from './components/EventCard';
@@ -38,23 +47,41 @@ export default function App() {
 
   const currentCalendarStep = MONTH_CALENDAR[Math.min(currentStepIndex, MONTH_CALENDAR.length - 1)];
 
-  // Helper to pick exact unique event for step
-  const getEventForStep = (stepIndex, tags, usedIds) => {
+  // Helper to pick the most specific matching event for this calendar step.
+  const getEventForStep = (
+    stepIndex,
+    tags,
+    usedIds,
+    statsSnapshot = stats,
+    majorSnapshot = selectedMajor,
+    tierSnapshot = universityTierInfo
+  ) => {
     const calendarStep = MONTH_CALENDAR[stepIndex];
     if (!calendarStep) return null;
 
-    const candidates = eventsData.filter(e => {
-      if (usedIds.includes(e.id)) return false;
-      if (e.year !== calendarStep.year || e.term !== calendarStep.term) return false;
-      if (e.month && e.month !== calendarStep.month) return false;
-      return true;
-    });
+    const context = {
+      tags,
+      stats: statsSnapshot,
+      selectedMajor: majorSnapshot,
+      universityTier: tierSnapshot,
+      schoolName: selectedSchoolName
+    };
+
+    const candidates = eventsData
+      .map((event, index) => ({ event, index }))
+      .filter(({ event }) => {
+        if (usedIds.includes(event.id)) return false;
+        if (event.year !== calendarStep.year || event.term !== calendarStep.term) return false;
+        if (event.month && event.month !== calendarStep.month) return false;
+        return matchesRequirements(event, context);
+      })
+      .sort((a, b) => eventSpecificityScore(b.event, context) - eventSpecificityScore(a.event, context) || a.index - b.index);
 
     if (candidates.length > 0) {
-      return candidates[0];
+      return candidates[0].event;
     }
 
-    return generateProceduralEvent(stepIndex, tags, usedIds);
+    return generateProceduralEvent(stepIndex, tags, usedIds, context);
   };
 
   // Save/Load LocalStorage
@@ -134,7 +161,7 @@ export default function App() {
     setChoiceHistory([`录取专业设定为：[${major.label}]`]);
     setFinalEnding(null);
 
-    const firstEvent = getEventForStep(0, initialTags, []);
+    const firstEvent = getEventForStep(0, initialTags, [], initStats, major, universityTierInfo);
 
     setCurrentEvent(firstEvent);
     setUsedEventIds([firstEvent.id]);
@@ -174,10 +201,10 @@ export default function App() {
       return;
     }
 
-    const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
+    const newUsedIds = currentEvent ? [...new Set([...usedEventIds, currentEvent.id])] : usedEventIds;
     setUsedEventIds(newUsedIds);
 
-    const nextEvent = getEventForStep(nextStepIndex, updatedTags, newUsedIds);
+    const nextEvent = getEventForStep(nextStepIndex, updatedTags, newUsedIds, newStats);
     setCurrentEvent(nextEvent);
 
     setTimeout(() => {
@@ -185,31 +212,14 @@ export default function App() {
     }, 150);
   };
 
-  // Organic Tag & Stat Dual-Matching Ending System
+  // Organic tag, stat, school, and major matching ending system.
   const calculateEnding = (finalStats, finalTags) => {
-    // 1. First priority: endings with matching playerChoice tags & stats
-    const tagAndStatMatches = endingsData.filter(e => {
-      if (e.requireTag && !finalTags.includes(e.requireTag)) return false;
-      if (!e.condition || Object.keys(e.condition).length === 0) return true;
-      return Object.entries(e.condition).every(([key, val]) => (finalStats[key] || 0) >= val);
+    const ending = selectEnding(endingsData, finalStats, finalTags, {
+      selectedMajor,
+      universityTier: universityTierInfo,
+      schoolName: selectedSchoolName
     });
-
-    if (tagAndStatMatches.length > 0) {
-      setFinalEnding(tagAndStatMatches[0]);
-      return;
-    }
-
-    // 2. Fallback: stat matches only
-    const statMatches = endingsData.filter(e => {
-      if (!e.condition || Object.keys(e.condition).length === 0) return false;
-      return Object.entries(e.condition).every(([key, val]) => (finalStats[key] || 0) >= val);
-    });
-
-    if (statMatches.length > 0) {
-      setFinalEnding(statMatches[0]);
-    } else {
-      setFinalEnding(endingsData[endingsData.length - 1]);
-    }
+    setFinalEnding(ending);
   };
 
   const handleRestart = () => {
@@ -297,7 +307,7 @@ export default function App() {
             </h2>
             
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
-              经历 1000 个微小瞬间，在不知不觉的选择中推演属于你的大学人生。
+              经历 18 个关键瞬间，在一次次选择中推演属于你的大学人生。
             </p>
 
             <form onSubmit={(e) => { e.preventDefault(); handleConfirmSchool(schoolNameInput); }}>
@@ -423,6 +433,7 @@ export default function App() {
             event={currentEvent}
             onChoiceSelect={handleChoiceSelect}
             choiceHistory={choiceHistory}
+            isProcessingChoice={isProcessingChoice}
           />
         </div>
       )}
@@ -433,6 +444,7 @@ export default function App() {
           ending={finalEnding}
           stats={stats}
           schoolName={selectedSchoolName}
+          majorLabel={selectedMajor?.label}
           studentId={studentId}
           eventHistoryCount={currentStepIndex}
           onRestart={handleRestart}

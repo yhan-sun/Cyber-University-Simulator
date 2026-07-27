@@ -14,7 +14,9 @@ export default function ChoiceButton({ choice, onSelect, disabled }) {
         textAlign: 'left',
         background: 'rgba(0, 240, 255, 0.05)',
         borderColor: 'rgba(0, 240, 255, 0.3)',
-        alignItems: 'center'
+        alignItems: 'center',
+        opacity: disabled ? 0.55 : 1,
+        cursor: disabled ? 'not-allowed' : 'pointer'
       }}
     >
       <div style={{ flex: 1, paddingRight: '10px' }}>
