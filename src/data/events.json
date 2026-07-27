@@ -3,59 +3,74 @@
     "id": "freshman_001",
     "year": 1,
     "term": 1,
-    "title": "大学报到：第一个夜晚",
-    "text": "整理完宿舍床铺已是深夜。室友们各自在忙自己的事情：左边的室友在疯狂敲击机械键盘配环境，右边的室友在打游戏大喊大叫，阳台上有人在弹吉他。你决定怎么度过大学第一个夜晚？",
+    "title": "大学报到的第一个夜晚",
+    "text": "收拾完床铺，宿舍里弥漫着新席子的味道。室友们有的在低头玩手机，有的在和家里打电话，走廊里偶尔传来其他宿舍的笑闹声。今晚你打算做什么？",
     "choices": [
-      { "text": "打开电脑，配置 Linux 与 IDE 尝试写几行代码", "effect": { "skill": 12, "academic": 5, "stress": 4 }, "tagAdd": "GEEK", "log": "你在大学第一夜就开启了极客之旅，配置好了专属开发环境。" },
-      { "text": "戴上耳机组队加入室友的开黑队伍", "effect": { "happiness": 15, "network": 10, "academic": -4 }, "tagAdd": "GAMER", "log": "你与室友酣畅淋漓地打了五排，迅速打成了一片。" },
-      { "text": "换上跑鞋去操场跑夜跑5公里", "effect": { "health": 15, "happiness": 8, "stress": -5 }, "tagAdd": "RUNNER", "log": "夜风拂面，你感受到了酣畅淋漓的汗水与多巴胺分泌。" },
-      { "text": "走到阳台与弹吉他的室友合唱聊音乐与艺术", "effect": { "love": 10, "happiness": 12, "network": 8 }, "tagAdd": "ARTIST", "log": "你与室友在晚风中聊了很久浪漫与艺术。" }
+      { "text": "拿出电脑，把开发工具和常用软件配好", "effect": { "skill": 10, "academic": 4, "stress": 3 }, "tagAdd": "GEEK", "log": "你在安静的夜晚配好了电脑环境，为大学生活做好了准备。" },
+      { "text": "问问室友要不要组队打两把游戏拉近关系", "effect": { "happiness": 12, "network": 10, "academic": -3 }, "tagAdd": "GAMER", "log": "几把游戏下来，你和室友们迅速熟络了起来。" },
+      { "text": "换上运动鞋去操场跑几圈，顺便熟悉下校园环境", "effect": { "health": 12, "happiness": 8, "stress": -5 }, "tagAdd": "RUNNER", "log": "夜风很舒服，你在灯光下的操场上跑了几圈。" },
+      { "text": "靠在床头刷刷校园贴吧和社团讨论群", "effect": { "happiness": 8, "network": 6 }, "tagAdd": "OBSERVER", "log": "你了解了不少校园里的新鲜事和热门话题。" }
     ]
   },
   {
-    "id": "freshman_sports_cqupt_detail",
+    "id": "freshman_002",
     "year": 1,
     "term": 1,
-    "title": "主干道旁的夜跑挑战",
-    "text": "操场与林荫道旁挂着夜跑团的打卡彩旗。听说社团今晚要组织沿着坡道进行3公里试跑。",
+    "title": "林荫道旁的百团招新",
+    "text": "主干道两旁的树荫下摆满了各个社团的桌椅，学长学姐们在热情地分发宣传传单。走在中间，你被其中一个摊位吸引了注意。",
     "choices": [
-      { "text": "击掌加入跑步队伍，一起挥洒汗水", "effect": { "health": 20, "happiness": 10, "network": 12, "stress": -6 }, "tagAdd": "RUNNER", "log": "你加入到了夜跑队伍中，沿着陡峭的坡道酣畅淋漓地跑完全程！" },
-      { "text": "在路边看了一会儿，决定先回宿舍休息", "effect": { "happiness": 5, "stress": -2 }, "log": "你感受到了校园里的活力氛围。" }
+      { "text": "去算法与技术协会的摊位填了一张招新表", "effect": { "skill": 12, "academic": 6, "stress": 5 }, "tagAdd": "GEEK", "log": "你加入到了技术讨论群里，开启了日常学习交流。" },
+      { "text": "去体育社团的摊位看了看晨跑打卡和球赛安排", "effect": { "health": 14, "network": 8, "stress": -4 }, "tagAdd": "RUNNER", "log": "你报名参加了日常体育打卡活动。" },
+      { "text": "去吉他社和二次元动漫社的摊位拿了传单", "effect": { "happiness": 12, "love": 8, "network": 6 }, "tagAdd": "ARTIST", "log": "你找到了和自己兴趣相投的圈子。" },
+      { "text": "拿了几张传单就离开了，准备先观望一阵", "effect": { "happiness": 5, "stress": -3 }, "log": "你保持了自己的节奏，没有盲目报太多的社团。" }
+    ]
+  },
+  {
+    "id": "freshman_003",
+    "year": 1,
+    "term": 1,
+    "title": "星期一早八的高数课",
+    "text": "清晨闹钟响了。窗外还在下着微雨，第一节是公共课高数。室友翻了个身迷迷糊糊说：‘雨这么大，老师应该不点名吧。’",
+    "choices": [
+      { "text": "带上伞撑着雨去教室，找个靠前的位置坐下", "effect": { "academic": 8, "health": -2, "happiness": -3 }, "tagAdd": "DILIGENT", "log": "你在教室认真听完了这堂课，感觉挺充实。" },
+      { "text": "按掉闹钟拉上窗帘，决定睡个舒适的补觉", "effect": { "happiness": 10, "academic": -5, "stress": -4 }, "tagAdd": "SLACKER", "log": "这一觉睡得很沉，醒来时雨已经停了。" },
+      { "text": "在宿舍用电脑把这章节的网课和笔记过了一遍", "effect": { "skill": 6, "academic": 4, "happiness": 2 }, "tagAdd": "AUTODIDACT", "log": "你在宿舍安静地看完了对应的课程讲解。" }
     ]
   },
   {
     "id": "freshman_fail_01",
     "year": 1,
     "term": 2,
-    "title": "遭遇挂科危机：高数期末惨败",
-    "text": "高数期末成绩公布，大屏幕上赫然显示着你的名字：54分！距离及格线只差6分！群里辅导员通知挂科学生准备重修补考。",
+    "title": "期末考后的成绩通知",
+    "text": "查分系统开放了。你点开页面，发现有一门课的成绩停在了 55 分，没达到及格线。下学期开学需要准备补考。",
     "choices": [
-      { "text": "痛定思痛，闭关图书馆重修复习", "effect": { "academic": 8, "stress": 12, "happiness": -10 }, "tagAdd": "RECOVER_STUDY", "log": "挂科的打击让你警醒，开启了高强度复习。" },
-      { "text": "心态崩塌，沉迷网游逃避现实", "effect": { "happiness": 5, "academic": -10, "health": -8, "stress": 15 }, "tagAdd": "FAIL_GAMER", "log": "挂科让你无比沮丧，你选择在虚拟游戏世界中麻痹自己。" },
-      { "text": "找高数老师诚恳沟通争取平时分", "effect": { "network": 6, "academic": 4, "stress": 5 }, "log": "老师被你的态度打动，帮你分析了扣分原因并鼓励你补考。" }
+      { "text": "去图书馆借了复习资料，准备假期好好补一补", "effect": { "academic": 8, "stress": 10, "happiness": -8 }, "tagAdd": "RECOVER_STUDY", "log": "你收起了侥幸心理，准备花时间认真复习。" },
+      { "text": "郁闷地关掉网页，叫了份夜宵放松心情", "effect": { "happiness": 6, "academic": -6, "wealth": -3 }, "log": "你调整了心态，准备等开学再思考补考的事情。" },
+      { "text": "发消息问问同班同学大家的考试情况", "effect": { "network": 6, "academic": 3 }, "log": "和大家交流完后，你的焦虑减轻了不少。" }
     ]
   },
   {
-    "id": "sophomore_fail_01",
+    "id": "sophomore_001",
     "year": 2,
     "term": 1,
-    "title": "大二阵痛：比赛落选与团队解散",
-    "text": "你准备了整整两个月的科技竞赛/创业项目在第一轮就被评委淘汰，团队内部爆发了严重争吵，室友甚至退出了项目组。",
+    "title": "大二的课外时间分配",
+    "text": "到了大二，基础课减少，空闲时间变多了。群里有老师在招募项目助手，同时几个同学也在讨论组队参加比赛。",
     "choices": [
-      { "text": "独自扛下所有，深夜在实验室修改方案", "effect": { "skill": 10, "stress": 15, "health": -8, "happiness": -8 }, "tagAdd": "LONELY_HACKER", "log": "虽然备受挫折，但你硬生生把个人技术拉到了新高度。" },
-      { "text": "承认失败，请大家吃夜宵散伙解散", "effect": { "network": 5, "wealth": -5, "happiness": -5 }, "log": "项目虽然黄了，但至少保住了朋友情谊。" }
+      { "text": "整理了自己的简历，联系老师申请参与课题组", "effect": { "skill": 14, "academic": 10, "stress": 6 }, "tagAdd": "LAB_MEMBER", "log": "老师同意了你的申请，安排你协助处理基础数据。" },
+      { "text": "和几个熟识的同学组队报名了竞赛", "effect": { "network": 12, "skill": 10, "stress": 5 }, "tagAdd": "TEAM_PLAYER", "log": "你们组成了小团队，开始筹备参赛方案。" },
+      { "text": "保持原有的生活节奏，把精力放在个人兴趣上", "effect": { "happiness": 10, "stress": -4 }, "log": "你享受着充实而不过于压抑的大学生活。" }
     ]
   },
   {
     "id": "senior_001",
     "year": 4,
     "term": 1,
-    "title": "毕业人生终极抉择",
-    "text": "大四即将毕业，面前摆着几条截然不同的人生道路。",
+    "title": "毕业前夕的方向思考",
+    "text": "大四的校园里安静了许多。身边有的同学在准备找工作，有的在准备继续深造，有的在规划未来的创业项目。",
     "choices": [
-      { "text": "接受高薪大厂Offer / 深入创业公司", "effect": { "wealth": 25, "skill": 15 }, "tagAdd": "PATH_INDUSTRY", "log": "你决定把赛博技术转化为现实生产力！" },
-      { "text": "直博 / 保研继续深造探求真理", "effect": { "academic": 25, "stress": 10 }, "tagAdd": "PATH_RESEARCH", "log": "你坚定地走上了学者与科学家之路。" },
-      { "text": "选择自由职业 / 数字游民 / 独立创作", "effect": { "happiness": 25, "love": 10 }, "tagAdd": "PATH_FREEDOM", "log": "你选择了无拘无束的自由灵魂之路。" }
+      { "text": "修改好简历，投递心仪公司的岗位", "effect": { "wealth": 20, "skill": 12 }, "tagAdd": "PATH_INDUSTRY", "log": "你迈出了踏入社会的第一步。" },
+      { "text": "专注复习备考，准备深造学习", "effect": { "academic": 20, "stress": 8 }, "tagAdd": "PATH_RESEARCH", "log": "你在自习室里为梦想坚持到了最后。" },
+      { "text": "准备尝试自由职业或独立项目创作", "effect": { "happiness": 20, "love": 8 }, "tagAdd": "PATH_FREEDOM", "log": "你选择了探索属于自己的多元可能性。" }
     ]
   }
 ]
