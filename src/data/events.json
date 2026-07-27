@@ -1,0 +1,303 @@
+[
+  {
+    "id": "freshman_report_01",
+    "year": 1,
+    "term": 1,
+    "title": "赛博大学报到日",
+    "text": "你背着行囊踏入校门，全息指示牌浮现出提示：‘欢迎来到大学OS’。辅导员在群里叫大家填报个人意向班委。",
+    "choices": [
+      {
+        "text": "竞选班长/团支书",
+        "effect": { "network": 10, "stress": 8, "happiness": -3, "academic": 2 },
+        "log": "你成为了班委，虽然事情繁琐，但认识了不少同学和老师。"
+      },
+      {
+        "text": "低头玩手机默默当个路人",
+        "effect": { "happiness": 5, "stress": -5, "network": -2 },
+        "log": "你成功隐身于人群之中，获得了平静的开学第一天。"
+      },
+      {
+        "text": "加入科技社团的技术组",
+        "effect": { "skill": 12, "stress": 4, "academic": 3 },
+        "log": "你被学长学姐带进了实验室，第一天就配好了Linux开发环境。"
+      }
+    ]
+  },
+  {
+    "id": "freshman_military_01",
+    "year": 1,
+    "term": 1,
+    "title": "酷暑军训拉练",
+    "text": "烈日当空，教官命令大家站正姿半小时。你的双腿已经开始发酸，而旁边一位同学悄悄拿出了防晒霜。",
+    "choices": [
+      {
+        "text": "咬牙坚持，站得无比挺拔",
+        "effect": { "health": 8, "stress": 5, "happiness": -2 },
+        "log": "教官夸奖了你，获得了‘标兵’荣誉称号。"
+      },
+      {
+        "text": "假装头晕去树荫下休息",
+        "effect": { "happiness": 8, "health": -2, "stress": -6 },
+        "log": "你在树荫下喝凉茶，和其他休息的同学聊得很开心。"
+      }
+    ]
+  },
+  {
+    "id": "freshman_math_001",
+    "year": 1,
+    "term": 1,
+    "title": "星期一早八高数课",
+    "text": "闹钟在7:15疯狂震动。今天第一节是高数课。室友在被窝里含糊不清地说：‘别去了，老师从不点名。’",
+    "choices": [
+      {
+        "text": "爬起来去上课",
+        "effect": { "academic": 8, "health": -2, "happiness": -3 },
+        "log": "你在第一排认真听完了极限与导数，感觉大脑得到了洗礼。"
+      },
+      {
+        "text": "关掉闹钟继续睡",
+        "effect": { "happiness": 10, "academic": -5, "stress": -4 },
+        "log": "这一觉睡到了中午11点，爽翻了，但听说今天老师忽然抽查点名！"
+      },
+      {
+        "text": "打开电脑在宿舍自学网课",
+        "effect": { "skill": 6, "academic": 4, "happiness": 2 },
+        "log": "你看完了哔哩哔哩上的高数网课，效率奇高。"
+      }
+    ]
+  },
+  {
+    "id": "freshman_roommate_01",
+    "year": 1,
+    "term": 1,
+    "title": "深夜开黑矛盾",
+    "text": "凌晨1点，室友还在语音开黑大喊‘抢龙抢龙！’，而你明天早上8点有英语听力测试。",
+    "choices": [
+      {
+        "text": "戴上降噪耳机忍耐",
+        "effect": { "stress": 6, "happiness": -4, "health": -3 },
+        "log": "你翻来覆去很久才睡着，决定明天早上去图书馆。"
+      },
+      {
+        "text": "直接起床大声跟室友沟通",
+        "effect": { "network": -5, "stress": -2, "happiness": 3 },
+        "log": "室友意识到吵到了你，尴尬地道歉并戴上了耳机。"
+      },
+      {
+        "text": "下床：‘加我一个，我也玩！’",
+        "effect": { "happiness": 12, "academic": -8, "health": -8, "network": 8 },
+        "log": "你们组队五排通宵到了清晨5点，兄弟情谊大幅提升！"
+      }
+    ]
+  },
+  {
+    "id": "freshman_club_01",
+    "year": 1,
+    "term": 1,
+    "title": "百团大战纳新",
+    "text": "主干道两旁摆满了社团招新摊位：吉他社、机器人协会、动漫社、电竞社……学姐正在热情地发传单。",
+    "choices": [
+      {
+        "text": "加入电竞协会与动漫社",
+        "effect": { "happiness": 10, "wealth": -3, "network": 6 },
+        "log": "你找到了志同道合的宅友，二次元浓度暴增。"
+      },
+      {
+        "text": "加入ACM/算法竞赛协会",
+        "effect": { "skill": 15, "academic": 8, "stress": 8, "happiness": -4 },
+        "log": "开启了刷题模式，各种算法与数据结构填满了你的生活。"
+      },
+      {
+        "text": "拒绝所有社团，做纯粹的宅男/女",
+        "effect": { "wealth": 5, "happiness": 4, "network": -4 },
+        "log": "省下了社团费，获得了大量的自由个人时间。"
+      }
+    ]
+  },
+  {
+    "id": "freshman_canteen_01",
+    "year": 1,
+    "term": 2,
+    "title": "食堂的暗黑料理",
+    "text": "二食堂今天推出了新品‘草莓炒西红柿’与‘赛博冰镇辣条肉丸’。窗口排满了好奇的同学。",
+    "choices": [
+      {
+        "text": "勇于尝试新品",
+        "effect": { "happiness": 5, "health": -5, "stress": -2 },
+        "log": "口感极其诡异！你拍照发了朋友圈获得了40个赞。"
+      },
+      {
+        "text": "稳健选择黄焖鸡米饭",
+        "effect": { "health": 3, "happiness": 2 },
+        "log": "熟悉的味道，永远不会踩雷的黄焖鸡为你补充了能量。"
+      }
+    ]
+  },
+  {
+    "id": "freshman_exam_fail",
+    "year": 1,
+    "term": 2,
+    "title": "期末考前绝壁",
+    "text": "离C语言程序设计期末考还有最后24小时，你的指针与链表依然一头雾水。",
+    "choices": [
+      {
+        "text": "通宵狂刷历年真题与网课",
+        "effect": { "academic": 12, "health": -10, "stress": 12 },
+        "log": "凭着惊人的意志力，你硬生生把复习进度拉到了80%。"
+      },
+      {
+        "text": "拜托学霸室友进行一对一突击辅导",
+        "effect": { "academic": 10, "network": 5, "wealth": -4 },
+        "log": "请学霸喝了一杯奶茶，学霸帮你划出了80%的必考重点！"
+      },
+      {
+        "text": "摆烂，相信吸引力法则",
+        "effect": { "happiness": 6, "academic": -15, "stress": 5 },
+        "log": "考卷发下来你懵了，果然吸引力法则在赛博大学失效了。"
+      }
+    ]
+  },
+  {
+    "id": "sophomore_lab_01",
+    "year": 2,
+    "term": 1,
+    "title": "导师实验室选拔",
+    "text": "大二上学期，知名教授在招募本科生进实验室参与省部级科研项目。",
+    "choices": [
+      {
+        "text": "递交精心准备的简历申请加入",
+        "effect": { "skill": 15, "academic": 10, "stress": 10, "network": 8 },
+        "log": "导师看了你的代码仓库，欣然同意你加入课题组！"
+      },
+      {
+        "text": "觉得水平不够，放弃申请",
+        "effect": { "happiness": 4, "stress": -5, "skill": -2 },
+        "log": "你决定多过一段轻松自由的普通大学生活。"
+      }
+    ]
+  },
+  {
+    "id": "sophomore_love_01",
+    "year": 2,
+    "term": 1,
+    "title": "雨夜图书馆偶遇",
+    "text": "晚自习结束突然下起大雨。图书馆门口，一位同班同学正看着雨幕发呆，手里没有伞。",
+    "choices": [
+      {
+        "text": "主动撑伞过去：‘顺路，一起走吧。’",
+        "effect": { "love": 15, "network": 6, "happiness": 10, "wealth": -3 },
+        "log": "你们在雨中聊了很久电影与音乐，彼此留下了微信号。"
+      },
+      {
+        "text": "把伞借给对方，自己打着包跑回宿舍",
+        "effect": { "love": 10, "health": -3, "happiness": 5 },
+        "log": "对方极其感动，第二天专门买了一杯咖啡还伞给你。"
+      },
+      {
+        "text": "径直打伞离开：‘只要我走得够快雨就追不上我’",
+        "effect": { "academic": 2, "happiness": 2 },
+        "log": "凭实力单身，回到宿舍你打赢了一把游戏。"
+      }
+    ]
+  },
+  {
+    "id": "sophomore_parttime_01",
+    "year": 2,
+    "term": 2,
+    "title": "赛博兼职接单",
+    "text": "你在接单平台上看到一个项目：帮外校学生写毕设前端代码，报酬1500元。",
+    "choices": [
+      {
+        "text": "接单！深夜肝代码换零花钱",
+        "effect": { "wealth": 15, "skill": 10, "health": -8, "academic": -4 },
+        "log": "挣到了大学第一笔外快，买到了梦寐以求的机械键盘！"
+      },
+      {
+        "text": "拒绝接单，专注于自己的课程作业",
+        "effect": { "academic": 6, "stress": -4 },
+        "log": "保持了良好的生活节奏。"
+      }
+    ]
+  },
+  {
+    "id": "junior_intern_01",
+    "year": 3,
+    "term": 1,
+    "title": "大厂实习面试",
+    "text": "大三下学期，你接到了赛博科技巨头（CyberTech）的大厂实习面试邀请。三位面试官在屏幕另一端看着你。",
+    "choices": [
+      {
+        "text": "熟练展现算法与架构设计知识",
+        "effect": { "skill": 18, "wealth": 10, "stress": 12, "academic": 5 },
+        "log": "面试官连连点头，当场发出了暑期实习Offer！"
+      },
+      {
+        "text": "紧张得脑袋一片空白，手忙脚乱",
+        "effect": { "stress": 15, "happiness": -8, "skill": 4 },
+        "log": "虽然这次挂了，但你吸取了宝贵的面试经验。"
+      }
+    ]
+  },
+  {
+    "id": "junior_postgraduate_01",
+    "year": 3,
+    "term": 2,
+    "title": "考研还是就业的选择题",
+    "text": "身边的人开始分化：有人天天背考研英语，有人天天刷LeetCode求职，有人准备出国。",
+    "choices": [
+      {
+        "text": "坚定加入考研大军，买齐复习全书",
+        "effect": { "academic": 20, "stress": 15, "happiness": -8, "love": -5 },
+        "log": "你成为了考研自习室的常客，开启漫长枯燥的复习。"
+      },
+      {
+        "text": "全力冲刺春招与实习，积累工作实践",
+        "effect": { "skill": 20, "wealth": 12, "stress": 10, "network": 8 },
+        "log": "你频繁往返于各个招聘会，积累了丰富的面试经验。"
+      },
+      {
+        "text": "尝试寻找联合创业伙伴",
+        "effect": { "network": 15, "wealth": -10, "skill": 12, "happiness": 6 },
+        "log": "你们组建了三人小团队，在孵化器租了一张办公桌。"
+      }
+    ]
+  },
+  {
+    "id": "senior_paper_01",
+    "year": 4,
+    "term": 1,
+    "title": "毕业论文查重危机",
+    "text": "毕业论文第一次查重结果出来了：查重率28.5%，导师在微信群里艾特你要求大幅修改！",
+    "choices": [
+      {
+        "text": "连续三天通宵手动重写改写段落",
+        "effect": { "academic": 15, "health": -10, "stress": 15 },
+        "log": "查重率降到了4.2%！导师回复了一个‘赞’。"
+      },
+      {
+        "text": "使用最新AI提示词辅助降重",
+        "effect": { "skill": 8, "academic": 8, "stress": -5, "wealth": -2 },
+        "log": "AI神奇地帮你理顺了句子，顺利通过查重。"
+      }
+    ]
+  },
+  {
+    "id": "senior_farewell_01",
+    "year": 4,
+    "term": 2,
+    "title": "散伙饭与离别夜",
+    "text": "毕业典礼结束后的夜晚，班级散伙饭上大家都喝了酒。有人哭有人笑，有人唱着老歌。",
+    "choices": [
+      {
+        "text": "举杯与每一位朋友拥抱道别",
+        "effect": { "network": 15, "happiness": 12, "love": 10 },
+        "log": "这一夜你们聊到了天亮，青春在此刻凝固。"
+      },
+      {
+        "text": "安静地坐在角落记录大家的笑容",
+        "effect": { "happiness": 8, "academic": 3 },
+        "log": "你用相机拍下了上百张照片，留下了最珍贵的赛博记忆。"
+      }
+    ]
+  }
+]

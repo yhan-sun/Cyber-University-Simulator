@@ -1,0 +1,50 @@
+[
+  {
+    "id": "researcher",
+    "title": "「人类知识探索者」",
+    "subtitle": "顶尖研究院科学家",
+    "condition": { "academic": 80, "skill": 70 },
+    "quote": "站在巨人的肩膀上，为人类文明拓展外延。",
+    "description": "你在大学四年保持着近乎完美的GPA，发表了数篇顶会论文。毕业后直接免试进入国家级高能物理与AI实验室，继续探索未知世界。"
+  },
+  {
+    "id": "coder_architect",
+    "title": "「代码筑梦师」",
+    "subtitle": "大厂核心架构师",
+    "condition": { "skill": 80, "wealth": 60 },
+    "quote": "Talk is cheap. Show me the code.",
+    "description": "大一开始写代码，大二贡献开源库，大三在硅谷大厂实习，大四斩获全场最高Package。你用一行行优雅的代码塑造着赛博世界的骨架。"
+  },
+  {
+    "id": "happy_slacker",
+    "title": "「快乐普通人」",
+    "subtitle": "生活艺术家与自由灵魂",
+    "condition": { "happiness": 75 },
+    "quote": "人生不是一场比赛，而是一段绝妙的旅程。",
+    "description": "虽然考试经常及格万岁，游戏时长累积了数千小时，但你收获了一群肝胆相照的至交好友，心态阳光健康，活出了最真实的自己。"
+  },
+  {
+    "id": "romantic_partner",
+    "title": "「赛博双星」",
+    "subtitle": "真爱相伴的幸福胜者",
+    "condition": { "love": 80, "happiness": 65 },
+    "quote": "在浩瀚的数字宇宙里，我幸运地找到了属于我的另一半频率。",
+    "description": "大一相识，大二携手，大三共同面对困境，大四一起步入社会。你们成为了所有朋友羡慕的赛博神仙眷侣。"
+  },
+  {
+    "id": "entrepreneur",
+    "title": "「赛博新星创业家」",
+    "subtitle": "独角兽公司创始人",
+    "condition": { "network": 75, "wealth": 70 },
+    "quote": "预测未来的最好方式，就是去亲自创造它。",
+    "description": "你凭借敏锐的商业嗅觉与广阔的人脉网络，大三创立的科技项目成功获得了数千万A轮融资，毕业即成为科技领头人。"
+  },
+  {
+    "id": "default_graduate",
+    "title": "「新晋赛博公民」",
+    "subtitle": "踏入广阔世界的勇敢毕业生",
+    "condition": {},
+    "quote": "关关难过关关过，前路漫漫亦灿灿。",
+    "description": "四年的大学时光悄然流逝。你经历了汗水、欢笑与迷茫，如今带着沉甸甸的记忆与技能，向着广阔的社会勇敢迈进。"
+  }
+]

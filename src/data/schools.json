@@ -1,0 +1,87 @@
+[
+  {
+    "id": "tsinghua",
+    "name": "清华大学 (Cyber Tsinghua)",
+    "motto": "自强不息，厚德载物",
+    "description": "科研极客与顶尖竞争者的殿堂。这里充满无尽的Lab与深夜的代码，压力巨大但前途无量。",
+    "tags": ["科研极客", "硬核竞争", "卷王之王"],
+    "initialStats": {
+      "academic": 75,
+      "skill": 65,
+      "wealth": 50,
+      "love": 40,
+      "network": 60,
+      "happiness": 45,
+      "health": 60,
+      "stress": 70
+    }
+  },
+  {
+    "id": "cqupt",
+    "name": "重庆邮电大学 (Cyber CQUPT)",
+    "motto": "修德博学，求实创新",
+    "description": "赛博西部的IT摇篮。充满浓厚的技术实践氛围与朋克山城的气味，工程能力极强。",
+    "tags": ["IT技术", "工程实践", "山城朋克"],
+    "initialStats": {
+      "academic": 60,
+      "skill": 75,
+      "wealth": 45,
+      "love": 50,
+      "network": 55,
+      "happiness": 65,
+      "health": 65,
+      "stress": 45
+    }
+  },
+  {
+    "id": "pku",
+    "name": "北京大学 (Cyber PKU)",
+    "motto": "思想自由，兼容并包",
+    "description": "人文社科与前沿思考的圣地。未名湖畔的诗意与赛博世界的浪漫交织。",
+    "tags": ["思想自由", "浪漫主义", "多元社团"],
+    "initialStats": {
+      "academic": 70,
+      "skill": 55,
+      "wealth": 50,
+      "love": 65,
+      "network": 70,
+      "happiness": 70,
+      "health": 60,
+      "stress": 50
+    }
+  },
+  {
+    "id": "sysu",
+    "name": "中山大学 (Cyber SYSU)",
+    "motto": "博学 审问 慎思 明辨 笃行",
+    "description": "大湾区的前沿阵地，商业氛围与学术并重，拥有极高的国际视野与人脉储备。",
+    "tags": ["湾区前沿", "商业精英", "开放自由"],
+    "initialStats": {
+      "academic": 65,
+      "skill": 60,
+      "wealth": 65,
+      "love": 60,
+      "network": 75,
+      "happiness": 65,
+      "health": 65,
+      "stress": 50
+    }
+  },
+  {
+    "id": "cyber_matrix",
+    "name": "赛博黑客学院 (Cyber Matrix Univ)",
+    "motto": "Code, Hack, Transcend",
+    "description": "完全虚拟于矩阵网格中的神秘大学。全员AI助教，课程涵盖神经链接与量子加密。",
+    "tags": ["未知隐藏", "量子计算", "AI协同"],
+    "initialStats": {
+      "academic": 50,
+      "skill": 90,
+      "wealth": 40,
+      "love": 30,
+      "network": 40,
+      "happiness": 50,
+      "health": 50,
+      "stress": 60
+    }
+  }
+]

@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Orbitron:wght@400;600;800;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg-color: #050811;
+  --panel-bg: rgba(10, 16, 30, 0.85);
+  --panel-border: rgba(0, 240, 255, 0.25);
+  --panel-glow: rgba(0, 240, 255, 0.08);
+  
+  --primary-cyan: #00f0ff;
+  --primary-glow: rgba(0, 240, 255, 0.4);
+  --accent-pink: #ff007f;
+  --accent-purple: #9d00ff;
+  --accent-amber: #ffaa00;
+  --accent-green: #00ff88;
+  --accent-red: #ff3366;
+  
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-bright: #ffffff;
+  
+  --font-hud: 'Orbitron', -apple-system, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  --font-sans: 'Noto Sans SC', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(157, 0, 255, 0.1) 0%, transparent 50%),
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+}
+
+/* CRT Scanline overlay */
+body::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+  background-size: 100% 4px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Cyber Terminal Glow Utilities */
+.cyber-hud-font {
+  font-family: var(--font-hud);
+  letter-spacing: 0.5px;
+}
+
+.cyber-mono-font {
+  font-family: var(--font-mono);
+}
+
+.cyber-box {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 15px var(--panel-glow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--primary-cyan);
+  border-left: 2px solid var(--primary-cyan);
+}
+
+.cyber-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid var(--primary-cyan);
+  border-right: 2px solid var(--primary-cyan);
+}
+
+.cyber-btn {
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--primary-cyan);
+  color: var(--primary-cyan);
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.cyber-btn:active {
+  background: rgba(0, 240, 255, 0.3);
+  transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .cyber-btn:hover {
+    background: rgba(0, 240, 255, 0.25);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    transform: translateY(-2px);
+    color: #fff;
+  }
+}
+
+.cyber-input {
+  width: 100%;
+  background: rgba(5, 12, 28, 0.8);
+  border: 1px solid var(--primary-cyan);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-family: var(--font-sans);
+  outline: none;
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.cyber-input:focus {
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+}
+
+.glow-text-cyan {
+  color: var(--primary-cyan);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+
+.glow-text-pink {
+  color: var(--accent-pink);
+  text-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
+}
+
+.glow-text-amber {
+  color: var(--accent-amber);
+  text-shadow: 0 0 8px rgba(255, 170, 0, 0.6);
+}
