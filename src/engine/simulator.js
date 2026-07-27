@@ -1,9 +1,8 @@
-// Natural Procedural Generator for Realistic University Life Events
+// Dedicated Strict Event Pool and Anti-Repetition Generator
 
 export function analyzeUniversityTier(name) {
   const cleanName = name.trim();
 
-  // Subtle Background Stat Adjustments without rigid titles
   const topC9List = ["清华", "北京大学", "北大", "复旦", "上海交通大学", "上海交大", "浙江大学", "浙大", "中国科学技术大学", "中科大", "南京大学", "南大", "哈尔滨工业大学", "哈工大", "西安交通大学", "西安交大", "Cyber Matrix", "赛博黑客"];
   if (topC9List.some(k => cleanName.includes(k))) {
     return {
@@ -49,54 +48,84 @@ export const INITIAL_STATS = {
   stress: 20     // 😰 压力
 };
 
-// Organic Subtle Events Pool
+// Strict non-repeating procedural pool
 const NATURAL_PROCEDURAL_POOL = [
   {
+    templateId: "tpl_library_study",
     category: "CAMPUS_LIFE",
     title: "图书馆的自习座位",
-    text: "考试月到了，图书馆的座位非常紧张。你早早来到图书馆门口排队，找到了一靠窗的位置。",
+    text: "复习周到了，图书馆的座位非常紧张。你早早来到门口排队，在三楼找到了一处靠窗的位置。",
     choices: [
-      { text: "戴上耳机开始复习，一坐就是一整天", effect: { academic: 10, stress: 5, health: -2 }, log: "你在图书馆安静地复习了一整天。" },
-      { text: "复习累了时看看窗外的校园风景发发呆", effect: { happiness: 8, stress: -4, academic: 4 }, log: "适当放松了心情，复习效率更高了。" }
+      { text: "戴上耳机开始复习，安静地看了一整天书", effect: { academic: 10, stress: 5, health: -2 }, log: "你在图书馆安静地复习了一整天。" },
+      { text: "复习累了时看看窗外操场上的风景发发呆", effect: { happiness: 8, stress: -4, academic: 4 }, log: "适当放松了心情，复习效率很高。" }
     ]
   },
   {
+    templateId: "tpl_evening_run",
     category: "SPORTS_LIFE",
     requireTag: "RUNNER",
-    title: "傍晚操场的跑步打卡",
-    text: "傍晚阳光变暖，操场上有不少人在散步和跑步。你换好了衣服来到跑道前。",
+    title: "傍晚操场的跑步习惯",
+    text: "傍晚阳光微暖，操场跑道上有不少人在散步和跑步。你换好了运动鞋来到跑道前。",
     choices: [
-      { text: "按既定节奏跑完 5 公里，汗水很惬意", effect: { health: 12, happiness: 10, stress: -6 }, log: "你在跑道上完成了今天的运动计划。" },
-      { text: "拉上同跑的朋友去附近吃个夜宵", effect: { happiness: 10, network: 6, wealth: -3 }, log: "运动完和朋友聊聊天，感觉很放松。" }
+      { text: "按既定节奏跑完 5 公里，汗水带走了整天的疲惫", effect: { health: 12, happiness: 10, stress: -6 }, log: "你在跑道上完成了今天的运动计划。" },
+      { text: "拉上同跑的朋友去食堂附近吃个夜宵", effect: { happiness: 10, network: 6, wealth: -3 }, log: "运动完和朋友聊聊天，感觉很放松。" }
     ]
   },
   {
+    templateId: "tpl_make_up_exam",
     category: "STUDY_LIFE",
     requireTag: "RECOVER_STUDY",
     title: "补考前夕的复习夜",
-    text: "明天就是补考的日子了。宿舍里台灯亮着，你看着笔记上整理好的错题和重点。",
+    text: "明天就是补考的日子了。宿舍里台灯亮着，你正在仔细整理错题笔记。",
     choices: [
-      { text: "把核心公式和例题再过一遍，早点休息", effect: { academic: 10, stress: 4 }, log: "准备充分后，你安心地睡了个好觉。" },
-      { text: "和同学互相抽考重点概念", effect: { academic: 8, network: 6 }, log: "和同学交流加深了对概念的理解。" }
+      { text: "把核心公式和例题再梳理一遍，早点休息", effect: { academic: 10, stress: 4 }, log: "准备充分后，你安心地睡了个好觉。" },
+      { text: "和同样准备补考的同学交流重点概念", effect: { academic: 8, network: 6 }, log: "和同学交流加深了对概念的理解。" }
+    ]
+  },
+  {
+    templateId: "tpl_canteen_dish",
+    category: "CAMPUS_LIFE",
+    title: "食堂窗口的新品尝鲜",
+    text: "中午和室友一起去二食堂吃饭，发现炒菜窗口推出了新品，排队的人不少。",
+    choices: [
+      { text: "排队买一份尝尝鲜", effect: { happiness: 6, health: 2 }, log: "味道很地道，没有踩雷。" },
+      { text: "还是选择平时常吃的那道盖浇饭", effect: { happiness: 4, stress: -2 }, log: "熟悉的口味让你吃得很踏实。" }
+    ]
+  },
+  {
+    templateId: "tpl_rainy_day",
+    category: "CAMPUS_LIFE",
+    title: "突如其来的阵雨",
+    text: "下午刚下课，天空突然下起了大雨。教学楼大厅里聚集了不少没带伞的同学。",
+    choices: [
+      { text: "把伞撑开，邀请顺路的同学一起走", effect: { network: 8, happiness: 6 }, log: "路上聊得很开心，结识了新朋友。" },
+      { text: "在大厅坐会儿，等雨势变小再回宿舍", effect: { happiness: 4, stress: -3 }, log: "听着雨声放松了半小时。" }
     ]
   }
 ];
 
-export function generateProceduralEvent(year, term, index, playerTags = []) {
-  const memoryCandidates = NATURAL_PROCEDURAL_POOL.filter(t => t.requireTag && playerTags.includes(t.requireTag));
+export function generateProceduralEvent(year, term, index, playerTags = [], usedTemplateIds = []) {
+  // Filter out any templates already seen in this session
+  const availableTemplates = NATURAL_PROCEDURAL_POOL.filter(t => !usedTemplateIds.includes(t.templateId));
+  
+  const memoryCandidates = availableTemplates.filter(t => t.requireTag && playerTags.includes(t.requireTag));
   
   let selectedTemplate;
-  if (memoryCandidates.length > 0 && Math.random() > 0.4) {
+  if (memoryCandidates.length > 0) {
     selectedTemplate = memoryCandidates[Math.floor(Math.random() * memoryCandidates.length)];
+  } else if (availableTemplates.length > 0) {
+    const generalPool = availableTemplates.filter(t => !t.requireTag || playerTags.includes(t.requireTag));
+    selectedTemplate = generalPool.length > 0 ? generalPool[Math.floor(Math.random() * generalPool.length)] : availableTemplates[0];
   } else {
-    const generalPool = NATURAL_PROCEDURAL_POOL.filter(t => !t.requireTag || playerTags.includes(t.requireTag));
-    selectedTemplate = generalPool.length > 0 ? generalPool[Math.floor(Math.random() * generalPool.length)] : NATURAL_PROCEDURAL_POOL[0];
+    // Ultimate fallback if all templates exhausted
+    selectedTemplate = NATURAL_PROCEDURAL_POOL[index % NATURAL_PROCEDURAL_POOL.length];
   }
 
-  const randomizedId = `nat_${year}_${term}_${index}_${Math.floor(Math.random() * 10000)}`;
+  const randomizedId = `${selectedTemplate.templateId}_${year}_${term}_${index}`;
 
   return {
     id: randomizedId,
+    templateId: selectedTemplate.templateId,
     year,
     term,
     isDynamic: true,

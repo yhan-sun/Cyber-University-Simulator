@@ -16,16 +16,18 @@ export default function App() {
   const [universityTierInfo, setUniversityTierInfo] = useState(null);
   const [studentId, setStudentId] = useState('');
   
-  // Internal Player Stats & Tags
+  // Player Stats, Memory Tags & Event Tracking
   const [stats, setStats] = useState(INITIAL_STATS);
   const [playerTags, setPlayerTags] = useState([]); 
   const [year, setYear] = useState(1);
   const [term, setTerm] = useState(1);
   const [eventIndex, setEventIndex] = useState(0);
   const [currentEvent, setCurrentEvent] = useState(null);
+  const [isProcessingChoice, setIsProcessingChoice] = useState(false); // Debounce double clicks
   
   const [choiceHistory, setChoiceHistory] = useState([]);
   const [usedEventIds, setUsedEventIds] = useState([]);
+  const [usedTemplateIds, setUsedTemplateIds] = useState([]);
   const [finalEnding, setFinalEnding] = useState(null);
 
   const PRESET_SCHOOLS = [
@@ -38,7 +40,7 @@ export default function App() {
 
   // Save/Load from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('cyber_uni_state_v9');
+    const saved = localStorage.getItem('cyber_uni_state_v10');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -54,6 +56,7 @@ export default function App() {
         setCurrentEvent(parsed.currentEvent || null);
         setChoiceHistory(parsed.choiceHistory || []);
         setUsedEventIds(parsed.usedEventIds || []);
+        setUsedTemplateIds(parsed.usedTemplateIds || []);
         setFinalEnding(parsed.finalEnding || null);
       } catch (e) {
         console.error('Failed to load saved state', e);
@@ -63,7 +66,7 @@ export default function App() {
 
   useEffect(() => {
     if (gameState !== 'INPUT_SCHOOL') {
-      localStorage.setItem('cyber_uni_state_v9', JSON.stringify({
+      localStorage.setItem('cyber_uni_state_v10', JSON.stringify({
         gameState,
         selectedSchoolName,
         universityTierInfo,
@@ -76,24 +79,23 @@ export default function App() {
         currentEvent,
         choiceHistory,
         usedEventIds,
+        usedTemplateIds,
         finalEnding
       }));
     }
-  }, [gameState, selectedSchoolName, universityTierInfo, studentId, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, finalEnding]);
+  }, [gameState, selectedSchoolName, universityTierInfo, studentId, stats, playerTags, year, term, eventIndex, currentEvent, choiceHistory, usedEventIds, usedTemplateIds, finalEnding]);
 
-  // Start Game with Organic Subtle Background Setup
+  // Start Game
   const handleStartGame = (targetName) => {
     const finalName = targetName.trim() || '赛博大学';
     setSelectedSchoolName(finalName);
     
-    // Analyze University Tier Difference subtly in background
     const tierResult = analyzeUniversityTier(finalName);
     setUniversityTierInfo(tierResult);
 
     const generatedId = `2026${Math.floor(100000 + Math.random() * 900000)}`;
     setStudentId(generatedId);
 
-    // Apply Tier Stat Bonus
     const initStats = { ...INITIAL_STATS };
     if (tierResult.statBonus) {
       Object.entries(tierResult.statBonus).forEach(([k, delta]) => {
@@ -102,7 +104,6 @@ export default function App() {
     }
 
     setStats(initStats);
-
     const initialTags = [tierResult.eventsTag];
     setPlayerTags(initialTags);
 
@@ -111,17 +112,24 @@ export default function App() {
     setEventIndex(0);
     setChoiceHistory([]);
     setFinalEnding(null);
+    setUsedTemplateIds([]);
 
-    // Pick first event naturally
     const firstCandidates = eventsData.filter(e => e.year === 1 && e.term === 1);
-    const firstEvent = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, initialTags);
+    const firstEvent = firstCandidates.length > 0 ? firstCandidates[0] : generateProceduralEvent(1, 1, 0, initialTags, []);
 
     setCurrentEvent(firstEvent);
     setUsedEventIds([firstEvent.id]);
+    if (firstEvent.templateId) {
+      setUsedTemplateIds([firstEvent.templateId]);
+    }
     setGameState('PLAYING');
   };
 
   const handleChoiceSelect = (choice) => {
+    // Debounce to prevent needing double clicks or duplicate submissions
+    if (isProcessingChoice) return;
+    setIsProcessingChoice(true);
+
     // 1. Update hidden stats
     const newStats = { ...stats };
     if (choice.effect) {
@@ -163,12 +171,18 @@ export default function App() {
     if (nextYear > 4) {
       calculateEnding(newStats, updatedTags);
       setGameState('ENDED');
+      setIsProcessingChoice(false);
       return;
     }
 
-    // 3. Match next event using organic player choices & subtle tags
+    // 3. Strict Non-Repeating Event Matching
     const newUsedIds = currentEvent ? [...usedEventIds, currentEvent.id] : usedEventIds;
     setUsedEventIds(newUsedIds);
+
+    const newUsedTemplates = (currentEvent && currentEvent.templateId) 
+      ? [...usedTemplateIds, currentEvent.templateId] 
+      : usedTemplateIds;
+    setUsedTemplateIds(newUsedTemplates);
 
     const eligibleEvents = eventsData.filter(e => {
       if (newUsedIds.includes(e.id)) return false;
@@ -182,8 +196,18 @@ export default function App() {
       const selected = memoryMatched.length > 0 ? memoryMatched[0] : eligibleEvents[Math.floor(Math.random() * eligibleEvents.length)];
       setCurrentEvent(selected);
     } else {
-      setCurrentEvent(generateProceduralEvent(nextYear, nextTerm, nextEventIndex, updatedTags));
+      // Procedural event with strict template deduplication
+      const generated = generateProceduralEvent(nextYear, nextTerm, nextEventIndex, updatedTags, newUsedTemplates);
+      setCurrentEvent(generated);
+      if (generated.templateId) {
+        setUsedTemplateIds(prev => [...prev, generated.templateId]);
+      }
     }
+
+    // Unlock debounce lock
+    setTimeout(() => {
+      setIsProcessingChoice(false);
+    }, 150);
   };
 
   const calculateEnding = (finalStats, finalTags) => {
@@ -202,7 +226,7 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('cyber_uni_state_v9');
+    localStorage.removeItem('cyber_uni_state_v10');
     setGameState('INPUT_SCHOOL');
     setSchoolNameInput('');
     setSelectedSchoolName('');
@@ -210,6 +234,8 @@ export default function App() {
     setPlayerTags([]);
     setFinalEnding(null);
     setUsedEventIds([]);
+    setUsedTemplateIds([]);
+    setIsProcessingChoice(false);
   };
 
   return (
