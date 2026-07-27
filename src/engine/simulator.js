@@ -1,4 +1,4 @@
-// Extended Procedural Pool with Realistic Failures, Sports & Memory Branching
+// Deep Multi-Chain Memory Generator Engine
 
 export function analyzeUniversityTier(name) {
   const cleanName = name.trim();
@@ -36,7 +36,7 @@ export function analyzeUniversityTier(name) {
       tier: "TIER_211",
       tierLabel: "⭐ 211工程特色大学",
       badgeColor: "#00f0ff",
-      description: "行业垂直领域统治级存在，大厂实习名额充沛，实战工程能力极强。",
+      description: "行业垂直领域统治级存在，大厂实习名额充沛，实操能力极强。",
       statBonus: { skill: 15, network: 8, wealth: 8, academic: 8, stress: 8 },
       eventsTag: "TIER_211"
     };
@@ -103,62 +103,57 @@ export const INITIAL_STATS = {
   stress: 20     // 😰 压力
 };
 
-// Rich procedural pool with sports and realistic failure moments
-const PROCEDURAL_EVENT_POOL = [
-  // Sports Events
+// Expanded Multi-Chain Memory Generators
+const DEEP_MEMORY_EVENT_TEMPLATES = [
+  // Chain A: Academic Recovery & Post-Graduate
   {
-    category: "SPORTS",
-    title: "校园新生杯足球赛/篮球赛淘汰赛",
-    text: "比赛进入最后伤停补时阶段，比分平手！你在禁区外接到传球，防守队员扑了上来。",
+    category: "CHAIN_ACADEMIC",
+    requireTag: "RECOVER_STUDY",
+    title: "因果回响：补考逆袭与图书馆座位的坚持",
+    text: "经过数月的闭关突击，补考成绩公布了！不仅高数高分通过，还吸引了隔壁桌同学的注意。",
     choices: [
-      { text: "起脚远射，轰出一记世界波死角抽射！", effect: { health: 15, happiness: 18, network: 12 }, tagAdd: "SPORTS_HERO", log: "球进了！全场爆发出惊天动地的欢呼，你成为了英雄！" },
-      { text: "传给位置更好的队友，可惜队友推射偏出", effect: { health: 10, network: 8, happiness: -4 }, log: "虽然遗憾止步，但大家输得坦坦荡荡。" }
-    ]
-  },
-  {
-    category: "SPORTS",
-    requireTag: "RUNNER",
-    title: "跑团深夜晨跑打卡与体能瓶颈",
-    text: "连续一个月凌晨6点去操场刷5公里打卡，今天你的膝盖隐隐作痛，天空还飘着细雨。",
-    choices: [
-      { text: "咬牙换上跑鞋，戴上耳机继续跑完！", effect: { health: 15, stress: -8, academic: 4 }, tagAdd: "IRON_WILL", log: "突破了体能瓶颈，你的自律感染了跑团里所有人。" },
-      { text: "理性暂停休整，去食堂吃个丰盛的早饭", effect: { health: 8, happiness: 10, stress: -5 }, log: "身体得到了充分修养。" }
+      { text: "趁热打铁，将这股狠劲延续到保研/考研中", effect: { academic: 20, stress: 10, happiness: 8 }, tagAdd: "STUDY_GOD", log: "你从挂科低谷逆袭成为了班上的超级学霸！" },
+      { text: "邀请隔壁桌一起复习的同学喝咖啡谈心", effect: { love: 18, happiness: 12, network: 8 }, log: "挂科的阴霾散去，你还收获了一段甜甜的校园恋爱。" }
     ]
   },
 
-  // Realistic Failures & Difficulties
+  // Chain B: CQUPT Redrock Tech Legend Continuation
   {
-    category: "REALISTIC_FAIL",
-    title: "意外重修危机：英语四六级424分险败",
-    text: "英语四六级成绩查询页面刷新，你的成绩赫然写着：424分！离425分的合格线仅差可怜的1分！",
+    category: "CHAIN_REDROCK",
+    requireTag: "CQUPT_REDROCK",
+    title: "因果回响：重邮红岩网校 20 周年庆典与校友论坛",
+    text: "重邮红岩网校迎来了成立 20 周年，众多在硅谷与国内大厂担任 VP/总监的重邮老学长返校举行研讨会。",
     choices: [
-      { text: "抱起真题全书，报名单词打卡营死磕下一次！", effect: { academic: 10, stress: 10, happiness: -8 }, tagAdd: "RETRY_ENGLISH", log: "1分的遗憾成为了你狂背词汇的狂热动力。" },
-      { text: "破罐子破摔，今天先吃一顿烧烤犒劳自己", effect: { happiness: 10, wealth: -4, academic: -4 }, log: "化悲愤为食欲，明天的事情明天再说。" }
+      { text: "作为学生代表上台演示你主导开发的校内千万级产品", effect: { skill: 22, network: 20, wealth: 15 }, tagAdd: "CQUPT_TECH_ELITE", log: "老学长们争相向你发出内推最高薪 Offer！" },
+      { text: "与学长们深夜烧烤谈心，汲取职场黄金经验", effect: { network: 18, happiness: 12, stress: -5 }, log: "收获了无比珍贵的重邮校友圈人脉与眼界。" }
     ]
   },
+
+  // Chain C: Sports Runner Continuation
   {
-    category: "REALISTIC_FAIL",
-    title: "感情挫折：暗恋对象的告白回应",
-    text: "你终于鼓起勇气向暗恋已久的同班同学表达了心意，对方沉默了许久后说：‘你是个好人，但我现在只想专注学习。’",
+    category: "CHAIN_RUNNER",
+    requireTag: "RUNNER",
+    title: "因果回响：校马拉松队长与全国大学生接力赛",
+    text: "因为你长期坚持夜跑打卡，被推举为校跑步队队长，带领团队代表学校参加全国大学生马拉松接力赛！",
     choices: [
-      { text: "收到‘好人卡’，去操场狂跑10公里发泄情绪", effect: { health: 15, love: -10, happiness: -10, stress: 8 }, tagAdd: "HEART_BROKEN", log: "夜风中的汗水带走了失恋的悲伤，你决定专注提升自我。" },
-      { text: "洒脱一笑：‘没关系，那我们就继续当好朋友！’", effect: { network: 8, happiness: -2 }, log: "保持了成熟克制的分寸感。" }
+      { text: "担纲最后一棒，拼尽全力冲过终点线！", effect: { health: 25, happiness: 20, network: 15 }, tagAdd: "RUN_LEGEND", log: "你率领队伍创造了校历史最好成绩，成为了跑步传奇！" },
+      { text: "制定科学训练计划，把团队每个人带到新的完赛高度", effect: { network: 18, health: 18, happiness: 15 }, log: "极强的团队凝聚力赢得了所有跑友的尊敬。" }
     ]
   }
 ];
 
 export function generateProceduralEvent(year, term, index, playerTags = []) {
-  const memoryCandidates = PROCEDURAL_EVENT_POOL.filter(t => t.requireTag && playerTags.includes(t.requireTag));
+  const memoryCandidates = DEEP_MEMORY_EVENT_TEMPLATES.filter(t => t.requireTag && playerTags.includes(t.requireTag));
   
   let selectedTemplate;
   if (memoryCandidates.length > 0 && Math.random() > 0.3) {
     selectedTemplate = memoryCandidates[Math.floor(Math.random() * memoryCandidates.length)];
   } else {
-    const generalPool = PROCEDURAL_EVENT_POOL.filter(t => !t.requireTag || playerTags.includes(t.requireTag));
-    selectedTemplate = generalPool.length > 0 ? generalPool[Math.floor(Math.random() * generalPool.length)] : PROCEDURAL_EVENT_POOL[0];
+    const generalPool = DEEP_MEMORY_EVENT_TEMPLATES.filter(t => !t.requireTag || playerTags.includes(t.requireTag));
+    selectedTemplate = generalPool.length > 0 ? generalPool[Math.floor(Math.random() * generalPool.length)] : DEEP_MEMORY_EVENT_TEMPLATES[0];
   }
 
-  const randomizedId = `proc_${year}_${term}_${index}_${Math.floor(Math.random() * 10000)}`;
+  const randomizedId = `deep_${year}_${term}_${index}_${Math.floor(Math.random() * 10000)}`;
 
   return {
     id: randomizedId,

@@ -5,10 +5,9 @@
     "term": 1,
     "title": "重邮特色：加入传奇「重邮约跑团」",
     "text": "当你踏入重庆邮电大学的校园，文峰塔下、风雨操场旁挂着醒目的横幅：‘重邮约跑团招新！用双脚丈量山城邮电坡！’。社长热情地递来打卡手环。",
-    "requireTag": "TIER_211",
     "choices": [
       { "text": "击掌加入重邮约跑团，挑战‘重邮魔鬼30天晨跑打卡’！", "effect": { "health": 22, "happiness": 12, "network": 15, "stress": -8 }, "tagAdd": "CQUPT_RUNNER", "log": "你成为了重邮约跑团的核心团员，天天在文峰塔下晨跑打卡，体能与意志大幅飙升！" },
-      { "text": "加入重邮红岩网校 / 软件协会技术组", "effect": { "skill": 20, "academic": 8, "stress": 6 }, "tagAdd": "GEEK", "log": "你加入重邮红岩网校技术团队，开启了山城硬核 IT 代码生涯。" },
+      { "text": "加入重邮红岩网校 / 软件协会技术组", "effect": { "skill": 20, "academic": 8, "stress": 6 }, "tagAdd": "CQUPT_REDROCK", "log": "你加入重邮红岩网校技术团队，开启了山城硬核 IT 代码生涯。" },
       { "text": "去宿舍楼下小吃街吃一碗重邮酸辣粉与太极米线", "effect": { "happiness": 12, "health": 4, "wealth": -3 }, "log": "享受山城美味，感受重邮独特的烟火气。" }
     ]
   },
@@ -22,6 +21,18 @@
     "choices": [
       { "text": "带头领跑，一鼓作气率先冲上文峰塔山顶！", "effect": { "health": 25, "happiness": 20, "network": 18, "stress": -10 }, "tagAdd": "CQUPT_RUN_KING", "log": "你在全团的欢呼声中登顶文峰塔，斩获‘重邮约跑王’荣誉勋章！" },
       { "text": "作为摄影师与后勤，全程记录团友们的笑容与汗水", "effect": { "happiness": 15, "network": 15, "love": 10 }, "log": "你拍下了重邮夜跑最动人的青春掠影，刷爆了重邮朋友圈。" }
+    ]
+  },
+  {
+    "id": "cqupt_special_003",
+    "year": 3,
+    "term": 1,
+    "title": "因果回响：重邮红岩网校核心开发与大厂高薪免试",
+    "text": "因为你在大一加入了重邮红岩网校/软件协会，多年手握大型校内产品架构经验，腾讯与阿里校招组直接开出了免试三面的特殊直通 Offer！",
+    "requireTag": "CQUPT_REDROCK",
+    "choices": [
+      { "text": "接受 Offer，提前锁定大厂核心架构师岗位", "effect": { "wealth": 25, "skill": 20, "network": 15 }, "tagAdd": "CQUPT_TECH_ELITE", "log": "你续写了重邮 IT 大厂黄埔军校的传奇故事！" },
+      { "text": "带领网校学弟学妹孵化独立创业商业项目", "effect": { "network": 20, "wealth": 15, "skill": 15 }, "tagAdd": "STARTUP_FOUNDER", "log": "你在山城开启了极具勇气的创业征程。" }
     ]
   },
   {
