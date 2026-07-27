@@ -1,4 +1,4 @@
-// Infinite Procedural Event Synthesizer with ZERO repetition guaranteed
+// Smart Real-World Procedural Scenario Matrix with Academic Realism
 
 export const MAJORS_LIST = [
   { id: "cs_tech", label: "💻 计算机科学与技术 / 软件工程", tag: "MAJOR_CS" },
@@ -10,38 +10,38 @@ export const MAJORS_LIST = [
 ];
 
 export const MONTH_CALENDAR = [
-  { year: 1, term: 1, month: 9, monthLabel: "大一 9月", name: "入学报到与军训" },
-  { year: 1, term: 1, month: 10, monthLabel: "大一 10月", name: "百团招新与课外活动" },
-  { year: 1, term: 1, month: 11, monthLabel: "大一 11月", name: "期中测试与专业上机" },
-  { year: 1, term: 2, month: 1, monthLabel: "大一 1月", name: "期末考试与成绩公布" },
-  { year: 1, term: 2, month: 3, monthLabel: "大一 3月", name: "新学期开学与补考" },
-  { year: 1, term: 2, month: 5, monthLabel: "大一 5月", name: "校园体育季与选修课" },
+  { year: 1, term: 1, month: 9, monthLabel: "大一 9月", season: "AUTUMN", theme: "新体验" },
+  { year: 1, term: 1, month: 10, monthLabel: "大一 10月", season: "AUTUMN", theme: "探索" },
+  { year: 1, term: 1, month: 11, monthLabel: "大一 11月", season: "AUTUMN", theme: "学业期中" },
+  { year: 1, term: 2, month: 1, monthLabel: "大一 1月", season: "WINTER", theme: "期末大考" },
+  { year: 1, term: 2, month: 3, monthLabel: "大一 3月", season: "SPRING", theme: "开学季" },
+  { year: 1, term: 2, month: 5, monthLabel: "大一 5月", season: "SPRING", theme: "体育与选修" },
   
-  { year: 2, term: 1, month: 9, monthLabel: "大二 9月", name: "专业进阶与课题选择" },
-  { year: 2, term: 1, month: 11, monthLabel: "大二 11月", name: "竞赛筹备与实验室" },
-  { year: 2, term: 2, month: 3, monthLabel: "大二 3月", name: "项目验收与社会实践" },
-  { year: 2, term: 2, month: 5, monthLabel: "大二 5月", name: "技能考证与团队拓展" },
+  { year: 2, term: 1, month: 9, monthLabel: "大二 9月", season: "AUTUMN", theme: "专业深化" },
+  { year: 2, term: 1, month: 11, monthLabel: "大二 11月", season: "AUTUMN", theme: "学科竞赛" },
+  { year: 2, term: 2, month: 3, monthLabel: "大二 3月", season: "SPRING", theme: "课题实践" },
+  { year: 2, term: 2, month: 5, monthLabel: "大二 5月", season: "SPRING", theme: "资格认证" },
 
-  { year: 3, term: 1, month: 9, monthLabel: "大三 9月", name: "专业深造与抉择期" },
-  { year: 3, term: 1, month: 11, monthLabel: "大三 11月", name: "考研/保研复习冲刺" },
-  { year: 3, term: 2, month: 4, monthLabel: "大三 4月", name: "暑期实习大厂校招季" },
-  { year: 3, term: 2, month: 6, monthLabel: "大三 6月", name: "实习入职与项目实战" },
+  { year: 3, term: 1, month: 9, monthLabel: "大三 9月", season: "AUTUMN", theme: "方向抉择" },
+  { year: 3, term: 1, month: 11, monthLabel: "大三 11月", season: "AUTUMN", theme: "复习备考" },
+  { year: 3, term: 2, month: 4, monthLabel: "大三 4月", season: "SPRING", theme: "大厂实习" },
+  { year: 3, term: 2, month: 6, monthLabel: "大三 6月", season: "SUMMER", theme: "实习实战" },
 
-  { year: 4, term: 1, month: 10, monthLabel: "大四 10月", name: "秋季校招与毕设开题" },
-  { year: 4, term: 1, month: 12, monthLabel: "大四 12月", name: "研究生初试与冲刺" },
-  { year: 4, term: 2, month: 5, monthLabel: "大四 5月", name: "毕业论文答辩终审" },
-  { year: 4, term: 2, month: 6, monthLabel: "大四 6月", name: "毕业典礼与离别前夕" }
+  { year: 4, term: 1, month: 10, monthLabel: "大四 10月", season: "AUTUMN", theme: "秋招与开题" },
+  { year: 4, term: 1, month: 12, monthLabel: "大四 12月", season: "WINTER", theme: "研究生初试" },
+  { year: 4, term: 2, month: 5, monthLabel: "大四 5月", season: "SPRING", theme: "论文答辩" },
+  { year: 4, term: 2, month: 6, monthLabel: "大四 6月", season: "SUMMER", theme: "毕业典礼" }
 ];
 
 export const INITIAL_STATS = {
-  academic: 50,  // 📚 学业
-  skill: 50,     // 💻 技能
-  wealth: 50,    // 💰 财富
-  love: 30,      // ❤️ 爱情
-  network: 40,   // 👥 人脉
-  happiness: 60, // 😊 快乐
-  health: 70,    // 💪 健康
-  stress: 20     // 😰 压力
+  academic: 50,
+  skill: 50,
+  wealth: 50,
+  love: 30,
+  network: 40,
+  happiness: 60,
+  health: 70,
+  stress: 20
 };
 
 export function analyzeUniversityTier(name) {
@@ -65,35 +65,77 @@ export function analyzeUniversityTier(name) {
   return { tier: "REGULAR", statBonus: { happiness: 5, stress: -3 }, eventsTag: "TIER_REGULAR" };
 }
 
-// Procedural Dynamic Scenario Components for Guaranteeing Zero Repeats
-const TOPICS = [
-  "选修课小组研讨", "社团周末外展活动", "校园马拉松接力赛", "图书馆深夜自习",
-  "专业实验课测试", "宿舍晚间夜聊", "食堂特色窗口试吃", "校企合作宣讲会",
-  "创新创业大创项目", "迎新晚会节目排演", "期末复习重点串讲", "毕业季兼职体验"
-];
+// Realistic Academic Scenario Database Matrix
+const SCENARIO_MATRIX = {
+  // Season Atmosphere Descriptions
+  SEASONS: {
+    AUTUMN: [
+      "微凉的秋风吹过金黄的银杏树下，校园里弥漫着清新的空气。",
+      "秋高气爽的午后，温暖的阳光斜照在图书馆的窗台上。",
+      "秋天傍晚落日余晖洒在操场上，远处传来球赛的声音。"
+    ],
+    SPRING: [
+      "春暖花开，校园林荫路两旁盛开着娇艳的花朵。",
+      "春雨初晴，空气里弥漫着湿润的泥土与青草香味。",
+      "阳光明媚的阳春三月，操场上不少同学在散步踏青。"
+    ],
+    SUMMER: [
+      "夏日的蝉鸣声在繁茂的树枝间此起彼伏，风扇在头顶缓缓旋转。",
+      "初夏的夜晚微风拂面，操场上传来吉他与歌声。",
+      "夏天的清晨阳光明亮，早读的同学已经在湖边朗读。"
+    ],
+    WINTER: [
+      "冬日微寒，自习室里开着暖气，大家正安静地低头复习。",
+      "寒风呼啸的冬夜，宿舍楼里透着温馨的灯光。",
+      "清晨寒气袭人，教学楼里已经陆陆续续坐满了课前预习的人。"
+    ]
+  },
 
-const SCENARIOS = [
-  "窗外阳光很好，大家围坐在桌前认真讨论。",
-  "微风吹过跑道，操场上有不少打卡运动的同学。",
-  "灯光安静地照在桌面上，周围只有沙沙的笔尖声。",
-  "活动大厅里热闹非凡，有不少学长学姐在现场指导。",
-  "实验台上摆满了测量设备，大家都在仔细记录数据。"
-];
+  // Academic Action Synthesizers per Major Group
+  MAJOR_ACTIVITIES: {
+    MAJOR_CS: [
+      { action: "算法复杂性分析研讨", choiceA: "用动态规划递推求解，优化时空复杂度", choiceB: "和同桌探讨回溯算法剪枝技巧" },
+      { action: "开源项目代码 Code Review", choiceA: "认真梳理代码注释并提交 PR 补丁", choiceB: "学习顶尖项目的模块化架构设计" },
+      { action: "分布式系统故障排查", choiceA: "分析网络抓包数据，定位节点超时原因", choiceB: "重构心跳包机制，提升系统容错能力" }
+    ],
+    MAJOR_EE: [
+      { action: "高频电子线路实验", choiceA: "微调电容电感参数，匹配高频谐振频率", choiceB: "对照原理图检查信号通路与接地线" },
+      { action: "单片机嵌入式开发测试", choiceA: "编写中断服务函数，处理按键去抖", choiceB: "用逻辑分析仪观测串口通信时序" }
+    ],
+    MAJOR_FINANCE: [
+      { action: "宏观经济数据解读讨论", choiceA: "撰写加息周期下的资产配置研报", choiceB: "收集行业板块数据进行对比分析" },
+      { action: "公司财务造假识别实训", choiceA: "从现金流量表与存货周转率查找线索", choiceB: "分析审计报告中的保留意见条款" }
+    ],
+    DEFAULT: [
+      { action: "选修课学术交叉研讨", choiceA: "结合本专业知识发表跨界独到见解", choiceB: "认真听取其他专业同学的切入视角" },
+      { action: "社团志愿服务与经验分享", choiceA: "主动承担组织协调工作，保障活动顺畅", choiceB: "协助后勤保障，和大家打成一片" },
+      { action: "校园体育趣味赛事", choiceA: "全情投入拼尽全力，为集体争取荣誉", choiceB: "享受运动过程，结识新朋友" }
+    ]
+  }
+};
 
 export function generateProceduralEvent(currentStepIndex, playerTags = [], usedTitles = []) {
   const currentStep = MONTH_CALENDAR[Math.min(currentStepIndex, MONTH_CALENDAR.length - 1)];
+  const seasonTextList = SCENARIO_MATRIX.SEASONS[currentStep.season] || SCENARIO_MATRIX.SEASONS.SPRING;
+  const seasonDesc = seasonTextList[currentStepIndex % seasonTextList.length];
 
-  // Synthesize non-repeating title and scenario
-  let title = `${currentStep.monthLabel}：${TOPICS[currentStepIndex % TOPICS.length]}`;
+  // Match Major
+  let majorKey = "DEFAULT";
+  if (playerTags.includes("MAJOR_CS")) majorKey = "MAJOR_CS";
+  else if (playerTags.includes("MAJOR_EE")) majorKey = "MAJOR_EE";
+  else if (playerTags.includes("MAJOR_FINANCE")) majorKey = "MAJOR_FINANCE";
+
+  const activityList = SCENARIO_MATRIX.MAJOR_ACTIVITIES[majorKey] || SCENARIO_MATRIX.MAJOR_ACTIVITIES.DEFAULT;
+  const activity = activityList[currentStepIndex % activityList.length];
+
+  let title = `${currentStep.monthLabel}：${activity.action}`;
   let attempt = 0;
-  while (usedTitles.includes(title) && attempt < 20) {
+  while (usedTitles.includes(title) && attempt < 10) {
     attempt++;
-    const randomTopic = TOPICS[(currentStepIndex + attempt) % TOPICS.length];
-    title = `${currentStep.monthLabel}：${randomTopic} (阶段${attempt + 1})`;
+    title = `${currentStep.monthLabel}：${activity.action} (第${attempt + 1}阶段)`;
   }
 
-  const scenarioText = SCENARIOS[currentStepIndex % SCENARIOS.length];
-  const uniqueId = `synth_${currentStep.year}_${currentStep.month}_${currentStepIndex}_${Date.now()}`;
+  const uniqueId = `smart_synth_${currentStep.year}_${currentStep.month}_${currentStepIndex}_${Math.floor(Math.random() * 10000)}`;
 
   return {
     id: uniqueId,
@@ -104,10 +146,10 @@ export function generateProceduralEvent(currentStepIndex, playerTags = [], usedT
     monthLabel: currentStep.monthLabel,
     isDynamic: true,
     title: title,
-    text: `${currentStep.monthLabel}的校园里，${scenarioText}`,
+    text: `${seasonDesc}在${activity.action}的现场，你需要做出应对。`,
     choices: [
-      { text: "积极参与其中，全情投入", effect: { academic: 8, happiness: 8, skill: 6 }, log: `你在${title}中收获良多。` },
-      { text: "保持自己的节奏，从容应对", effect: { happiness: 6, stress: -4 }, log: `你以从容的心态度过了这一时刻。` }
+      { text: activity.choiceA, effect: { academic: 8, skill: 8, happiness: 5 }, log: `你在${activity.action}中取得了令人满意的进展。` },
+      { text: activity.choiceB, effect: { happiness: 8, network: 8, stress: -4 }, log: `你通过团队合作顺畅地完成了任务。` }
     ]
   };
 }
