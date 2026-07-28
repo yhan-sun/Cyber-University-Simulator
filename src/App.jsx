@@ -238,15 +238,18 @@ export default function App() {
     setIsProcessingChoice(false);
   };
 
+  if (viewingGuide) {
+    return <CquptGuide onBack={() => setViewingGuide(false)} />;
+  }
+
   return (
     <div style={{
-      maxWidth: viewingGuide ? '850px' : '680px',
+      maxWidth: '680px',
       margin: '0 auto',
       padding: '16px 14px 40px 14px',
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: 'column',
-      transition: 'max-width 0.3s ease'
+      flexDirection: 'column'
     }}>
       {/* Header */}
       <header style={{
@@ -274,37 +277,27 @@ export default function App() {
               CYBER UNIVERSITY
             </h1>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }} className="cyber-mono-font">
-              赛博上大学 • 重邮避坑指南与模拟器
+              赛博上大学 • 10秒微瞬间模拟器
             </div>
           </div>
         </div>
 
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          {!viewingGuide ? (
-            <button
-              onClick={() => setViewingGuide(true)}
-              className="cyber-btn"
-              style={{
-                padding: '6px 12px',
-                fontSize: '0.78rem',
-                borderColor: 'var(--accent-amber)',
-                color: 'var(--accent-amber)',
-                background: 'rgba(255, 170, 0, 0.1)'
-              }}
-            >
-              <BookOpen size={13} /> 重邮避坑指南
-            </button>
-          ) : (
-            <button
-              onClick={() => setViewingGuide(false)}
-              className="cyber-btn"
-              style={{ padding: '6px 12px', fontSize: '0.78rem' }}
-            >
-              返回游戏
-            </button>
-          )}
+          <button
+            onClick={() => setViewingGuide(true)}
+            className="cyber-btn"
+            style={{
+              padding: '6px 12px',
+              fontSize: '0.78rem',
+              borderColor: 'var(--accent-amber)',
+              color: 'var(--accent-amber)',
+              background: 'rgba(255, 170, 0, 0.1)'
+            }}
+          >
+            <BookOpen size={13} /> 重邮避坑指南
+          </button>
 
-          {gameState === 'PLAYING' && !viewingGuide && (
+          {gameState === 'PLAYING' && (
             <button
               onClick={handleRestart}
               className="cyber-btn"
@@ -315,12 +308,6 @@ export default function App() {
           )}
         </div>
       </header>
-
-      {/* Screen 0: CQUPT Guide View */}
-      {viewingGuide ? (
-        <CquptGuide onBack={() => setViewingGuide(false)} />
-      ) : (
-        <>
           {/* Screen 1: School Input Page */}
           {gameState === 'INPUT_SCHOOL' && (
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -484,8 +471,6 @@ export default function App() {
               onRestart={handleRestart}
             />
           )}
-        </>
-      )}
     </div>
   );
 }
