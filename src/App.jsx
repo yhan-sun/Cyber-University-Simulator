@@ -15,6 +15,7 @@ import {
 import StatusBar from './components/StatusBar';
 import EventCard from './components/EventCard';
 import Ending from './components/Ending';
+import CquptGuide from './components/CquptGuide';
 
 import { Terminal, Play, RefreshCw, Zap, Building2, BookOpen } from 'lucide-react';
 
@@ -25,6 +26,7 @@ export default function App() {
   const [selectedMajor, setSelectedMajor] = useState(null);
   const [universityTierInfo, setUniversityTierInfo] = useState(null);
   const [studentId, setStudentId] = useState('');
+  const [viewingGuide, setViewingGuide] = useState(false);
   
   // Chronological Time Engine
   const [currentStepIndex, setCurrentStepIndex] = useState(0); 
@@ -238,12 +240,13 @@ export default function App() {
 
   return (
     <div style={{
-      maxWidth: '680px',
+      maxWidth: viewingGuide ? '850px' : '680px',
       margin: '0 auto',
       padding: '16px 14px 40px 14px',
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      transition: 'max-width 0.3s ease'
     }}>
       {/* Header */}
       <header style={{
@@ -271,184 +274,217 @@ export default function App() {
               CYBER UNIVERSITY
             </h1>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }} className="cyber-mono-font">
-              赛博上大学 • 10秒微瞬间模拟器
+              赛博上大学 • 重邮避坑指南与模拟器
             </div>
           </div>
         </div>
 
-        {gameState === 'PLAYING' && (
-          <button
-            onClick={handleRestart}
-            className="cyber-btn"
-            style={{ padding: '6px 12px', fontSize: '0.78rem' }}
-          >
-            <RefreshCw size={13} /> 重来
-          </button>
-        )}
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {!viewingGuide ? (
+            <button
+              onClick={() => setViewingGuide(true)}
+              className="cyber-btn"
+              style={{
+                padding: '6px 12px',
+                fontSize: '0.78rem',
+                borderColor: 'var(--accent-amber)',
+                color: 'var(--accent-amber)',
+                background: 'rgba(255, 170, 0, 0.1)'
+              }}
+            >
+              <BookOpen size={13} /> 重邮避坑指南
+            </button>
+          ) : (
+            <button
+              onClick={() => setViewingGuide(false)}
+              className="cyber-btn"
+              style={{ padding: '6px 12px', fontSize: '0.78rem' }}
+            >
+              返回游戏
+            </button>
+          )}
+
+          {gameState === 'PLAYING' && !viewingGuide && (
+            <button
+              onClick={handleRestart}
+              className="cyber-btn"
+              style={{ padding: '6px 12px', fontSize: '0.78rem' }}
+            >
+              <RefreshCw size={13} /> 重来
+            </button>
+          )}
+        </div>
       </header>
 
-      {/* Screen 1: School Input Page */}
-      {gameState === 'INPUT_SCHOOL' && (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="cyber-box" style={{ padding: '28px 20px', textAlign: 'center' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: 'var(--accent-amber)',
-              fontSize: '0.85rem',
-              marginBottom: '12px'
-            }} className="cyber-mono-font">
-              <Zap size={16} /> INITIALIZATION
-            </div>
-            
-            <h2 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
-              输入你的大学名称
-            </h2>
-            
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
-              经历 18 个关键瞬间，在一次次选择中推演属于你的大学人生。
-            </p>
+      {/* Screen 0: CQUPT Guide View */}
+      {viewingGuide ? (
+        <CquptGuide onBack={() => setViewingGuide(false)} />
+      ) : (
+        <>
+          {/* Screen 1: School Input Page */}
+          {gameState === 'INPUT_SCHOOL' && (
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div className="cyber-box" style={{ padding: '28px 20px', textAlign: 'center' }}>
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  color: 'var(--accent-amber)',
+                  fontSize: '0.85rem',
+                  marginBottom: '12px'
+                }} className="cyber-mono-font">
+                  <Zap size={16} /> INITIALIZATION
+                </div>
+                
+                <h2 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '8px', fontWeight: '700' }}>
+                  输入你的大学名称
+                </h2>
+                
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
+                  经历 18 个关键瞬间，在一次次选择中推演属于你的大学人生。
+                </p>
 
-            <form onSubmit={(e) => { e.preventDefault(); handleConfirmSchool(schoolNameInput); }}>
-              <div style={{ position: 'relative', marginBottom: '20px' }}>
-                <input
-                  type="text"
-                  placeholder="例如：重庆邮电大学 / 清华大学..."
-                  value={schoolNameInput}
-                  onChange={(e) => setSchoolNameInput(e.target.value)}
-                  className="cyber-input"
-                  maxLength={20}
-                  autoFocus
-                />
-              </div>
+                <form onSubmit={(e) => { e.preventDefault(); handleConfirmSchool(schoolNameInput); }}>
+                  <div style={{ position: 'relative', marginBottom: '20px' }}>
+                    <input
+                      type="text"
+                      placeholder="例如：重庆邮电大学 / 清华大学..."
+                      value={schoolNameInput}
+                      onChange={(e) => setSchoolNameInput(e.target.value)}
+                      className="cyber-input"
+                      maxLength={20}
+                      autoFocus
+                    />
+                  </div>
 
-              <button
-                type="submit"
-                className="cyber-btn"
-                style={{
-                  width: '100%',
-                  justifyContent: 'center',
-                  padding: '15px',
-                  fontSize: '1.05rem',
-                  fontWeight: 'bold',
-                  background: 'var(--primary-cyan)',
-                  color: '#050811'
-                }}
-              >
-                <Play size={18} /> 下一步：选择录取专业
-              </button>
-            </form>
-
-            <div style={{ marginTop: '24px', textAlign: 'left' }}>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '10px' }} className="cyber-mono-font">
-                或选择热门院校：
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {PRESET_SCHOOLS.map((item, idx) => (
                   <button
-                    key={idx}
-                    onClick={() => handleConfirmSchool(item.name)}
+                    type="submit"
+                    className="cyber-btn"
                     style={{
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(0, 240, 255, 0.2)',
-                      color: 'var(--text-main)',
-                      padding: '6px 12px',
-                      borderRadius: '16px',
-                      fontSize: '0.82rem',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
+                      width: '100%',
+                      justifyContent: 'center',
+                      padding: '15px',
+                      fontSize: '1.05rem',
+                      fontWeight: 'bold',
+                      background: 'var(--primary-cyan)',
+                      color: '#050811'
                     }}
                   >
-                    <Building2 size={12} color="var(--primary-cyan)" />
-                    <span>{item.name}</span>
+                    <Play size={18} /> 下一步：选择录取专业
                   </button>
-                ))}
+                </form>
+
+                <div style={{ marginTop: '24px', textAlign: 'left' }}>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '10px' }} className="cyber-mono-font">
+                    或选择热门院校：
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {PRESET_SCHOOLS.map((item, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleConfirmSchool(item.name)}
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid rgba(0, 240, 255, 0.2)',
+                          color: 'var(--text-main)',
+                          padding: '6px 12px',
+                          borderRadius: '16px',
+                          fontSize: '0.82rem',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px'
+                        }}
+                      >
+                        <Building2 size={12} color="var(--primary-cyan)" />
+                        <span>{item.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          )}
 
-      {/* Screen 2: Select Major */}
-      {gameState === 'SELECT_MAJOR' && (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="cyber-box" style={{ padding: '24px 18px' }}>
-            <div style={{ textAlign: 'center', marginBottom: '18px' }}>
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                color: 'var(--accent-pink)',
-                fontSize: '0.85rem',
-                marginBottom: '8px'
-              }} className="cyber-mono-font">
-                <BookOpen size={16} /> STEP 2: SELECT MAJOR
+          {/* Screen 2: Select Major */}
+          {gameState === 'SELECT_MAJOR' && (
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div className="cyber-box" style={{ padding: '24px 18px' }}>
+                <div style={{ textAlign: 'center', marginBottom: '18px' }}>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    color: 'var(--accent-pink)',
+                    fontSize: '0.85rem',
+                    marginBottom: '8px'
+                  }} className="cyber-mono-font">
+                    <BookOpen size={16} /> STEP 2: SELECT MAJOR
+                  </div>
+
+                  <h2 style={{ fontSize: '1.4rem', color: '#fff', fontWeight: '700' }}>
+                    选择你的录取专业
+                  </h2>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '4px' }}>
+                    专业将决定学年校历中专业课考试、上机与毕业论文考核。
+                  </p>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {MAJORS_LIST.map((major) => (
+                    <button
+                      key={major.id}
+                      onClick={() => handleSelectMajor(major)}
+                      className="cyber-btn"
+                      style={{
+                        padding: '14px 16px',
+                        justifyContent: 'flex-start',
+                        fontSize: '0.98rem',
+                        textAlign: 'left'
+                      }}
+                    >
+                      {major.label}
+                    </button>
+                  ))}
+                </div>
               </div>
-
-              <h2 style={{ fontSize: '1.4rem', color: '#fff', fontWeight: '700' }}>
-                选择你的录取专业
-              </h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '4px' }}>
-                专业将决定学年校历中专业课考试、上机与毕业论文考核。
-              </p>
             </div>
+          )}
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {MAJORS_LIST.map((major) => (
-                <button
-                  key={major.id}
-                  onClick={() => handleSelectMajor(major)}
-                  className="cyber-btn"
-                  style={{
-                    padding: '14px 16px',
-                    justifyContent: 'flex-start',
-                    fontSize: '0.98rem',
-                    textAlign: 'left'
-                  }}
-                >
-                  {major.label}
-                </button>
-              ))}
+          {/* Screen 3: Playing State */}
+          {gameState === 'PLAYING' && currentEvent && currentCalendarStep && (
+            <div style={{ flex: 1 }}>
+              <StatusBar
+                schoolName={selectedSchoolName}
+                year={currentCalendarStep.year}
+                term={currentCalendarStep.term}
+                monthLabel={currentCalendarStep.monthLabel}
+                eventCount={currentStepIndex + 1}
+                studentId={studentId}
+              />
+              <EventCard
+                key={currentEvent.id}
+                event={currentEvent}
+                onChoiceSelect={handleChoiceSelect}
+                choiceHistory={choiceHistory}
+                isProcessingChoice={isProcessingChoice}
+              />
             </div>
-          </div>
-        </div>
-      )}
+          )}
 
-      {/* Screen 3: Playing State */}
-      {gameState === 'PLAYING' && currentEvent && currentCalendarStep && (
-        <div style={{ flex: 1 }}>
-          <StatusBar
-            schoolName={selectedSchoolName}
-            year={currentCalendarStep.year}
-            term={currentCalendarStep.term}
-            monthLabel={currentCalendarStep.monthLabel}
-            eventCount={currentStepIndex + 1}
-            studentId={studentId}
-          />
-          <EventCard
-            key={currentEvent.id}
-            event={currentEvent}
-            onChoiceSelect={handleChoiceSelect}
-            choiceHistory={choiceHistory}
-            isProcessingChoice={isProcessingChoice}
-          />
-        </div>
-      )}
-
-      {/* Screen 4: Ending State */}
-      {gameState === 'ENDED' && finalEnding && (
-        <Ending
-          ending={finalEnding}
-          stats={stats}
-          schoolName={selectedSchoolName}
-          majorLabel={selectedMajor?.label}
-          studentId={studentId}
-          eventHistoryCount={currentStepIndex}
-          onRestart={handleRestart}
-        />
+          {/* Screen 4: Ending State */}
+          {gameState === 'ENDED' && finalEnding && (
+            <Ending
+              ending={finalEnding}
+              stats={stats}
+              schoolName={selectedSchoolName}
+              majorLabel={selectedMajor?.label}
+              studentId={studentId}
+              eventHistoryCount={currentStepIndex}
+              onRestart={handleRestart}
+            />
+          )}
+        </>
       )}
     </div>
   );
